@@ -11,7 +11,6 @@ from settings.db import Session
 from models.models import *
 from fastapi import Depends
 from settings.db import get_database_session
-
 router = APIRouter()
 
 
@@ -125,12 +124,14 @@ async def constructor_standings(db: Session = Depends(get_database_session)):
         return {"error": "An error occurred while processing the request"}
 
 
-# @router.get("/drivers")
-# def get_best_players(year: str = None, db: Session = Depends(Session)):
-#     if not year:
-#         year = datetime.now().year
 
-#     drivers = get_drivers_from_db(year, db)
+
+
+# NOT WORKING 
+# @router.get("/drivers/{year}")
+# def get_drivers(year: int, db: Session = Depends(get_database_session)):
+#     drivers = db.query(Driver).filter(Driver.year == year).all()
+
 
 #     drivers_list = []
 #     for driver in drivers:
@@ -142,6 +143,27 @@ async def constructor_standings(db: Session = Depends(get_database_session)):
 #         })
 
 #     return drivers_list
+
+@router.get("/drivers/{year}")
+def get_drivers(year: int):
+    url = f"https://ergast.com/api/f1/{year}/drivers.json"
+    response = requests.get(url)
+    data = response.json()
+    drivers_list = []
+    for driver in data['MRData']['DriverTable']['Drivers']:
+        drivers_list.append({
+            'driverId': driver['driverId'],
+            'permanentNumber': driver['permanentNumber'],
+            'code': driver['code'],
+            'givenName': driver['givenName'],
+            'familyName': driver['familyName'],
+            'nationality': driver['nationality']
+        })
+
+    return drivers_list
+
+
+
 # @router.post("/year/driverstandings")
 # def get_base_player_info(data: dict):
 #     year = data['year']
