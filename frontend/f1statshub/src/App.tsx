@@ -4,6 +4,7 @@ import LeftSidebar from './components/LeftSidebar';
 import Home from './components/Home';
 import Standings from './components/Standings';
 import DriverInfo from './components/DriverInfo';
+import Circuits from './components/Circuits';
 import styles from './App.module.css';
 
 
@@ -24,6 +25,7 @@ const App: Component = () => {
       {activeComponent() === 'Home' && <Home />}
       {activeComponent() === 'Standings' && <Standings />}
       {activeComponent() === 'DriverInfo' && <DriverInfo />}
+      {activeComponent() === 'Circuits' && <Circuits />}
     </div>
   );
 };

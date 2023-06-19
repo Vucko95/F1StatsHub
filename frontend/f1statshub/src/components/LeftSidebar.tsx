@@ -19,6 +19,9 @@ interface LeftSidebarProps {
         <button onClick={switchComponent('DriverInfo')}>
           {activeComponent() === 'DriverInfo' ? "Hide DriverInfo" : "Show DriverInfo"}
         </button>
+        <button onClick={switchComponent('Circuits')}>
+          {activeComponent() === 'Circuits' ? "Hide Circuits" : "Show Circuits"}
+        </button>
       </div>
     );
   };

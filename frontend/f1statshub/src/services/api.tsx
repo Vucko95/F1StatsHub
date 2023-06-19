@@ -26,3 +26,16 @@ export const fetchDriverStandings = () => {
         throw error;
       });
   };
+  export const fetchCircuitsByYear = () => {
+    return fetch('http://localhost:8888/circuits/2023', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(response => response.json())
+      .catch(error => {
+        console.error(error);
+        throw error;
+      });
+  };
