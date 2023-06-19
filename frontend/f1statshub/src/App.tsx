@@ -1,25 +1,29 @@
-import type { Component } from 'solid-js';
+import  { Component , createSignal,createEffect  } from 'solid-js';
 
-import logo from './logo.svg';
+import LeftSidebar from './components/LeftSidebar';
+import Home from './components/Home';
+import Standings from './components/Standings';
+import DriverInfo from './components/DriverInfo';
 import styles from './App.module.css';
 
+
 const App: Component = () => {
+  const [activeComponent, setActiveComponent] = createSignal(localStorage.getItem("activeComponent") || 'Home');
+
+  // Whenever activeComponent changes, update localStorage
+  createEffect(() => localStorage.setItem("activeComponent", activeComponent()));
+
+  const switchComponent = (componentName: string) => () => setActiveComponent(componentName);
+
   return (
     <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
+      <LeftSidebar 
+        activeComponent={activeComponent} 
+        switchComponent={switchComponent} 
+      />
+      {activeComponent() === 'Home' && <Home />}
+      {activeComponent() === 'Standings' && <Standings />}
+      {activeComponent() === 'DriverInfo' && <DriverInfo />}
     </div>
   );
 };
