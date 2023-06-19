@@ -1,0 +1,27 @@
+.mainDashboardBox {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(25, 48, 255, 0.668);
+  }
+
+  .driver_info_box {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: aquamarine;
+  }
+
+  .standings_box {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: antiquewhite;
+  }
+
+  .driversStandingsMainBox {
+    display: flex;
+  }
