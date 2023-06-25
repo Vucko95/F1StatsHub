@@ -89,22 +89,23 @@ def get_past_winners(circuit_id: int, db: Session = Depends(get_database_session
         start_year = current_year - 5
 
         winners = (
-            db.query(Result, Race.year, Driver)
+            db.query(Result, Race.year, Driver, Circuit)
             .join(Race, Race.raceId == Result.raceId)
             .join(Driver, Driver.driverId == Result.driverId)
+            .join(Circuit, Circuit.circuitId == Race.circuitId)
             .filter(Race.circuitId == circuit_id, Race.year >= start_year, Race.year <= current_year, Result.positionOrder == 1)
             .order_by(desc(Race.year))
             .all()
         )
 
         winners_list = []
-        for winner, year, driver in winners:
+        for result, year, driver, circuit in winners:
             winners_list.append(
                 {
                     'year': year,
-                    # 'driverId': driver.driverRef,
-                    'winner': f" {driver.forename} {driver.surname}",
+                    'winner': f"{driver.forename} {driver.surname}",
                     'nationality': driver.nationality,
+                    'circuit_country': circuit.country.lower(),
                 }
             )
 
