@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: f1db
+    volumes:
+      - ./f1db.sql:/docker-entrypoint-initdb.d/f1db.sql
+    ports:
+      - "3306:3306"
+
+
+  dbgate:
+    image: dbgate/dbgate
+    restart: always
+    ports:
+      - 3001:3000
+    volumes:
+      - dbgate-data:/root/.dbgate
+    environment:
+      CONNECTIONS: con1
+
+      LABEL_con1: MySql
+      SERVER_con1: mysql
+      USER_con1: root
+      PASSWORD_con1: 123
+      PORT_con1: 3306
+      ENGINE_con1: mysql@dbgate-plugin-mysql
+
+
+volumes:
+  dbgate-data:
+    driver: local
