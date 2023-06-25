@@ -5,6 +5,8 @@ from sqlalchemy import desc, func
 from settings.config import *
 # import aiohttp
 import asyncio
+from sqlalchemy.orm import joinedload
+
 import requests
 from sqlalchemy.orm import Session
 from settings.db import Session
@@ -145,23 +147,34 @@ async def constructor_standings(db: Session = Depends(get_database_session)):
 #     return drivers_list
 
 @router.get("/drivers/{year}")
-def get_drivers(year: int):
-    url = f"https://ergast.com/api/f1/{year}/drivers.json"
-    response = requests.get(url)
-    data = response.json()
-    drivers_list = []
-    for driver in data['MRData']['DriverTable']['Drivers']:
-        drivers_list.append({
-            'driverId': driver['driverId'],
-            'permanentNumber': driver['permanentNumber'],
-            'code': driver['code'],
-            'givenName': driver['givenName'],
-            'familyName': driver['familyName'],
-            'nationality': driver['nationality']
-        })
+def get_drivers(year: int,db: Session = Depends(get_database_session)):
+    try:
+        url = f"https://ergast.com/api/f1/{year}/drivers.json"
+        response = requests.get(url)
+        data = response.json()
+        drivers_list = []
+        for driver in data['MRData']['DriverTable']['Drivers']:
+            driver_id = driver['driverId']
+            driver_data = {
+                'driverId': driver_id,
+                'permanentNumber': driver['permanentNumber'],
+                'code': driver['code'],
+                'givenName': driver['givenName'],
+                'familyName': driver['familyName'],
+                'nationality': driver['nationality']
+            }
+            driver_data['driverId']
+            driver_points = db.query(Result.points).join(Race).\
+                filter(Result.driverId == driver_id, Race.year == year).\
+                options(joinedload(Result.race)).all()
+            driver_data['points'] = sum([points[0] for points in driver_points])
+            drivers_list.append(driver_data)
 
-    return drivers_list
-
+        return drivers_list
+    
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request" }
 
 
 # @router.post("/year/driverstandings")

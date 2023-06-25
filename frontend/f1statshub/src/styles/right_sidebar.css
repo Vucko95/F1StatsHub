@@ -25,3 +25,22 @@
   .driversStandingsMainBox {
     display: flex;
   }
+
+  .circuit_info_box{ 
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    justify-content: center;
+    /* width: 50%; */
+  }
+
+  .winners_table {
+    background: wheat;
+    display: grid;
+
+  }
+
+  .winners_table thead {
+    margin: 0;
+
+  }

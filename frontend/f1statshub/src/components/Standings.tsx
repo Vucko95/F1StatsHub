@@ -35,7 +35,7 @@ const Standings: Component = () => {
             </table>
           </div>
           <div class="constructors_standings_box">
-            <h1>Constructors Standings</h1>
+            <h1>Constructors Standings</h1> 
             <table>
               <tbody>
                 {constructorStandings().map((constructor: any) => (
