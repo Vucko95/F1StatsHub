@@ -1,3 +1,4 @@
 *.vscode
 *F1_environment/
 *__pycache__
+*.sql*
