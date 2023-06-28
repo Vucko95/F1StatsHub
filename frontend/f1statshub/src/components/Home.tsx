@@ -3,7 +3,8 @@ import "../styles/right_sidebar.css";
 import { createSignal, onCleanup, createEffect } from "solid-js";
 import countryCodes from "./countryCodes";
 import { createEventBus } from "@solid-primitives/event-bus";
-import dash_logo from "../public/f1MovingLogo.gif";
+// import dash_logo from "../public/f1MovingLogo.gif";
+import logo from "../../public/logo.svg";
 const Home: Component = () => {
   const [show, setShow] = createSignal(false);
   const [timeLeft, setTimeLeft] = createSignal("");
@@ -106,34 +107,25 @@ const Home: Component = () => {
     fetchTimeBeforeNextRace();
     fetchPastRace();
   });
-  // createEffect(() => {
-  //   EventBus.$on("toggle-Home", () => {
-  //     setShow(!show());
-  //     fetchTimeBeforeNextRace();
-  //     // Additional fetch methods
-  //   });
 
-  //   return () => {
-  //     EventBus.$off("toggle-Home");
-  //   };
-  // });
 
   return (
     <div class="mainDashboardBox">
       {/* Your left sidebar content */}
-      <div class="homeBox">
-        <img src={dash_logo} alt="logo" />
+      {/* <div class="homeBox">
+        <h1></h1>
+        <img src={logo} alt="logo" />
         <h1>Dashboard</h1>
-      </div>
+      </div> */}
 
-      <div class="twoBoxes">
+      <div class="three-dashboard-boxes">
         <div class="singleBox">
-          <h2>Comming soon</h2>
+          <h2>Next Race</h2>
           {/* <h3>{{ timeLeft }}</h3> */}
           <h2>{timeLeft()}</h2>
-          <button onClick={fetchTimeBeforeNextRace}>Click</button>
+          <button  onClick={fetchTimeBeforeNextRace}>Click</button>
         </div>
-      </div>
+      
 
       <div class="singleBox">
             <h1>Until Next Race</h1>
@@ -170,8 +162,8 @@ const Home: Component = () => {
           { pastRace().country } { pastRace().raceName }</h3>
         <h3>Round { pastRace().round } / 23 </h3>
         <h3> { pastRace().race_date } </h3>
-        </div>
-
+      </div>
+    </div>
 
 
     </div>

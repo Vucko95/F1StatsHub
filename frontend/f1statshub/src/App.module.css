@@ -1,6 +1,11 @@
 .App {
   text-align: center;
   display: flex;
+  background-image: url("../../public/test3.svg");  
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+  /* background-size: contain; */
+  color: white;
 }
 
 .logo {

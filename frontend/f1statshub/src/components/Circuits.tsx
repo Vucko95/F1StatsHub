@@ -53,7 +53,7 @@ const Circuits: Component = () => {
 
                 </td>
                 <td>
-                  <button onClick={() => handleShowMoreInfo(circuit.circuitId)} >SHOW MORE INFO</button>
+                  <button class="baseBtn" onClick={() => handleShowMoreInfo(circuit.circuitId)} >SHOW MORE INFO</button>
                 </td>
               </tr>
             ))}
