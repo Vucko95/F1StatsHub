@@ -1,0 +1,51 @@
+type NationalityCodes = {
+    [nationality: string]: string;
+  };
+  
+  const nationalityCode: NationalityCodes = {
+    "British": "GB",
+    "German": "DE",
+    "Spanish": "ES",
+    "Finnish": "FI",
+    "Japanese": "JP",
+    "French": "FR",
+    "Polish": "PL",
+    "Brazilian": "BR",
+    "Italian": "IT",
+    "Australian": "AU",
+    "Austrian": "AT",
+    "American": "US",
+    "Dutch": "NL",
+    "Colombian": "CO",
+    "Portuguese": "PT",
+    "Canadian": "CA",
+    "Indian": "IN",
+    "Hungarian": "HU",
+    "Irish": "IE",
+    "Danish": "DK",
+    "Argentine": "AR",
+    "Czech": "CZ",
+    "Malaysian": "MY",
+    "Swiss": "CH",
+    "Belgian": "BE",
+    "Monegasque": "MC",
+    "Swedish": "SE",
+    "Venezuelan": "VE",
+    "New Zealander": "NZ",
+    "Chilean": "CL",
+    "Mexican": "MX",
+    "South African": "ZA",
+    "Liechtensteiner": "LI",
+    "Rhodesian": "ZW",
+    "American-Italian": "US-IT",
+    "Uruguayan": "UY",
+    "Argentine-Italian": "AR-IT",
+    "Thai": "TH",
+    "East German": "DDR",
+    "Russian": "RU",
+    "Indonesian": "ID",
+    "Chinese": "CN",
+  };
+  
+  export default nationalityCode;
+  

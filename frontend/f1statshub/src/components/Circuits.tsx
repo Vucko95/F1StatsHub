@@ -2,6 +2,8 @@ import { Component, createSignal, createEffect } from "solid-js";
 import { Circuit } from '../models/models' 
 import { fetchCircuitsByYear, fetchCircuitWinners } from "../services/api";
 import countryCodeData from './countryCodes';
+import nationalityCodeData from './nationalityCodes';
+
 import "../styles/circuits.css";
 
 const Circuits: Component = () => {
@@ -23,6 +25,10 @@ const Circuits: Component = () => {
     const getCountryCode = (country: string) => {
       const countryCode = countryCodeData[country] || '';
       return countryCode.toLowerCase();
+    };
+    const getNationalityCode = (nationality: string) => {
+      const nationalityCode = nationalityCodeData[nationality] || '';
+      return nationalityCode.toLowerCase();
     };
 
     createEffect(async () => {
@@ -75,16 +81,22 @@ const Circuits: Component = () => {
                 <tr>
                   <td>{winner.year}</td>
                   <td>{winner.winner}</td>
-                  <td>{winner.nationality}</td>
+                  {/* <td>{winner.nationality}</td> */}
+                  <td>
+                  <img src={`/countries/${getNationalityCode(winner.nationality)}.png`}width="50"height="20"/>
+                  </td>
+                  {/* <td>{winner.constructorRef}</td> */}
                   {/* <td>{winner.circuit_country}</td> */}
-                <td>TODO </td>
+                <td>
+                <img src={`/teamlogos/${winner.constructorRef}.webp`}   width="50" height="20" />
+                </td>
            
                 </tr>
             ))}
             </tbody>
           </table>
           {circuitLayout() && <img src={`/tracks/${circuitLayout()}.svg`}  width="100" />}
-          
+
         </div>
 
     )
