@@ -11,12 +11,31 @@ const Circuits: Component = () => {
     const [circuits, setCircuits] = createSignal([]);
     const [circuitWinners, setCircuitWinners] = createSignal([]);
     const [circuitLayout, setCircuitLayout] = createSignal('');
+    const [selectedCircuitName, setSelectedCircuitName] = createSignal('');
+    const [selectedCircuitCountry, setSelectedCircuitCountry] = createSignal('');
+
+    createEffect(async () => {
+      try {
+        const circuitData = await fetchCircuitsByYear();
+        setCircuits(circuitData);
+        const winners = await fetchCircuitWinners(3);
+        setCircuitLayout(winners[0]?.circuit_country || '');
+        setCircuitWinners(winners);
+        setSelectedCircuitName(winners[0]?.circuit_name || '');
+        setSelectedCircuitCountry(winners[0]?.circuit_country || '');
+
+      } catch (error) {
+        console.error(error);
+      }
+    });
 
     const showCircuitDetails = async (circuitId: number) => {
       try {
         const winners = await fetchCircuitWinners(circuitId);
         setCircuitWinners(winners);
         setCircuitLayout(winners[0]?.circuit_country || '');
+        setSelectedCircuitName(winners[0]?.circuit_name || '');
+        setSelectedCircuitCountry(winners[0]?.circuit_country || '');
       } catch (error) {
         console.error(error);
       }
@@ -25,78 +44,73 @@ const Circuits: Component = () => {
     const getCountryCode = (country: string) => {
       const countryCode = countryCodeData[country] || '';
       return countryCode.toLowerCase();
+
     };
     const getNationalityCode = (nationality: string) => {
       const nationalityCode = nationalityCodeData[nationality] || '';
       return nationalityCode.toLowerCase();
     };
 
-    createEffect(async () => {
-        try {
-          const circuitData = await fetchCircuitsByYear();
-          setCircuits(circuitData);
-          // BY DEFAULT DISPLAYS FIRST RACE OF CALENDAR FOR 2022 FOR NOW 
-          // DEFAULT FETCH OF WINNERS AND CIRCUITLAYOUT
-          const winners = await fetchCircuitWinners(3);
-          setCircuitLayout(winners[0]?.circuit_country || '');
-          setCircuitWinners(winners);
-        } catch (error) {
-          console.error(error);
-        }
-      });
+
 
       
     
     return (
         <div class="circuit_info_box">
         
-          <table>
-              <thead>
-              </thead>
-              <tbody>
-              {circuits().map((circuit: Circuit) => (
-              <tr>
-                <td>{circuit.name}</td>
-                <td><img src={`/countries/${getCountryCode(circuit.country)}.png`}   width="50" height="25" /></td>
-                <td>{circuit.country}</td>
-                <td>
-                  <button class="baseBtn" onClick={() => showCircuitDetails(circuit.circuitId)} >Details</button>
-                </td>
-              </tr>
-            ))}
-              </tbody>
-          </table>
+          <div class="circuit_list">
+              <table>
+                  <thead>
+                  </thead>
+                  <tbody>
+                  {circuits().map((circuitInfo: Circuit) => (
+                    <tr>
+                    <td><img src={`/countries/${getCountryCode(circuitInfo.country)}.png`}   width="50" height="25" /></td>
+                    <td>{circuitInfo.name}</td>
+                    <td>
+                      <button class="baseBtn" onClick={() => showCircuitDetails(circuitInfo.circuitId)} >Details</button>
+                    </td>
+                  </tr>
+                  ))} 
+                  </tbody>
+              </table>
+          </div>
 
-          <table class="winners_table">
-            <thead>
-              <tr>
-              <th>Year</th>
-              <th>Winner</th>
-              <th>Nationality</th>
-              <th>Team</th>
-              </tr>
-            </thead>
-            <tbody>
-              {circuitWinners().map((winner: any) => (
-                <tr>
-                  <td>{winner.year}</td>
-                  <td>{winner.winner}</td>
-                  {/* <td>{winner.nationality}</td> */}
-                  <td>
-                  <img src={`/countries/${getNationalityCode(winner.nationality)}.png`}width="50"height="20"/>
-                  </td>
-                  {/* <td>{winner.constructorRef}</td> */}
-                  {/* <td>{winner.circuit_country}</td> */}
-                <td>
-                <img src={`/teamlogos/${winner.constructorRef}.webp`}   width="50" height="20" />
-                </td>
-           
-                </tr>
-            ))}
-            </tbody>
-          </table>
-          {circuitLayout() && <img src={`/tracks/${circuitLayout()}.svg`}  width="100" />}
+          <div class="circuit_latest_results">
 
+              <div class="circuit_info">
+              <h3>{selectedCircuitName()}</h3>
+              <h3>{selectedCircuitCountry()}</h3>
+            {circuitLayout() && <img src={`/tracks/${circuitLayout()}.svg`}  width="100" height="200" />}
+              </div>
+
+              <div class="circuit_history">
+                <table class="winners_table">
+                  <thead>
+                    <tr>
+                    <th>Year</th>
+                    <th>Team</th>
+                    <th>Winner</th>
+                    {/* <th>Nationality</th> */}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {circuitWinners().map((circuitRaceResultForSelectedYear: any) => (
+                      <tr>
+                        <td>{circuitRaceResultForSelectedYear.year}</td>
+                      <td><img src={`/teamlogos/${circuitRaceResultForSelectedYear.constructorRef}.webp`}   width="80" height="30" /></td>
+                        <td>{circuitRaceResultForSelectedYear.driver}
+                        </td>
+                        <td>
+                        <img src={`/countries/${getNationalityCode(circuitRaceResultForSelectedYear.nationality)}.png`}width="50"height="25"/>               
+                        </td>
+
+                      </tr>
+                  ))}
+                  </tbody>
+                </table>
+            </div>
+          </div>
         </div>
 
     )

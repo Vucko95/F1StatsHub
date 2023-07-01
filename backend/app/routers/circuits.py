@@ -3,7 +3,6 @@ from fastapi import APIRouter
 from settings.config import *
 import requests
 from sqlalchemy import desc
-
 from sqlalchemy.orm import Session
 from settings.db import Session
 from models.models import *
@@ -89,26 +88,29 @@ def get_past_winners(circuit_id: int, db: Session = Depends(get_database_session
         start_year = current_year - 5
 
         winners = (
-            db.query(Result, Race.year, Driver, Circuit, Constructor.constructorRef)
+            db.query(Result, Race.year, Driver, Result.constructorId, Constructor.constructorRef)
             .join(Race, Race.raceId == Result.raceId)
             .join(Driver, Driver.driverId == Result.driverId)
-            .join(Circuit, Circuit.circuitId == Race.circuitId)
             .join(Constructor, Constructor.constructorId == Result.constructorId)
             .filter(Race.circuitId == circuit_id, Race.year >= start_year, Race.year <= current_year, Result.positionOrder == 1)
             .order_by(desc(Race.year))
             .all()
         )
 
+        circuit = db.query(Circuit).filter(Circuit.circuitId == circuit_id).first()
+
         winners_list = []
-        for result, year, driver, circuit, constructor_ref in winners:
+        for result, year, driver, constructor_id, constructor_ref in winners:
             winners_list.append(
                 {
                     'year': year,
-                    'winner': f"{driver.forename} {driver.surname}",
+                    'circuit_id': circuit_id,
+                    'driver': f"{driver.forename} {driver.surname}",
                     'nationality': driver.nationality,
                     'circuit_country': circuit.country.lower(),
-                    'constructorId': result.constructorId,
-                    'constructorRef': constructor_ref,  # Include constructorRef in the response
+                    'circuit_name': circuit.name,
+                    'constructorId': constructor_id,
+                    'constructorRef': constructor_ref,
                 }
             )
 

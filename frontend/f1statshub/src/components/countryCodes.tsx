@@ -27,6 +27,7 @@ const countryCode : CountryCodes = {
     "Turkey": "TR",
     "Qatar": "QA",
     "China": "CN",
-    "Germany": "DE"
+    "Germany": "DE",
+    "United States": "US"
   }
   export default countryCode
