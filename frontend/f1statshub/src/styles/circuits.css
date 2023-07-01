@@ -1,0 +1,77 @@
+.circuit_info_box{ 
+    font-size: 24px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5%;
+  }
+.circuit_info_box table {
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;   
+}
+.winners_table td {
+    border-top: 2px solid white;
+}
+
+
+
+
+
+
+
+
+
+
+  .baseBtn {
+    background-color: transparent;
+    border: 1px solid white;
+    color: inherit;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 10px;
+    padding:2px 4px;
+    /* margin: 0; */
+    /* font-size: 24px; */
+    /* border-radius: 1%; */
+  }
+
+
+
+/* CSS */
+.button-13 {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember",sans-serif;
+  font-size: 13px;
+  line-height: 29px;
+  padding: 0 10px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 100px;
+}
+
+.button-13:hover {
+  background-color: #f7fafa;
+}
+
+.button-13:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
+}
