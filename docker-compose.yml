@@ -28,7 +28,7 @@ services:
       PASSWORD_con1: 123
       PORT_con1: 3306
       ENGINE_con1: mysql@dbgate-plugin-mysql
-
+ 
 
 volumes:
   dbgate-data:

@@ -1,7 +1,7 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { Circuit } from '../models/models' 
 import { fetchCircuitsByYear, fetchCircuitWinners } from "../services/api";
-import countryCode from './countryCodes';
+import countryCodeData from './countryCodes';
 import "../styles/right_sidebar.css";
 // import bahrain from "../public/tracks/bahrain.svg";
 
@@ -9,24 +9,32 @@ const Circuits: Component = () => {
 
     const [circuits, setCircuits] = createSignal([]);
     const [circuitWinners, setCircuitWinners] = createSignal([]);
-    const [circuitCountry, setsetCircuitCountry] = createSignal<Array<{ circuit_country: string }>>([]);
+    const [circuitLayout, setCircuitLayout] = createSignal('');
 
-    const handleShowMoreInfo = async (circuitId: number) => {
+    const showCircuitDetails = async (circuitId: number) => {
       try {
         const winners = await fetchCircuitWinners(circuitId);
         setCircuitWinners(winners);
-        setsetCircuitCountry(winners);
-
+        setCircuitLayout(winners[0]?.circuit_country || '');
       } catch (error) {
         console.error(error);
       }
     };
 
+    const getCountryCode = (country: string) => {
+      const countryCode = countryCodeData[country] || '';
+      return countryCode.toLowerCase();
+    };
 
     createEffect(async () => {
         try {
           const circuitData = await fetchCircuitsByYear();
           setCircuits(circuitData);
+          // BY DEFAULT DISPLAYS FIRST RACE OF CALENDAR FOR 2022 FOR NOW 
+          // DEFAULT FETCH OF WINNERS AND CIRCUITLAYOUT
+          const winners = await fetchCircuitWinners(3);
+          setCircuitLayout(winners[0]?.circuit_country || '');
+          setCircuitWinners(winners);
         } catch (error) {
           console.error(error);
         }
@@ -46,14 +54,11 @@ const Circuits: Component = () => {
                 <td>{circuit.name}</td>
                 <td>{circuit.country}</td>
                 <td>
-
-                  {/* <img src="/tracks/bahrain.svg" alt="BHs"  width="100" /> */}
-                  {/* <img src={`/tracks/${circuit.country}.svg`} alt="BHs"  width="100" /> */}
-
+                  <img src={`/countries/${getCountryCode(circuit.country)}.png`}   width="50" height="25" />
 
                 </td>
                 <td>
-                  <button class="baseBtn" onClick={() => handleShowMoreInfo(circuit.circuitId)} >SHOW MORE INFO</button>
+                  <button class="baseBtn" onClick={() => showCircuitDetails(circuit.circuitId)} >SHOW MORE INFO</button>
                 </td>
               </tr>
             ))}
@@ -68,16 +73,15 @@ const Circuits: Component = () => {
                   <td>{winner.winner}</td>
                   <td>{winner.nationality}</td>
                   <td>{winner.circuit_country}</td>
+
                   <td>
                   </td>
-                  {/* <img src={`/tracks/${winner.circuit_country}.svg`} alt="BHs"  width="100" /> */}
                 </tr>
-              ))}
+            ))}
             </tbody>
           </table>
-          {circuitCountry().length > 0 && (
-            <img src={`/tracks/${circuitCountry()[0]?.circuit_country}.svg`} alt="BHs" width="100" />
-          )}
+          {circuitLayout() && <img src={`/tracks/${circuitLayout()}.svg`}  width="100" />}
+
 
 
         </div>
