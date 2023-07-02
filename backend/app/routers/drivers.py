@@ -33,25 +33,11 @@ def get_driver_standings_from_db(year: int, db: Session):
 
 
 
-@router.get("/year/driverstandings")
-async def driver_standings(db: Session = Depends(get_database_session)):
+@router.get("/standings/drivers/{year}")
+async def driver_standings(year: int, db: Session = Depends(get_database_session)):
     try:
-        # year = datetime.now().year
-        year = 2022
-        # results_query = (
-        #     db.query(Driver, func.sum(DriverStanding.points).label("total_points"), Constructor.constructorRef)
-        #     .join(DriverStanding, Driver.driverId == DriverStanding.driverId)
-        #     .join(Race, DriverStanding.raceId == Race.raceId)
-        #     # .join(Constructor, Constructor.constructorId == DriverStanding.constructorId)
-        #     .filter(Race.year == year)
-        #     .group_by(Driver.driverId, Constructor.constructorRef)
-        #     .order_by(desc("total_points"))
-        #     .all()
-        # )
         subquery_latest_race = (
-            db.query(
-                Race.raceId
-            )
+            db.query(Race.raceId)
             .filter(Race.year == year)
             .order_by(desc(Race.date))
             .limit(1)
@@ -59,35 +45,47 @@ async def driver_standings(db: Session = Depends(get_database_session)):
         )
         latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
 
+        driver_points_query = (
+            db.query(
+                DriverStanding.driverId,
+                func.sum(DriverStanding.points).label("total_points")
+            )
+            .filter(DriverStanding.raceId == latest_race_id)
+            .group_by(DriverStanding.driverId)
+            .subquery()
+        )
+
         results_query = (
             db.query(
                 Driver,
-                DriverStanding.points.label("total_points")
+                driver_points_query.c.total_points,
+                Constructor.constructorId,
+                Constructor.constructorRef
             )
-            .join(DriverStanding, Driver.driverId == DriverStanding.driverId)
-            .filter(DriverStanding.raceId == latest_race_id)  # Replace 1096 with the desired race ID
-            .order_by(desc("total_points"))
+            .join(driver_points_query, Driver.driverId == driver_points_query.c.driverId)
+            .join(Result, Result.driverId == Driver.driverId)
+            .join(Constructor, Constructor.constructorId == Result.constructorId)
+            .filter(Result.raceId == latest_race_id)
+            .order_by(desc(driver_points_query.c.total_points))
             .all()
         )
 
         driver_standings = []
-        # for driver, total_points, constructor_ref in results_query:
-        for driver, total_points in results_query:
+        for driver, total_points, constructor_id, constructor_ref in results_query:
             driver_standings.append(
                 {
                     "driver_id": driver.driverId,
-                    # "driver_ref": driver.driverRef,
+                    "driver_ref": driver.driverRef,
                     "driver_name": f"{driver.forename} {driver.surname}",
                     "nationality": driver.nationality,
                     "total_points": total_points,
-                    # "constructor_ref": constructor_ref
+                    "constructorId": constructor_id,
+                    "constructorRef": constructor_ref
                 }
             )
 
         return driver_standings
-    
 
-    
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
@@ -113,8 +111,8 @@ async def constructor_standings(db: Session = Depends(get_database_session)):
         for constructor, total_points in results_query:
             constructor_standings.append(
                 {
-                    "constructor_id": constructor.constructorId,
-                    "constructor_ref": constructor.constructorRef,
+                    "constructorId": constructor.constructorId,
+                    "constructorRef": constructor.constructorRef,
                     "constructor_name": constructor.name,
                     "total_points": total_points,
                 }

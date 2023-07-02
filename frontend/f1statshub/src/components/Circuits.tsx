@@ -109,8 +109,19 @@ const Circuits: Component = () => {
                   ))}
                   </tbody>
                 </table>
+            </div> {/* circuit_history */}
+            </div> {/* circuit_latest_results */}
+
+            <div class="circuit_results">
+              <table>
+                <thead></thead>
+                <tbody></tbody>
+                <tr>
+                  <td></td>
+                </tr>
+
+              </table>
             </div>
-          </div>
         </div>
 
     )

@@ -1,6 +1,6 @@
 export const fetchDriverStandings = async () => {
     try {
-    const response = await fetch('http://localhost:8888/year/driverstandings', {
+    const response = await fetch('http://localhost:8888/standings/drivers/2022', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

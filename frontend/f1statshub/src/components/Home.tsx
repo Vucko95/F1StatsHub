@@ -148,6 +148,12 @@ const Home: Component = () => {
 
 
       </div>
+              <div class="donationBox">
+                {/* <button class="coffe-btn">Support - Buy me a Coffe</button> */}
+                <button class="button-85"> SMALL COFFE <img src={`coffe.gif`}  height="80"  /></button>
+              
+
+              </div>
  
 
 
