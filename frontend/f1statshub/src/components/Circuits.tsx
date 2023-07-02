@@ -1,6 +1,6 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { Circuit } from '../models/models' 
-import { fetchCircuitsByYear, fetchCircuitWinners } from "../services/api";
+import { fetchCircuitsByYear, fetchCircuitWinners, fetchCircuitResults } from "../services/api";
 import countryCodeData from './countryCodes';
 import nationalityCodeData from './nationalityCodes';
 
@@ -10,6 +10,7 @@ const Circuits: Component = () => {
 
     const [circuits, setCircuits] = createSignal([]);
     const [circuitWinners, setCircuitWinners] = createSignal([]);
+    const [circuitResults, setCircuitResults] = createSignal([]);
     const [circuitLayout, setCircuitLayout] = createSignal('');
     const [selectedCircuitName, setSelectedCircuitName] = createSignal('');
     const [selectedCircuitCountry, setSelectedCircuitCountry] = createSignal('');
@@ -18,6 +19,7 @@ const Circuits: Component = () => {
       try {
         const circuitData = await fetchCircuitsByYear();
         setCircuits(circuitData);
+        console.log(circuitData)
         const winners = await fetchCircuitWinners(3);
         setCircuitLayout(winners[0]?.circuit_country || '');
         setCircuitWinners(winners);
@@ -40,6 +42,17 @@ const Circuits: Component = () => {
         console.error(error);
       }
     };
+    const showCircuitResults = async (raceId: number) => {
+      try {
+        const race_results = await fetchCircuitResults(raceId);
+        setCircuitResults(race_results);
+        console.log(race_results)
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    
 
     const getCountryCode = (country: string) => {
       const countryCode = countryCodeData[country] || '';
@@ -68,7 +81,9 @@ const Circuits: Component = () => {
                     <td><img src={`/countries/${getCountryCode(circuitInfo.country)}.png`}   width="50" height="25" /></td>
                     <td>{circuitInfo.name}</td>
                     <td>
-                      <button class="baseBtn" onClick={() => showCircuitDetails(circuitInfo.circuitId)} >Details</button>
+                      {/* <button class="baseBtn" onClick={() => showCircuitDetails(circuitInfo.circuitId)} >Details</button> */}
+                      <button class="baseBtn" onClick={() => { showCircuitDetails(circuitInfo.circuitId); showCircuitResults(circuitInfo.raceId); }}>Details</button>
+
                     </td>
                   </tr>
                   ))} 
@@ -79,7 +94,6 @@ const Circuits: Component = () => {
           <div class="circuit_latest_results">
 
               <div class="circuit_info">
-              <h3>{selectedCircuitName()}</h3>
               <h3>{selectedCircuitCountry()}</h3>
             {circuitLayout() && <img src={`/tracks/${circuitLayout()}.svg`}  width="100" height="200" />}
               </div>
@@ -115,11 +129,16 @@ const Circuits: Component = () => {
             <div class="circuit_results">
               <table>
                 <thead></thead>
-                <tbody></tbody>
-                <tr>
-                  <td></td>
-                </tr>
+                {circuitResults().map((driver_result: any) => (
+                      <tr>
+                        <td>{driver_result.driver}</td>
+                        <td>{driver_result.constructor_ref} </td>
+                        <td>{driver_result.position} </td>
+                        <td>{driver_result.points} </td>
+                        <td>{driver_result.time} </td>
 
+                      </tr>
+                  ))}
               </table>
             </div>
         </div>
