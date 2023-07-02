@@ -1,14 +1,16 @@
 import { Component } from "solid-js";
 import "../styles/right_sidebar.css";
+import "../styles/countdown.css";
 import { createSignal, onCleanup, createEffect } from "solid-js";
 import countryCodes from "./countryCodes";
+import countryCodeData from './countryCodes';
+import Countdown from "./Countdown";
 import { createEventBus } from "@solid-primitives/event-bus";
 // import dash_logo from "../public/f1MovingLogo.gif";
 import logo from "../../public/logo.svg";
 const Home: Component = () => {
   const [show, setShow] = createSignal(false);
   const [timeLeft, setTimeLeft] = createSignal("");
-  const EventBus = createEventBus();
 
   const [nextRace, setNextRace] = createSignal({
     season: "",
@@ -47,9 +49,7 @@ const Home: Component = () => {
     startRace: "",
   });
 
-  const btn_test = () => {
-    fetchTimeBeforeNextRace();
-  };
+ 
 
 
 
@@ -63,30 +63,11 @@ const Home: Component = () => {
           countryCode: countryCodes[data.country] || "XX",
         });
         console.log(data);
-        calculateTimeLeft();
       })
       .catch((error) => console.error(error));
   };
 
-  const calculateTimeLeft = () => {
-    // const currentDate = new Date();
-    // const nextRaceDate = new Date(nextRace().date);
-    const currentDate = new Date().getTime();
-    const nextRaceDate = new Date(nextRace().date).getTime();
-    const timeDifference = nextRaceDate - currentDate;
-    const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const hoursLeft = Math.floor(
-      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutesLeft = Math.floor(
-      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-    );
-    const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-    setTimeLeft(
-      `${daysLeft} days ${hoursLeft} hours ${minutesLeft} minutes ${secondsLeft} seconds`
-    );
-  };
 
   const fetchPastRace = () => {
     fetch("http://localhost:8888/race/last")
@@ -102,6 +83,10 @@ const Home: Component = () => {
     .catch((error) => console.error(error));
   }
 
+  const getCountryCode = (country: string) => {
+    const countryCode = countryCodeData[country] || '';
+    return countryCode.toLowerCase();
+  };
 
   createEffect(() => {
     fetchTimeBeforeNextRace();
@@ -109,61 +94,61 @@ const Home: Component = () => {
   });
 
 
+
   return (
     <div class="mainDashboardBox">
-      {/* Your left sidebar content */}
-      {/* <div class="homeBox">
-        <h1></h1>
-        <img src={logo} alt="logo" />
-        <h1>Dashboard</h1>
-      </div> */}
 
-      <div class="three-dashboard-boxes">
-        <div class="singleBox">
-          <h2>Next Race</h2>
-          {/* <h3>{{ timeLeft }}</h3> */}
-          <h2>{timeLeft()}</h2>
-          <button  onClick={fetchTimeBeforeNextRace}>Click</button>
-        </div>
+
       
 
-      <div class="singleBox">
-            <h1>Until Next Race</h1>
-            <h2>Next Race at </h2>
+        <div class="countDownBox">
+          <h1>Next Race</h1>
+          {/* <img src={`/tires/softs.svg`}   width="255" height="255" /> */}
+          <Countdown/>
 
-            {/* <img :src="'https://flagsapi.com/' + nextRace.countryCode + '/flat/48.png'"> */}
-            {/* {{ nextRace.country }} {{ nextRace.raceName }}</h3>     */}
-            <h3>
-              {nextRace().country} {nextRace().raceName}
-            </h3>
+          {/* <h2 class="countdown-timer">{timeLeft()}</h2> */}
 
-            <h3>Round {nextRace().round} / 23</h3>
-
-            {/* <h3>{{ nextRace.first_practice_date }}  - {{ nextRace.race_date }} </h3> */}
-            <h3>
-              {nextRace().first_practice_date} - {nextRace().race_date}
-            </h3>
-            <button>Pick Timezone</button>
-            <p>Practice 2 FRI {nextRace().startFP1}</p>
-            <p>Practice 2 FRI {nextRace().startFP2}</p>
-            <p>Qualifying SAT {nextRace().startQualy}</p>
-            <p>Sprint SAT {nextRace().startSprint}</p>
-            <p>Race SUN {nextRace().startRace}</p>
-      </div>
-
-
+          {/* <h2>{timeLeft()}</h2> */}
+          {/* <button  onClick={fetchTimeBeforeNextRace}>Click</button> */}
+        </div>
+      
+{/* NAME  */}
+{/* country */}
+      <div class="racesInfoBox">
       <div class="singleBox" >
-            {/* <!-- <h1>Until Next Race</h1> --> */}
-            
-            <h2>Previous Event </h2>
-            {/* <!-- <h2>{{ timeLeft }}</h2> --> */}
-            {/* <img :src="'https://flagsapi.com/' + pastRace.countryCode + '/flat/48.png'"> */}
-        <h3> 
-          { pastRace().country } { pastRace().raceName }</h3>
-        <h3>Round { pastRace().round } / 23 </h3>
-        <h3> { pastRace().race_date } </h3>
+              {/* <!-- <h1>Until Next Race</h1> --> */}
+              
+              <h2>Previous Event </h2>
+          <img src={`/countries/${getCountryCode(pastRace().country)}.png`}   width="50" height="25"style="border-radius: 10%;" />
+              {/* <!-- <h2>{{ timeLeft }}</h2> --> */}
+              {/* <img :src="'https://flagsapi.com/' + pastRace.countryCode + '/flat/48.png'"> */}
+            {/* <h3>{ pastRace().country }</h3> */}
+          <h3> { pastRace().raceName }</h3>
+
+          <h3>Round { pastRace().round } / 23 </h3>
+          <h3> { pastRace().race_date } </h3>
+        </div>
+
+        <div class="singleBox">
+              <h2>Next Race  </h2>
+              <img src={`/countries/${getCountryCode(nextRace().country)}.png`}   width="50" height="25" style="border-radius: 10%;" />
+              <h3>{nextRace().raceName}</h3>
+              <h3>Round {nextRace().round} / 23</h3>
+              {/* <h3>{{ nextRace.first_practice_date }}  - {{ nextRace.race_date }} </h3> */}
+              <h3>
+                {nextRace().first_practice_date} - {nextRace().race_date}
+              </h3>
+              {/* <button>Pick Timezone</button>
+              <p>Practice 1 FRI {nextRace().startFP1}</p>
+              <p>Practice 2 FRI {nextRace().startFP2}</p>
+              <p>Qualifying SAT {nextRace().startQualy}</p>
+              <p>Sprint SAT {nextRace().startSprint}</p> */}
+              <h3>Race Time {nextRace().startRace}</h3>
+        </div>
+
+
       </div>
-    </div>
+ 
 
 
     </div>

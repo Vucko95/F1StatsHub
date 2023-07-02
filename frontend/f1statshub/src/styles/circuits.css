@@ -16,7 +16,12 @@
     border-top: 2px solid white;
 }
 
-
+.singleBox {
+  border: 1px solid white;
+  border-radius: 5%;
+  width: 20%;
+  min-height: 25%;
+}
 
 
 

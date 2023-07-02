@@ -15,92 +15,79 @@ router = APIRouter()
 
 
 
-def fetch_next_race_from_db(db: Session):
-    try:
-        current_date = datetime.now().date()
-        next_race_query = db.query(Race).filter(Race.date > current_date).order_by(Race.date).first()
-        # next_race_query = db.query(Race).options(joinedload(Race.circuit)).filter(Race.date > current_date).order_by(Race.date).first()
-        return next_race_query
-    except Exception as e:
-        print(f"An error occurred while querying the database: {str(e)}")
-        return None
     
 
 
 @router.get("/race/next")
 async def next_race(db: Session = Depends(get_database_session)):
     try:
-        next_race_data = fetch_next_race_from_db(db)
+        next_race_query = db.query(Race).filter(Race.date > datetime.now().date()).order_by(Race.date).first()
 
-        if not next_race_data:
+        if not next_race_query:
             return {"error": "No more races this season"}
 
+        circuit_country = db.query(Circuit.country).filter(Circuit.circuitId == next_race_query.circuitId).scalar()
+
         next_race = {
-            "season": next_race_data.year,
-            "round": next_race_data.round,
-            # PROBLEM 
-            # "country": next_race_data.Circuit.country,
-            "url": next_race_data.url,
-            "raceName": next_race_data.name,
-            "circuitId": next_race_data.circuitId,
-            "first_practice_date": next_race_data.fp1_date,
-            "race_date": next_race_data.date,
-            "date": next_race_data.date,
-            "time": next_race_data.time,
-            "startFP1": next_race_data.fp1_time,
-            "startFP2": next_race_data.fp2_time,
-            "startQualy": next_race_data.quali_time,
-            "startSprint": next_race_data.sprint_time,
-            "startRace": next_race_data.time,
+            "season": next_race_query.year,
+            "round": next_race_query.round,
+            "country": circuit_country,
+            "url": next_race_query.url,
+            "raceName": next_race_query.name,
+            "circuitId": next_race_query.circuitId,
+            "first_practice_date": next_race_query.fp1_date,
+            "race_date": next_race_query.date,
+            "date": next_race_query.date,
+            "time": next_race_query.time,
+            "startFP1": next_race_query.fp1_time,
+            "startFP2": next_race_query.fp2_time,
+            "startQualy": next_race_query.quali_time,
+            "startSprint": next_race_query.sprint_time,
+            "startRace": next_race_query.time,
         }
 
         return next_race
+    
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
     
 
-def fetch_last_race_from_db(db: Session):
-    try:
-        current_date = datetime.now().date()
-        last_race_query = db.query(Race).filter(Race.date < current_date).order_by(desc(Race.date)).first()
-        return last_race_query
-    except Exception as e:
-        print(f"An error occurred while querying the database: {str(e)}")
-        return None
 
 
 @router.get("/race/last")
 async def last_race(db: Session = Depends(get_database_session)):
     try:
-        last_race_data = fetch_last_race_from_db(db)
+        current_date = datetime.now().date()
+        last_race_query = db.query(Race).filter(Race.date < current_date).order_by(desc(Race.date)).first()
 
-        if not last_race_data:
+        if not last_race_query:
             return {"error": "No more races this season"}
 
+        circuit_country = db.query(Circuit.country).filter(Circuit.circuitId == last_race_query.circuitId).scalar()
+
         last_race = {
-            "season": last_race_data.year,
-            "round": last_race_data.round,
-            # PROBLEM 
-            # "country": last_race_data.Circuit.country,
-            "url": last_race_data.url,
-            "raceName": last_race_data.name,
-            "circuitId": last_race_data.circuitId,
-            "first_practice_date": last_race_data.fp1_date,
-            "race_date": last_race_data.date,
-            "date": last_race_data.date,
-            "time": last_race_data.time,
-            "startFP1": last_race_data.fp1_time,
-            "startFP2": last_race_data.fp2_time,
-            "startQualy": last_race_data.quali_time,
-            "startSprint": last_race_data.sprint_time,
-            "startRace": last_race_data.time,
+            "season": last_race_query.year,
+            "round": last_race_query.round,
+            "country": circuit_country,
+            "url": last_race_query.url,
+            "raceName": last_race_query.name,
+            "circuitId": last_race_query.circuitId,
+            "first_practice_date": last_race_query.fp1_date,
+            "race_date": last_race_query.date,
+            "date": last_race_query.date,
+            "time": last_race_query.time,
+            "startFP1": last_race_query.fp1_time,
+            "startFP2": last_race_query.fp2_time,
+            "startQualy": last_race_query.quali_time,
+            "startSprint": last_race_query.sprint_time,
+            "startRace": last_race_query.time,
         }
 
         return last_race
     except Exception as e:
-        print(f"An error occurred while processing the request: {str(e)}")
-        return {"error": "An error occurred while processing the request"}
+        print(f"An error occurred while fetching the last race: {str(e)}")
+        return {"error": "Failed to fetch last race data"}
 
 @router.get("/race/last/top3")
 async def get_top_drivers(db: Session = Depends(get_database_session)):
