@@ -68,14 +68,14 @@ router = APIRouter()
 def get_circuits(year: int, db: Session = Depends(get_database_session)):
     try:
         circuits = (
-            db.query(Circuit, Race.raceId)
+            db.query(Circuit, Race.raceId, Race.date)
             .join(Race, Circuit.circuitId == Race.circuitId)
             .filter(Race.year == year)
             .all()
         )
         circuits_list = []
 
-        for circuit, race_id in circuits:
+        for circuit, race_id, race_date in circuits:
             circuits_list.append(
                 {
                     'circuitId': circuit.circuitId,
@@ -85,6 +85,7 @@ def get_circuits(year: int, db: Session = Depends(get_database_session)):
                     'country': circuit.country,
                     'url': circuit.url,
                     'raceId': race_id,
+                    'date': race_date,
                 }
             )
 
@@ -148,12 +149,12 @@ def get_race_results(race_id: int, db: Session = Depends(get_database_session)):
         )
 
         race_results_list = []
-        for result, driver, constructor_ref in race_results:
+        for result, driver, constructorRef in race_results:
             race_results_list.append(
                 {
                     'race_id': race_id,
                     'driver': f"{driver.forename} {driver.surname}",
-                    'constructor_ref': constructor_ref,
+                    'constructorRef': constructorRef,
                     'position': result.position,
                     'points': result.points,
                     'laps': result.laps,

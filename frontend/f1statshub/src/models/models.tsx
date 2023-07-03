@@ -6,4 +6,5 @@ export interface Circuit {
     country: string;
     url: string;
     raceId: number;
+    date: string;
   }

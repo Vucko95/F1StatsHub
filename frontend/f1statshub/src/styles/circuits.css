@@ -4,7 +4,8 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items:center; */
+    margin-top: 5%;
     gap: 2.5%;
   }
 .circuit_info_box table {
@@ -49,4 +50,8 @@
 
 .circuit_info_box img {
   border-radius: 5px;
+}
+.past-date {
+  color: rgba(223, 43, 43, 0.758);
+  text-decoration: line-through;
 }
