@@ -34,11 +34,11 @@
   justify-content: center;
   align-items: center;
 }
-.racesInfoBox > .singleBox {
-    border: 3px solid white;
+.racesInfoBox > .past_nextRaceBox {
+    border: 2px solid rgb(43, 38, 38);
   border-radius: 2%;
-  width: 40%;
-  height: 60%;
+  width: 35%;
+  height: 70%;
   /* gap: 10%; */
   margin: 2.5%;
 }
@@ -53,6 +53,33 @@
     gap: 10%;
   }
 
+
+
+
+
+.lastRace_top3_box {
+  display: flex;
+  justify-content: center;
+
+  /* align-items: center; */
+}
+.lastRace_top3_box table {
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2%;
+  width: 80%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .coffe-btn {
   background: rgba(199, 73, 182, 0.937);
   color: whitesmoke;
@@ -64,6 +91,13 @@
   /* box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.991); */
 
 }
+
+
+
+
+
+
+
 
 
 .donationBox {
