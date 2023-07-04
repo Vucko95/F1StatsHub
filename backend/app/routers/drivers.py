@@ -6,7 +6,10 @@ from settings.config import *
 # import aiohttp
 import asyncio
 from sqlalchemy.orm import joinedload
-
+from pydantic import ValidationError
+from datetime import date
+from pydantic import BaseModel
+from typing import List, Dict
 import requests
 from sqlalchemy.orm import Session
 from settings.db import Session
@@ -91,6 +94,11 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
         return {"error": "An error occurred while processing the request"}
 
 
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}
+
+
 
 
 @router.get("/year/constructorstandings")
@@ -123,26 +131,69 @@ async def constructor_standings(db: Session = Depends(get_database_session)):
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
 
+class DriverResult(BaseModel):
+    driver_id: int
+    driver_ref: str
+    points: List[int]
+
+
+@router.get("/drivers/graph/{year}")
+async def get_driver_points_by_race(year: int, db: Session = Depends(get_database_session)) -> List[DriverResult]:
+    try:
+        getLastRaceID = (
+            db.query(Race.raceId)
+            .filter(Race.date <= func.CURRENT_DATE())
+            .filter(Race.year == 2023)
+            .order_by(desc(Race.date))
+            .limit(1)
+            .subquery()
+        )
+        last_race_id = db.query(getLastRaceID.c.raceId).scalar()
+
+        results = db.query(Result.driverId, Result.points).filter(Result.raceId == last_race_id).all()
+
+        all_past_races = (
+            db.query(Race.raceId)
+            .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
+            .subquery()
+        )
+        all_past_races_query = db.query(all_past_races)
+        all_past_races_ids = [race_id for race_id, in all_past_races_query]
+
+        driver_results = []
+        for race_id in all_past_races_ids:
+            results = db.query(Result.driverId, Result.points).filter(Result.raceId == race_id).all()
+
+            for result in results:
+                driver_id = result.driverId
+                points = result.points
+
+                existing_driver = next((driver for driver in driver_results if driver["driver_id"] == driver_id), None)
+
+                if existing_driver:
+                    existing_driver["points"].append(points)
+                else:
+                    driver_ref = (
+                        db.query(Driver.driverRef)
+                        .filter(Driver.driverId == driver_id)
+                        .scalar()
+                    )
+                    driver_results.append({
+                        "driver_id": driver_id,
+                        "driver_ref": driver_ref,
+                        "points": [points]
+                    })
+
+        validated_results = [DriverResult(**item) for item in driver_results]
+
+        return validated_results
+
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        raise
 
 
 
-
-# NOT WORKING 
-# @router.get("/drivers/{year}")
-# def get_drivers(year: int, db: Session = Depends(get_database_session)):
-#     drivers = db.query(Driver).filter(Driver.year == year).all()
-
-
-#     drivers_list = []
-#     for driver in drivers:
-#         drivers_list.append({
-#             'driverId': driver.driverId,
-#             'givenName': driver.givenName,
-#             'familyName': driver.familyName,
-#             'permanentNumber': driver.permanentNumber
-#         })
-
-#     return drivers_list
 
 @router.get("/drivers/{year}")
 def get_drivers(year: int,db: Session = Depends(get_database_session)):
