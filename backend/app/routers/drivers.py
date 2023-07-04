@@ -140,18 +140,6 @@ class DriverResult(BaseModel):
 @router.get("/drivers/graph/{year}")
 async def get_driver_points_by_race(year: int, db: Session = Depends(get_database_session)) -> List[DriverResult]:
     try:
-        getLastRaceID = (
-            db.query(Race.raceId)
-            .filter(Race.date <= func.CURRENT_DATE())
-            .filter(Race.year == 2023)
-            .order_by(desc(Race.date))
-            .limit(1)
-            .subquery()
-        )
-        last_race_id = db.query(getLastRaceID.c.raceId).scalar()
-
-        results = db.query(Result.driverId, Result.points).filter(Result.raceId == last_race_id).all()
-
         all_past_races = (
             db.query(Race.raceId)
             .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
