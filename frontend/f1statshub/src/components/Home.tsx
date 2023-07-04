@@ -6,35 +6,15 @@ import countryCodes from "./countryCodes";
 import countryCodeData from './countryCodes';
 import Countdown from "./Countdown";
 import { createEventBus } from "@solid-primitives/event-bus";
-// import dash_logo from "../public/f1MovingLogo.gif";
-import logo from "../../public/logo.svg";
 import nationalityCodeData from './nationalityCodes';
 import { LastRaceDetails, Driver, NextRaceDetails  } from '../models/models' 
 
 const Home: Component = () => {
   const [show, setShow] = createSignal(false);
   const [timeLeft, setTimeLeft] = createSignal("");
-  // const [lastRaceDetails, setLastRaceDetails] = createSignal<LastRaceDetails | null>(null);
   const [lastRaceDetails, setLastRaceDetails] = createSignal<LastRaceDetails | null>(null);
   const [nextRace, setNextRace] = createSignal<NextRaceDetails | null>(null);
-  // const [nextRace, setNextRace] = createSignal({
-  //   season: "",
-  //   round: "",
-  //   country: "",
-  //   url: "",
-  //   raceName: "",
-  //   circuitId: "",
-  //   first_practice_date: "",
-  //   race_date: "",
-  //   date: "",
-  //   time: "",
-  //   countryCode: "",
-  //   startFP1: "",
-  //   startFP2: "",
-  //   startQualy: "",
-  //   startSprint: "",
-  //   startRace: "",
-  // });
+
 
   
   
@@ -73,7 +53,9 @@ const Home: Component = () => {
     const nationalityCode = nationalityCodeData[nationality] || '';
     return nationalityCode.toLowerCase();
   };
-
+  const coffeOpen = () => {
+    window.open("https://www.buymeacoffee.com/f1StatsHub", "_blank");
+  };
 
   return (
     <div class="mainDashboardBox">
@@ -149,9 +131,9 @@ const Home: Component = () => {
 
       </div>
               <div class="donationBox">
-                <button class="button-85"> SMALL COFFE <img src={`coffe.gif`}  height="80"  /></button>
+                
+                <button onClick={coffeOpen} class="button-85"> SMALL COFFE <img src={`coffe.gif`}  height="80"  /></button>
               </div>
- 
     </div>
   );
 };
