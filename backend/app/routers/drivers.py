@@ -94,10 +94,6 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
         return {"error": "An error occurred while processing the request"}
 
 
-    except Exception as e:
-        print(f"An error occurred while processing the request: {str(e)}")
-        return {"error": "An error occurred while processing the request"}
-
 
 
 
