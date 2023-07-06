@@ -1,3 +1,47 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const fetchTimeBeforeNextRace = async () => {
+    try {
+    const response = await fetch('http://localhost:8888/race/next', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+  };
+export const fetchLastRaceDetails = async () => {
+    try {
+    const response = await fetch('http://localhost:8888/race/last', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+  };
+
+
 export const fetchDriverStandings = async () => {
     try {
     const response = await fetch('http://localhost:8888/standings/drivers/2023', {

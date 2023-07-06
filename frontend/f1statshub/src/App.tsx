@@ -11,7 +11,6 @@ import styles from './App.module.css';
 const App: Component = () => {
   const [activeComponent, setActiveComponent] = createSignal(localStorage.getItem("activeComponent") || 'Home');
 
-  // Whenever activeComponent changes, update localStorage
   createEffect(() => localStorage.setItem("activeComponent", activeComponent()));
 
   const switchComponent = (componentName: string) => () => setActiveComponent(componentName);

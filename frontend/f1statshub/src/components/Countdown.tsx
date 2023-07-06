@@ -2,17 +2,9 @@ import { Component } from "solid-js";
 import "../styles/right_sidebar.css";
 import "../styles/countdown.css";
 import { createSignal, onCleanup, createEffect } from "solid-js";
-import countryCodes from "./countryCodes";
-import countryCodeData from './countryCodes';
 
-// const Countdown: Component = () => { 
+
 const Countdown: Component = () => { 
-    const [timeLeft, setTimeLeft] = createSignal("");
-    // const nextRaceDate = 1688860800000
-
-
-    // const nextRaceDate = new Date(nextRace().date).getTime();
-
 
       const [days, setDays] = createSignal("000");
       const [hours, setHours] = createSignal("00");
@@ -44,9 +36,7 @@ const Countdown: Component = () => {
         ss.style.strokeDashoffset = `${440 - (440 * secondsLeft) / 60}`;
       };
 
-    //   createEffect(() => {
-    //     calculateTimeLeft();
-    //   });
+
 
       createEffect(() => {
         calculateTimeLeft();

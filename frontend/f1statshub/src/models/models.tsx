@@ -54,3 +54,8 @@ export interface Circuit {
     startSprint: string;
     startRace: string;
   }
+  export interface DriverGraphData {
+    driver_id: number;
+    driver_ref: string;
+    points: number[];
+  }

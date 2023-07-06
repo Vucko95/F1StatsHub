@@ -2,55 +2,33 @@ import { Component } from "solid-js";
 import "../styles/right_sidebar.css";
 import "../styles/countdown.css";
 import { createSignal, onCleanup, createEffect } from "solid-js";
-import countryCodeData from './countryCodes';
 import Countdown from "./Countdown";
-import nationalityCodeData from './nationalityCodes';
 import { LastRaceDetails, Driver, NextRaceDetails  } from '../models/models' 
+import { fetchTimeBeforeNextRace, fetchLastRaceDetails } from "../services/api";
+import { getCountryCode, getNationalityCode } from "../constants/CodeUtils";
 
 const Home: Component = () => {
-  const [show, setShow] = createSignal(false);
-  const [timeLeft, setTimeLeft] = createSignal("");
   const [lastRaceDetails, setLastRaceDetails] = createSignal<LastRaceDetails | null>(null);
   const [nextRace, setNextRace] = createSignal<NextRaceDetails | null>(null);
 
 
   
-  
-
-
-  const fetchTimeBeforeNextRace = () => {
-    fetch("http://localhost:8888/race/next")
-      .then((response) => response.json())
-      .then((data) => {
-        setNextRace(data);
-        // console.log(data);
-      })
-      .catch((error) => console.error(error));
-  };
 
 
 
-  const fetchLastRaceDetails = () => {
-    fetch("http://localhost:8888/race/last")
-      .then((response) => response.json())
-      .then((data) => {
-        setLastRaceDetails(data);
-      })
-      .catch((error) => console.error(error));
-  };
-
-  const getCountryCode = (country?: string) => {
-    const countryCode = countryCodeData[country ?? ''] || '';
-    return countryCode.toLowerCase();
-  };
-  createEffect(() => {
-    fetchTimeBeforeNextRace();
-    fetchLastRaceDetails();
+  createEffect(async () => {
+    try {
+      const nextRaceDetailsData = await fetchTimeBeforeNextRace();
+      setNextRace(nextRaceDetailsData);
+      const lastRaceDetailsData = await fetchLastRaceDetails();
+      setLastRaceDetails(lastRaceDetailsData);
+    } catch (error) {
+      console.error(error);
+    }
   });
-  const getNationalityCode = (nationality: string) => {
-    const nationalityCode = nationalityCodeData[nationality] || '';
-    return nationalityCode.toLowerCase();
-  };
+
+
+
   const coffeOpen = () => {
     window.open("https://www.buymeacoffee.com/f1StatsHub", "_blank");
   };
@@ -66,8 +44,6 @@ const Home: Component = () => {
           <Countdown/>
         </div>
       
-{/* NAME  */}
-{/* country */}
     <div class="racesInfoBox">
       <div class="past_nextRaceBox" >              
            
@@ -76,10 +52,11 @@ const Home: Component = () => {
                     <h2>Previous Event  <img src={`/countries/${getCountryCode(lastRaceDetails()?.country)}.png`} width="50" height="25" style="border-radius: 10%;" />
           </h2>
               <h3>{lastRaceDetails()?.raceName}  {lastRaceDetails()?.date}</h3>
-              <h3>Results</h3>
+              <h3>Last Race Results</h3>
 
               </div>
           )}
+
           <div class="lastRace_top3_box">
               <table>
                 <thead>
@@ -111,27 +88,20 @@ const Home: Component = () => {
 
       </h2>
       <h3>{nextRace()?.raceName}</h3>
-      {/* <h3>Round {nextRace()?.round} / 23</h3> */}
-      {/* <h3>{{ nextRace.first_practice_date }}  - {{ nextRace.race_date }} </h3> */}
       <h3>
         {nextRace()?.first_practice_date} - {nextRace()?.race_date}
       </h3>
-      {/* <button>Pick Timezone</button> */}
-      {/* <p>Practice 1 FRI {nextRace()?.startFP1}</p> */}
-      {/* <p>Practice 2 FRI {nextRace()?.startFP2}</p> */}
       <h3>Qualifying SAT {nextRace()?.startQualy}</h3>
-      {/* <p>Sprint SAT {nextRace()?.startSprint}</p> */}
       <h3>Race Time {nextRace()?.startRace}</h3>
     </div>
       )}
     </div>
 
-
       </div>
-              <div class="donationBox">
-                
-                <button onClick={coffeOpen} class="button-85"> SMALL COFFE <img src={`coffe.gif`}  height="80"  /></button>
-              </div>
+            <div class="donationBox">
+              
+              <button onClick={coffeOpen} class="button-85"> SMALL COFFE <img src={`coffe.gif`}  height="80"  /></button>
+            </div>
     </div>
   );
 };

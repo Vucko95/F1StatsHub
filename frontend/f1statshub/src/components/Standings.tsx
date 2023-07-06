@@ -2,8 +2,8 @@ import { Component, createSignal, createEffect } from "solid-js";
 import { fetchDriverStandings, fetchConstructorStandings } from "../services/api";
 import "../styles/right_sidebar.css";
 import "../styles/standings.css";
-import countryCodeData from './countryCodes';
-import nationalityCodeData from './nationalityCodes';
+import { getCountryCode, getNationalityCode } from "../constants/CodeUtils";
+
 const Standings: Component = () => {
     const [driverStandings, setDriverStandings] = createSignal([]);
     const [constructorStandings, setConstructorStandings] = createSignal([]);
@@ -20,15 +20,7 @@ const Standings: Component = () => {
           console.error(error);
         }
       });
-      const getCountryCode = (country: string) => {
-        const countryCode = countryCodeData[country] || '';
-        return countryCode.toLowerCase();
-  
-      };
-      const getNationalityCode = (nationality: string) => {
-        const nationalityCode = nationalityCodeData[nationality] || '';
-        return nationalityCode.toLowerCase();
-      };
+
   
 
       return (

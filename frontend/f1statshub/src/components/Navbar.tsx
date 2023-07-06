@@ -1,5 +1,5 @@
 import { Component, createSignal, createEffect } from "solid-js";
-import "../styles/left_sidebar.css"
+import "../styles/navbar.css"
 
 interface NavbarProps {
     activeComponent: () => string,
@@ -7,29 +7,30 @@ interface NavbarProps {
   }
   
   const Navbar: Component<NavbarProps> = ({activeComponent, switchComponent}) => {
+    const [activeItem, setActiveItem] = createSignal("");
+
+    
+    const handleItemClick = (componentName: string) => {
+      setActiveItem(componentName);
+      return switchComponent(componentName);
+    };
+
+
     return (
       <div class="navbar">
         <ul class="navbar-menu">
-        <li class={activeComponent() === "Home" ? "active" : ""}>
-          <button onClick={switchComponent("Home")}>
-            {activeComponent() === "Home" ? "Hide Home" : "Show Home"}
-          </button>
-        </li>
-        <li class={activeComponent() === "Standings" ? "active" : ""}>
-          <button onClick={switchComponent("Standings")}>
-            {activeComponent() === "Standings" ? "Hide Standings" : "Show Standings"}
-          </button>
-        </li>
-        <li class={activeComponent() === "DriverInfo" ? "active" : ""}>
-          <button onClick={switchComponent("DriverInfo")}>
-            {activeComponent() === "DriverInfo" ? "Hide DriverInfo" : "Show DriverInfo"}
-          </button>
-        </li>
-        <li class={activeComponent() === "Circuits" ? "active" : ""}>
-          <button onClick={switchComponent("Circuits")}>
-            {activeComponent() === "Circuits" ? "Hide Circuits" : "Show Circuits"}
-          </button>
-        </li>
+          <li class={activeItem() === "Home" ? "active" : ""}>
+            <button onClick={handleItemClick("Home")}>Home</button>
+          </li>
+          <li class={activeItem() === "Standings" ? "active" : ""}>
+            <button onClick={handleItemClick("Standings")}>Standings</button>
+          </li>
+          <li class={activeItem() === "DriverInfo" ? "active" : ""}>
+            <button onClick={handleItemClick("DriverInfo")}>DriverInfo</button>
+          </li>
+          <li class={activeItem() === "Circuits" ? "active" : ""}>
+            <button onClick={handleItemClick("Circuits")}>Circuits</button>
+          </li>
         </ul>
       </div>
     );

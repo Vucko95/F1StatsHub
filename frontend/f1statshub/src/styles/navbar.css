@@ -3,37 +3,42 @@
 
 .navbar {
   /* background-color: #333; */
-  color: #fff;
+  /* color: #fff; */
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  width: 98%;
   padding: 15px;
   position: absolute;
-  left: 35%;
+  /* left: 35%; */
 }
 
 .navbar-menu {
   list-style: none;
   display: flex;
-  justify-content: space-around;
-  padding: 0;
+  /* justify-content: space-around; */
+  /* align-items: center; */
+  /* padding: 0; */
   margin: 0;
 }
 
 .navbar-menu li {
-  margin-right: 10px;
+  margin-right: 40px;
 }
 
 
 .navbar-menu li button {
   background-color: transparent;
-  border: none;
+  /* border: 1px solid gray; */
   color: inherit;
   cursor: pointer;
   font-size: 30px;
+  padding: 10px;
+  border-radius: 20%;
 }
 
 .navbar-menu li button:hover {
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  color: red;
 }
 
-.navbar-menu li.active button {
-  font-weight: bold;
-}

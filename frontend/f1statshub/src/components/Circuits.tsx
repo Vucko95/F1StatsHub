@@ -1,8 +1,7 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { Circuit } from '../models/models' 
 import { fetchCircuitsByYear, fetchCircuitWinners, fetchCircuitResults } from "../services/api";
-import countryCodeData from './countryCodes';
-import nationalityCodeData from './nationalityCodes';
+import { getCountryCode, getNationalityCode, isDateInPast } from "../constants/CodeUtils";
 
 import "../styles/circuits.css";
 
@@ -19,7 +18,6 @@ const Circuits: Component = () => {
       try {
         const circuitData = await fetchCircuitsByYear();
         setCircuits(circuitData);
-        // console.log(circuitData)
         const winners = await fetchCircuitWinners(3);
         setCircuitLayout(winners[0]?.circuit_country || '');
         setCircuitWinners(winners);
@@ -40,7 +38,6 @@ const Circuits: Component = () => {
         setCircuitLayout(winners[0]?.circuit_country || '');
         setSelectedCircuitName(winners[0]?.circuit_name || '');
         setSelectedCircuitCountry(winners[0]?.circuit_country || '');
-        // showCircuitResults(winners[0]?.race_id || '');
       } catch (error) {
         console.error(error);
       }
@@ -58,21 +55,6 @@ const Circuits: Component = () => {
 
     
 
-    const getCountryCode = (country: string) => {
-      const countryCode = countryCodeData[country] || '';
-      return countryCode.toLowerCase();
-
-    };
-    const getNationalityCode = (nationality: string) => {
-      const nationalityCode = nationalityCodeData[nationality] || '';
-      return nationalityCode.toLowerCase();
-    };
-
-    const isDateInPast = (dateString: string) => {
-      const currentDate = new Date();
-      const date = new Date(dateString);
-      return date < currentDate;
-    };
 
 
       
@@ -89,13 +71,10 @@ const Circuits: Component = () => {
                     <tr>
                     <td><img src={`/countries/${getCountryCode(circuitInfo.country)}.png`}   width="50" height="25" /></td>
                     <td>{circuitInfo.name}</td>
-                    {/* <td>{circuitInfo.date}</td> */}
                     <td class={isDateInPast(circuitInfo.date) ? 'past-date' : ''}>{circuitInfo.date}</td>
 
                     <td>
-                      {/* <button class="baseBtn" onClick={() => showCircuitDetails(circuitInfo.circuitId)} >Details</button> */}
                       <button class="baseBtn" onClick={() => { showCircuitDetails(circuitInfo.circuitId); showCircuitResults(circuitInfo.raceId); }}>Details</button>
-
                     </td>
                   </tr>
                   ))} 
@@ -119,17 +98,11 @@ const Circuits: Component = () => {
                         <td></td>
                         <td>{driver_result.time} </td>
                         <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
-                        {/* <td>{driver_result.points} </td> */}
 
                       </tr>
                   ))}
               </table>
 
-              {/* <div class="circuit_info">
-              <h3>{selectedCircuitCountry()}</h3>
-              <h3>{selectedCircuitName()}</h3>
-            {circuitLayout() && <img src={`/tracks/${circuitLayout()}.svg`}  width="100" height="200" />}
-              </div> */}
 
               <br />
               <div class="circuit_latest_results">
@@ -142,7 +115,6 @@ const Circuits: Component = () => {
                     <th>Year</th>
                     <th>Team</th>
                     <th>Winner</th>
-                    {/* <th>Nationality</th> */}
                     </tr>
                   </thead>
                   <tbody>
