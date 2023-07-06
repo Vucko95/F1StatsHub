@@ -1,6 +1,6 @@
 export const fetchDriverStandings = async () => {
     try {
-    const response = await fetch('http://localhost:8888/standings/drivers/2022', {
+    const response = await fetch('http://localhost:8888/standings/drivers/2023', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -45,6 +45,20 @@ export const fetchDriverStandings = async () => {
   export const fetchDriversForSpecificYear = async () => {
     try {
       const response = await fetch('http://localhost:8888/drivers/2023', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+  export const fetchDriversPointsForGraph = async () => {
+    try {
+      const response = await fetch('http://localhost:8888/drivers/graph/2023', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
