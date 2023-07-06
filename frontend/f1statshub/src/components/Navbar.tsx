@@ -1,12 +1,12 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import "../styles/left_sidebar.css"
 
-interface LeftSidebarProps {
+interface NavbarProps {
     activeComponent: () => string,
     switchComponent: (componentName: string) => () => void
   }
   
-  const LeftSidebar: Component<LeftSidebarProps> = ({activeComponent, switchComponent}) => {
+  const Navbar: Component<NavbarProps> = ({activeComponent, switchComponent}) => {
     return (
       <div class="navbar">
         <ul class="navbar-menu">
@@ -35,4 +35,4 @@ interface LeftSidebarProps {
     );
   };
   
-  export default LeftSidebar;
+  export default Navbar;

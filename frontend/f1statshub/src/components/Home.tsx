@@ -2,10 +2,8 @@ import { Component } from "solid-js";
 import "../styles/right_sidebar.css";
 import "../styles/countdown.css";
 import { createSignal, onCleanup, createEffect } from "solid-js";
-import countryCodes from "./countryCodes";
 import countryCodeData from './countryCodes';
 import Countdown from "./Countdown";
-import { createEventBus } from "@solid-primitives/event-bus";
 import nationalityCodeData from './nationalityCodes';
 import { LastRaceDetails, Driver, NextRaceDetails  } from '../models/models' 
 

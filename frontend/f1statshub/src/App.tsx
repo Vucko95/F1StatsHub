@@ -1,6 +1,6 @@
 import  { Component , createSignal,createEffect  } from 'solid-js';
 
-import LeftSidebar from './components/LeftSidebar';
+import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Standings from './components/Standings';
 import DriverInfo from './components/DriverInfo';
@@ -18,7 +18,7 @@ const App: Component = () => {
 
   return (
     <div class={styles.App}>
-      <LeftSidebar 
+      <Navbar 
         activeComponent={activeComponent} 
         switchComponent={switchComponent} 
       />
