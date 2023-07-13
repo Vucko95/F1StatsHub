@@ -47,7 +47,6 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .subquery()
         )
         latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
-
         driver_points_query = (
             db.query(
                 DriverStanding.driverId,
@@ -72,7 +71,33 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .order_by(desc(driver_points_query.c.total_points))
             .all()
         )
-
+        if not results_query:
+            latest_race_id = latest_race_id - 1
+            driver_points_query = (
+                db.query(
+                    DriverStanding.driverId,
+                    func.sum(DriverStanding.points).label("total_points")
+                )
+                .filter(DriverStanding.raceId == latest_race_id)
+                .group_by(DriverStanding.driverId)
+                .subquery()
+            )
+        
+            results_query = (
+                db.query(
+                    Driver,
+                    driver_points_query.c.total_points,
+                    Constructor.constructorId,
+                    Constructor.constructorRef
+                )
+                .join(driver_points_query, Driver.driverId == driver_points_query.c.driverId)
+                .join(Result, Result.driverId == Driver.driverId)
+                .join(Constructor, Constructor.constructorId == Result.constructorId)
+                .filter(Result.raceId == latest_race_id)
+                .order_by(desc(driver_points_query.c.total_points))
+                .all()
+            )
+             
         driver_standings = []
         for driver, total_points, constructor_id, constructor_ref in results_query:
             driver_standings.append(
