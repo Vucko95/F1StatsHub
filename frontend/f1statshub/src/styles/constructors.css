@@ -1,0 +1,64 @@
+.constructorsMain {
+    font-size: 1.3vw;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top: 5%;
+    gap: 10%;
+
+  }
+
+
+.constructorsTable {
+  /* width: 30%; */
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  max-height: 60%;
+  border: 1px solid white;
+  border-radius: 2.5%;
+  /* padding: 2%; */
+  /* overflow: auto;  */
+}
+
+
+.constructorsTable table  td {
+  border-top: 2px solid white;
+  padding: 10px;
+}
+
+.chartBox {
+    width: 1200px;
+    height: 500px;
+}
+
+
+  #style-1::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgb(0, 0, 0);
+    border-radius: 10%;
+    background-color: #000000;
+  }
+
+  #style-1::-webkit-scrollbar
+  {
+    border-radius: 15px;
+    
+    width: 12px;
+    background-color: #030202;
+    
+  }
+
+  #style-1::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color:rgba(251, 253, 253, 0.116);
+  }
+  #style-1 {
+    /* overflow: hidden; */
+    scrollbar-color: rgba(74, 80, 80, 0.411) #030202;
+    scrollbar-width: thin;
+  }

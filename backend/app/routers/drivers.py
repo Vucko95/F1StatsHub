@@ -315,7 +315,7 @@ async def get_constructor_points_by_race(year: int, db: Session = Depends(get_da
         constructor_results = dict(list(constructor_results.items()))
 
         chart_data = {
-            "labels": [str(i) for i in range(len(all_past_races_ids))],
+            "labels": [str(i) for i in range(len(all_past_races_ids) + 1)],
             "datasets": list(constructor_results.values())
         }
 
