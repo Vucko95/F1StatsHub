@@ -25,9 +25,9 @@ interface NavbarProps {
           <li class={activeItem() === "Standings" ? "active" : ""}>
             <button onClick={handleItemClick("Standings")}>Standings</button>
           </li>
-          <li class={activeItem() === "DriverInfo" ? "active" : ""}>
+          {/* <li class={activeItem() === "DriverInfo" ? "active" : ""}>
             <button onClick={handleItemClick("DriverInfo")}>DriverInfo</button>
-          </li>
+          </li> */}
           <li class={activeItem() === "Circuits" ? "active" : ""}>
             <button onClick={handleItemClick("Circuits")}>Circuits</button>
           </li>
@@ -36,6 +36,9 @@ interface NavbarProps {
           </li>
           <li class={activeItem() === "Drivers" ? "active" : ""}>
             <button onClick={handleItemClick("Drivers")}>Drivers</button>
+          </li>
+          <li class={activeItem() === "Races" ? "active" : ""}>
+            <button onClick={handleItemClick("Races")}>Races</button>
           </li>
         </ul>
       </div>
