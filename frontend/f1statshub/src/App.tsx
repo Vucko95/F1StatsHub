@@ -5,6 +5,8 @@ import Home from './components/Home';
 import Standings from './components/Standings';
 import DriverInfo from './components/DriverInfo';
 import Circuits from './components/Circuits';
+import Constructors from './components/Constructors';
+import Drivers from './components/Drivers';
 import styles from './App.module.css';
 
 
@@ -25,6 +27,9 @@ const App: Component = () => {
       {activeComponent() === 'Standings' && <Standings />}
       {activeComponent() === 'DriverInfo' && <DriverInfo />}
       {activeComponent() === 'Circuits' && <Circuits />}
+      {activeComponent() === 'Circuits' && <Circuits />}
+      {activeComponent() === 'Constructors' && <Constructors />}
+      {activeComponent() === 'Drivers' && <Drivers />}
     </div>
   );
 };

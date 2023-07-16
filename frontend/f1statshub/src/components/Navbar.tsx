@@ -31,6 +31,12 @@ interface NavbarProps {
           <li class={activeItem() === "Circuits" ? "active" : ""}>
             <button onClick={handleItemClick("Circuits")}>Circuits</button>
           </li>
+          <li class={activeItem() === "Constructors" ? "active" : ""}>
+            <button onClick={handleItemClick("Constructors")}>Constructors</button>
+          </li>
+          <li class={activeItem() === "Drivers" ? "active" : ""}>
+            <button onClick={handleItemClick("Drivers")}>Drivers</button>
+          </li>
         </ul>
       </div>
     );

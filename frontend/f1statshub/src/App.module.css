@@ -1,7 +1,9 @@
 .App {
   text-align: center;
   display: flex;
-  background-image: url("../../public/test3.svg");  
+  /* background-image: url("../../public/test3.svg");   */
+  background-color: #000000;
+  /* background-image: linear-gradient(to bottom, #000000, #140009, #1e0015, #220020, #22022e); */
   /* background-repeat: no-repeat; */
   background-size: cover;
   /* background-size: contain; */

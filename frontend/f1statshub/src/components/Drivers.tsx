@@ -1,26 +1,26 @@
 import { Component, createSignal, createEffect } from "solid-js";
-import { fetchConstructorsGraph, fetchConstructorStandings } from "../services/api";
+import { fetchDriversPointsForGraph, fetchDriverStandings } from "../services/api";
 // import "../styles/right_sidebar.css";
-import "../styles/constructors.css";
+import "../styles/drivers.css";
 import { Line } from 'solid-chartjs'
+import "../styles/right_sidebar.css";
 
 import { getCountryCode, getNationalityCode } from "../constants/CodeUtils";
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
 import { onMount } from 'solid-js'
 
-const Constuctors: Component = () => {
-    const [constructorStandings, setConstructorStandings] = createSignal([]);
+const Drivers: Component = () => {
     const [driverGraphData, setDriverGraphData] = createSignal([]);
+    const [driverStandings, setDriverStandings] = createSignal([]);
 
 
 
     createEffect(async () => {
         try {
-          const constructorStandingsData = await fetchConstructorStandings();
-          setConstructorStandings(constructorStandingsData);
-
-          const driverStandingsData = await fetchConstructorsGraph();
-          setDriverGraphData(driverStandingsData);
+        const driverStandingsData = await fetchDriverStandings();
+        setDriverStandings(driverStandingsData);
+        const driversPointsForGraph = await fetchDriversPointsForGraph();
+        setDriverGraphData(driversPointsForGraph);
           console.log(driverStandingsData)
         } catch (error) {
           console.error(error);
@@ -50,9 +50,9 @@ const Constuctors: Component = () => {
   
 
       return (
-        <div class="constructorsMain" >
+        <div class="constructorsMain" id="style-1" >
 
-            <div class="constructorsTable" >
+            <div class="driversTable" id="style-1" >
               <table>
                 <thead>
                   <tr>
@@ -62,12 +62,13 @@ const Constuctors: Component = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {constructorStandings().map((constructor: any) => (
+                  {driverStandings().map((driver: any) => (
                     <tr>
-                      <td><img src={`/teamlogos/${constructor.constructorRef}.webp`}  width="80" height="30" /></td>
+                      {/* <td><img src={`/teamlogos/${driver.driverRef}.webp`}  width="80" height="30" /></td> */}
+                      <td><img src={`/countries/${getNationalityCode(driver.nationality)}.png`}width="50"height="25"/></td>
 
-                      <td>{constructor.constructor_name}</td>
-                      <td>{constructor.total_points}</td>
+                      <td>{driver.driver_name}</td>
+                      <td>{driver.total_points}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -83,4 +84,4 @@ const Constuctors: Component = () => {
         </div>
       );
  }
-export default Constuctors;
+export default Drivers;

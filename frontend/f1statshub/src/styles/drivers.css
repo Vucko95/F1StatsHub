@@ -11,7 +11,7 @@
   }
 
 
-.constructorsTable {
+.driversTable {
   /* width: 30%; */
   display: flex;
   justify-content: center;
@@ -20,17 +20,18 @@
   border: 1px solid white;
   /* border-radius: 2.5%; */
   /* padding: 2%; */
-  /* overflow: auto;  */
+  overflow: auto; 
+  width: 20%;
 }
 
 
-.constructorsTable table  td {
+.driversTable table  td {
   border-top: 2px solid white;
   padding: 10px;
   border: 2px solid white;
 }
 
-.constructorsTable img {
+.driversTable img {
   border-radius: 10%;
 }
 

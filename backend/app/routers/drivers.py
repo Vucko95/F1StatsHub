@@ -33,7 +33,30 @@ def get_driver_standings_from_db(year: int, db: Session):
 # class DriverStandingsRequest(BaseModel):
 #     year: int
 
+def prepare_chart_data(data):
+    labels = data['labels']
+    datasets = data['datasets']
+    color_mapping = {
+        'ferrari': '#FF0000',
+        'haas': '#FFFFFF',
+        'alphatauri': '#0000FF',
+        'williams': '#08298A',
+        'alpine': '#0489B1',
+        'alfa': '#8A0808',
+        'mercedes': '#00FFFF',
+        'mclaren': '#FF8000',
+        'aston_martin': '#088A08',
+        'red_bull': '#0080FF',
+    }
 
+    for dataset in datasets:
+        label = dataset['label']
+        if label in color_mapping:
+            color = color_mapping[label]
+            dataset['backgroundColor'] = color
+            dataset['borderColor'] = color
+
+    return data
 
 
 @router.get("/standings/drivers/{year}")
@@ -179,52 +202,19 @@ class DriverResult(BaseModel):
     points: List[int]
 
 
-# @router.get("/drivers/graph/{year}")
-# async def get_driver_points_by_race(year: int, db: Session = Depends(get_database_session)) -> List[DriverResult]:
-#     try:
-#         all_past_races = (
-#             db.query(Race.raceId)
-#             .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
-#             .subquery()
-#         )
-#         all_past_races_query = db.query(all_past_races)
-#         all_past_races_ids = [race_id for race_id, in all_past_races_query]
-
-#         driver_results = []
-#         for race_id in all_past_races_ids:
-#             results = db.query(Result.driverId, Result.points).filter(Result.raceId == race_id).all()
-
-#             for result in results:
-#                 driver_id = result.driverId
-#                 points = result.points
-
-#                 existing_driver = next((driver for driver in driver_results if driver["driver_id"] == driver_id), None)
-
-#                 if existing_driver:
-#                     existing_driver["points"].append(points)
-#                 else:
-#                     driver_ref = (
-#                         db.query(Driver.driverRef)
-#                         .filter(Driver.driverId == driver_id)
-#                         .scalar()
-#                     )
-#                     driver_results.append({
-#                         "driver_id": driver_id,
-#                         "driver_ref": driver_ref,
-#                         "points": [points]
-#                     })
-
-#         validated_results = [DriverResult(**item) for item in driver_results]
-
-#         return validated_results
-
-#     except Exception as e:
-#         print(f"An error occurred while processing the request: {str(e)}")
-#         raise
 
 @router.get("/drivers/graph/{year}")
 async def get_driver_points_by_race(year: int, db: Session = Depends(get_database_session)) -> dict:
     try:
+        subquery_latest_race = (
+            db.query(Race.raceId)
+            .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
+            .order_by(desc(Race.date))
+            .limit(1)
+            .subquery()
+        )
+        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+
         all_past_races = (
             db.query(Race.raceId)
             .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
@@ -232,6 +222,7 @@ async def get_driver_points_by_race(year: int, db: Session = Depends(get_databas
         )
         all_past_races_query = db.query(all_past_races)
         all_past_races_ids = [race_id for race_id, in all_past_races_query]
+
 
         driver_results = {}
         for race_id in all_past_races_ids:
@@ -249,16 +240,17 @@ async def get_driver_points_by_race(year: int, db: Session = Depends(get_databas
                 
                 if driver_id in driver_results:
                     driver_results[driver_id]["data"].append(driver_results[driver_id]["data"][-1] + points)
+                    
                 else:
                     driver_results[driver_id] = {
                         "label": driver_ref,
                         "data": [0, points]
                     }
         # SHOW ONLY 1st TEN RESULTS
-        driver_results = dict(list(driver_results.items())[:10])
+        driver_results = dict(list(driver_results.items()))
 
         chart_data = {
-            "labels": [str(i) for i in range(len(all_past_races_ids))],
+            "labels": [str(i) for i in range(len(all_past_races_ids) +1)],
             "datasets": list(driver_results.values())
         }
 
@@ -308,7 +300,8 @@ async def get_constructor_points_by_race(year: int, db: Session = Depends(get_da
                 else:
                     constructor_results[constructor_id] = {
                         "label": constructor_ref,
-                        "data": [0, points]
+                        "data": [0, points],
+                        #  "borderColor": '#9BD0F5',
                     }
 
         # SHOW ONLY THE FIRST TEN RESULTS
@@ -318,55 +311,15 @@ async def get_constructor_points_by_race(year: int, db: Session = Depends(get_da
             "labels": [str(i) for i in range(len(all_past_races_ids) + 1)],
             "datasets": list(constructor_results.values())
         }
+        chart_data = prepare_chart_data(chart_data)
+
 
         return chart_data
 
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
         raise
-        # all_past_races = (
-        #     db.query(Race.raceId)
-        #     .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
-        #     .subquery()
-        # )
-        # all_past_races_query = db.query(all_past_races)
-        # all_past_races_ids = [race_id for race_id, in all_past_races_query]
 
-        # driver_results = {}
-        # for race_id in all_past_races_ids:
-        #     results = db.query(Result.driverId, Result.points).filter(Result.raceId == race_id).all()
-
-        #     for result in results:
-        #         driver_id = result.driverId
-        #         points = result.points
-
-        #         driver_ref = (
-        #             db.query(Driver.driverRef)
-        #             .filter(Driver.driverId == driver_id)
-        #             .scalar()
-        #         )
-                
-        #         if driver_id in driver_results:
-        #             driver_results[driver_id]["data"].append(driver_results[driver_id]["data"][-1] + points)
-        #         else:
-        #             driver_results[driver_id] = {
-        #                 "label": driver_ref,
-        #                 "data": [0, points]
-        #             }
-        # # SHOW ONLY 1st TEN RESULTS
-        # driver_results = dict(list(driver_results.items())[:10])
-
-        # chart_data = {
-        #     "labels": [str(i) for i in range(len(all_past_races_ids))],
-        #     "datasets": list(driver_results.values())
-        # }
-
-        # return chart_data
-        return 'ok'
-
-    except Exception as e:
-        print(f"An error occurred while processing the request: {str(e)}")
-        raise
 
 @router.get("/year/constructorstandings")
 async def constructor_standings(db: Session = Depends(get_database_session)):

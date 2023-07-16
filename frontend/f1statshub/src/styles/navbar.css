@@ -29,16 +29,16 @@
 
 .navbar-menu li button {
   background-color: transparent;
-  /* border: 1px solid gray; */
   color: inherit;
+  border: 0;
   cursor: pointer;
   font-size: 30px;
   padding: 10px;
-  border-radius: 20%;
 }
 
 .navbar-menu li button:hover {
   /* text-decoration: underline; */
   color: red;
+
 }
 
