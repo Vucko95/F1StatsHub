@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import drivers, circuits, news, home
+from routers import drivers, circuits, news, home, races
 from fastapi.middleware.cors import CORSMiddleware
 from settings.config import *
 
@@ -12,6 +12,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-routers = [drivers.router, circuits.router, news.router, home.router]
+routers = [drivers.router, circuits.router, news.router, home.router, races.router]
 for router in routers:
     app.include_router(router) 
