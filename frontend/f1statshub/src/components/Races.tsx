@@ -1,6 +1,6 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { Circuit } from '../models/models' 
-import { fetchCircuitsByYear, fetchCircuitWinners, fetchCircuitResults } from "../services/api";
+import { fetchCircuitsByYear, fetchCircuitWinners, fetchCircuitResults, fetchRacePaceGraph } from "../services/api";
 import { getCountryCode, getNationalityCode, isDateInPast } from "../constants/CodeUtils";
 import { onMount } from 'solid-js'
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
@@ -8,7 +8,7 @@ import { Bar, Line } from 'solid-chartjs'
 import "../styles/races.css";
 
 const Races: Component = () => {
-
+    const [racePaceGraphData, setRacePaceGraphData] = createSignal([]);
     const [circuits, setCircuits] = createSignal([]);
     const [circuitWinners, setCircuitWinners] = createSignal([]);
     const [circuitResults, setCircuitResults] = createSignal([]);
@@ -55,7 +55,14 @@ const Races: Component = () => {
       }
     };
 
-    
+    createEffect(async () => {
+        try {
+        const racePaceGraphData = await fetchRacePaceGraph();
+        setRacePaceGraphData(racePaceGraphData);
+        } catch (error) {
+          console.error(error);
+        }
+      });
 
 
     onMount(() => {
@@ -63,68 +70,68 @@ const Races: Component = () => {
     })
     const chartOptions = {
         responsive: true,
-        // maintainAspectRatio: false,
+        maintainAspectRatio: false,
         scales: {
             y: {
               beginAtZero: false,
-              min: 50, // Set the desired starting point on the y-axis
+              min: 72, // Set the desired starting point on the y-axis
             },
           },
     }
 
 
-    const data = {
-        labels: ["1"],
-        datasets: [
-          {
-            label: 'Dataset 1',
-            data: [[60,65]],
-            backgroundColor: 'red',
-            borderRadius: 20,
-            borderSkipped: false,
-            borderWidth: 2,
-            barThickness: 50
+    // const data = {
+    //     labels: ["1"],
+    //     datasets: [
+    //       {
+    //         label: 'Dataset 1',
+    //         data: [[60,65]],
+    //         backgroundColor: 'red',
+    //         borderRadius: 20,
+    //         borderSkipped: false,
+    //         borderWidth: 2,
+    //         barThickness: 50
+    //       },
+    //       {
+    //         label: 'Dataset 2',
+    //         data: [[63,68]],
+    //         backgroundColor: 'lime',
+    //         borderRadius: 20,
+    //         borderSkipped: false,
+    //         borderWidth: 2,
+    //         barThickness: 50
+    //       },
+    //       {
+    //         label: 'Dataset 3',
+    //         data: [[65,72]],
+    //         backgroundColor: 'teal',
+    //         borderRadius: 20,
+    //         borderSkipped: false,
+    //         borderWidth: 2,
+    //         barThickness: 50
+    //       },
+    //       {
+    //         label: 'Dataset 3',
+    //         data: [[58,66]],
+    //         backgroundColor: 'orange',
+    //         borderRadius: 20,
+    //         borderSkipped: false,
+    //         borderWidth: 2,
+    //         barThickness: 50
+    //       },
+    //       {
+    //         label: 'Dataset 3',
+    //         data: [[56,68]],
+    //         backgroundColor: 'white',
+    //         borderRadius: 20,
+    //         borderSkipped: false,
+    //         borderWidth: 2,
+    //         barThickness: 50
+    //       },
+    //     ],
+    //   };
 
 
-          },
-          {
-            label: 'Dataset 2',
-            data: [[63,68]],
-            backgroundColor: 'lime',
-            borderRadius: 20,
-            borderSkipped: false,
-            borderWidth: 2,
-            barThickness: 50
-          },
-          {
-            label: 'Dataset 3',
-            data: [[65,72]],
-            backgroundColor: 'teal',
-            borderRadius: 20,
-            borderSkipped: false,
-            borderWidth: 2,
-            barThickness: 50
-          },
-          {
-            label: 'Dataset 3',
-            data: [[58,66]],
-            backgroundColor: 'orange',
-            borderRadius: 20,
-            borderSkipped: false,
-            borderWidth: 2,
-            barThickness: 50
-          },
-          {
-            label: 'Dataset 3',
-            data: [[56,68]],
-            backgroundColor: 'white',
-            borderRadius: 20,
-            borderSkipped: false,
-            borderWidth: 2,
-            barThickness: 50
-          },
-        ],
-      };
     return (
         <div class="RacesMain">
         
@@ -147,7 +154,8 @@ const Races: Component = () => {
 
             <div class="RacePaceBox">
                 {/* <h1>RacePaceBox</h1> */}
-                <Bar data={data}  options={chartOptions} />
+                {/* <Bar data={data}  options={chartOptions} /> */}
+                <Bar data={racePaceGraphData()}  options={chartOptions} />
                 {/* <Bar data={data}  options={chartOptions}  /> */}
 
             </div>
@@ -170,3 +178,5 @@ const Races: Component = () => {
     )
  }
 export default Races;
+
+

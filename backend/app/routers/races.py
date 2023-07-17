@@ -86,24 +86,24 @@ async def get_driver_laptimes(raceId: int, db: Session = Depends(get_database_se
             else:
                 driver_laptimes["datasets"][driver_index]["data"][0].append(lap_time_seconds)
 
-        driver_laptimes["datasets"] = [dataset for dataset in driver_laptimes["datasets"] if dataset["data"][0]]
+        driver_laptimes["datasets"] = [
+            dataset for dataset in driver_laptimes["datasets"] if len(dataset["data"][0]) >= 40
+        ]
 
         for dataset in driver_laptimes["datasets"]:
-            dataset["data"][0] = sorted(dataset["data"][0])[:-10]
             if dataset["data"][0]:
                 average_lap_time = sum(dataset["data"][0]) / len(dataset["data"][0])
-                dataset["average_lap_time"] = round(average_lap_time, 3)
+                dataset["data"][0] = [round(average_lap_time, 3), round(average_lap_time + 0.5, 3)]
             else:
-                dataset["average_lap_time"] = 0
+                dataset["data"][0] = []
 
-        driver_laptimes["datasets"] = sorted(driver_laptimes["datasets"], key=lambda x: x["average_lap_time"])
+        driver_laptimes["datasets"].sort(key=lambda x: x["data"][0][0] if x["data"][0] else float("inf"))
 
         return driver_laptimes
 
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
-
 
 
 
