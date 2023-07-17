@@ -57,32 +57,53 @@ async def get_driver_laptimes(raceId: int, db: Session = Depends(get_database_se
             .all()
         )
 
-        driver_laptimes = {}
+        driver_laptimes = {
+            "labels": ["1"],
+            "datasets": []
+        }
 
         for lap_time, driver_ref in lap_times_query:
             driver_id = lap_time.driverId
-            if driver_id not in driver_laptimes:
-                driver_laptimes[driver_id] = {
-                    "driverId": driver_id,
-                    "driverRef": driver_ref,
-                    "laps": []
-                }
-
             lap_time_parts = lap_time.time.split(":")
             minutes = int(lap_time_parts[0])
             seconds = float(lap_time_parts[1])
             lap_time_seconds = round((minutes * 60) + seconds, 3)
-            
-            driver_laptimes[driver_id]["laps"].append(lap_time_seconds)
 
-        for driver_data in driver_laptimes.values():
-            driver_data["laps"] = sorted(driver_data["laps"])[:-10]
+            driver_index = None
+            for index, dataset in enumerate(driver_laptimes["datasets"]):
+                if dataset["label"] == driver_ref:
+                    driver_index = index
+                    break
+
+            if driver_index is None:
+                driver_laptimes["datasets"].append({
+                    "label": driver_ref,
+                    "data": [[lap_time_seconds]],
+                    "borderRadius": 20,
+                    "borderSkipped": False,
+                    "borderWidth": 5
+                })
+            else:
+                driver_laptimes["datasets"][driver_index]["data"][0].append(lap_time_seconds)
+
+        driver_laptimes["datasets"] = [dataset for dataset in driver_laptimes["datasets"] if dataset["data"][0]]
+
+        for dataset in driver_laptimes["datasets"]:
+            dataset["data"][0] = sorted(dataset["data"][0])[:-10]
+            if dataset["data"][0]:
+                average_lap_time = sum(dataset["data"][0]) / len(dataset["data"][0])
+                dataset["average_lap_time"] = round(average_lap_time, 3)
+            else:
+                dataset["average_lap_time"] = 0
+
+        driver_laptimes["datasets"] = sorted(driver_laptimes["datasets"], key=lambda x: x["average_lap_time"])
 
         return driver_laptimes
 
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
+
 
 
 
