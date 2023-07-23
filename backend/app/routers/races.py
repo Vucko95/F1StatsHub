@@ -105,86 +105,45 @@ async def get_driver_laptimes(raceId: int, db: Session = Depends(get_database_se
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
 
+@router.get("/race/list/{year}")
+async def get_driver_laptimes(year: int, db: Session = Depends(get_database_session)):
+    try:
+        current_date = datetime.now().date()
+        latest_race = (
+            db.query(Race.date)
+            .filter(Race.year == year, Race.date <= current_date)
+            .order_by(Race.date.desc())
+            .first()
+        )
 
+        latest_race_date = latest_race[0]
 
+        # Query circuits that have a race date earlier than the latest race date
+        circuits = (
+            db.query(Circuit, Race.raceId, Race.date)
+            .join(Race, Circuit.circuitId == Race.circuitId)
+            # .filter(Race.year == year, Race.date <= latest_race_date)
+            .filter(Race.year == year)
+            .all()
+        )
 
+        circuits_list = []
 
-        # raceId
-        # subquery_latest_race = (
-        #     db.query(Race.raceId)
-        #     .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
-        #     .order_by(desc(Race.date))
-        #     .limit(1)
-        #     .subquery()
-        # )
-        # latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
-        # driver_points_query = (
-        #     db.query(
-        #         DriverStanding.driverId,
-        #         func.sum(DriverStanding.points).label("total_points")
-        #     )
-        #     .filter(DriverStanding.raceId == latest_race_id)
-        #     .group_by(DriverStanding.driverId)
-        #     .subquery()
-        # )
+        for circuit, race_id, race_date in circuits:
+            circuits_list.append(
+                {
+                    'circuitId': circuit.circuitId,
+                    'circuitRef': circuit.circuitRef,
+                    'name': circuit.name,
+                    'location': circuit.location,
+                    'country': circuit.country,
+                    'url': circuit.url,
+                    'raceId': race_id,
+                    'date': race_date,
+                }
+            )
 
-        # results_query = (
-        #     db.query(
-        #         Driver,
-        #         driver_points_query.c.total_points,
-        #         Constructor.constructorId,
-        #         Constructor.constructorRef
-        #     )
-        #     .join(driver_points_query, Driver.driverId == driver_points_query.c.driverId)
-        #     .join(Result, Result.driverId == Driver.driverId)
-        #     .join(Constructor, Constructor.constructorId == Result.constructorId)
-        #     .filter(Result.raceId == latest_race_id)
-        #     .order_by(desc(driver_points_query.c.total_points))
-        #     .all()
-        # )
-        # if not results_query:
-        #     latest_race_id = latest_race_id - 1
-        #     driver_points_query = (
-        #         db.query(
-        #             DriverStanding.driverId,
-        #             func.sum(DriverStanding.points).label("total_points")
-        #         )
-        #         .filter(DriverStanding.raceId == latest_race_id)
-        #         .group_by(DriverStanding.driverId)
-        #         .subquery()
-        #     )
-        
-        #     results_query = (
-        #         db.query(
-        #             Driver,
-        #             driver_points_query.c.total_points,
-        #             Constructor.constructorId,
-        #             Constructor.constructorRef
-        #         )
-        #         .join(driver_points_query, Driver.driverId == driver_points_query.c.driverId)
-        #         .join(Result, Result.driverId == Driver.driverId)
-        #         .join(Constructor, Constructor.constructorId == Result.constructorId)
-        #         .filter(Result.raceId == latest_race_id)
-        #         .order_by(desc(driver_points_query.c.total_points))
-        #         .all()
-        #     )
-             
-        # driver_standings = []
-        # for driver, total_points, constructor_id, constructor_ref in results_query:
-        #     driver_standings.append(
-        #         {
-        #             "driver_id": driver.driverId,
-        #             "driver_ref": driver.driverRef,
-        #             "driver_name": f"{driver.forename} {driver.surname}",
-        #             "nationality": driver.nationality,
-        #             "total_points": total_points,
-        #             "constructorId": constructor_id,
-        #             "constructorRef": constructor_ref
-        #         }
-        #     )
-
-        # return driver_standings
-        return 'Joke'
+        return circuits_list
 
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")

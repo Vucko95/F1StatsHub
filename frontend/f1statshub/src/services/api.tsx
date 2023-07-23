@@ -142,6 +142,20 @@ export const fetchDriverStandings = async () => {
       throw error;
     }
   };
+  export const fetchRacesForSelectedYear = async () => {
+    try {
+      const response = await fetch('http://localhost:8888/race/list/2023', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
 
 

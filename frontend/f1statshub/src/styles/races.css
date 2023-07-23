@@ -12,9 +12,12 @@
   }
 .RacesList {
     height: 2.5%;
-    width: 90%;
-    /* border: 1px solid white; */
-    /* gap: 20px; */
+    width: 75%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .RacesList ul {
     list-style: none;
@@ -29,8 +32,9 @@
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background: none;
     color: white;
+    white-space: nowrap;
     border: 2px solid rgb(43, 38, 38);
-    padding: 5px 12.5px;
+    padding: 5px 10px;
     border-radius: 10px;
     font-size:x-large
 }
@@ -111,3 +115,7 @@
     
 }
  
+.past-date {
+    color: rgba(223, 43, 43, 0.758);
+    /* text-decoration: line-through; */
+  }

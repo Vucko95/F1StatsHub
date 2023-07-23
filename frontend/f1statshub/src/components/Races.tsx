@@ -1,10 +1,11 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { Circuit } from '../models/models' 
-import { fetchCircuitsByYear, fetchCircuitWinners, fetchCircuitResults, fetchRacePaceGraph } from "../services/api";
+import { fetchRacesForSelectedYear, fetchCircuitsByYear, fetchCircuitWinners, fetchCircuitResults, fetchRacePaceGraph } from "../services/api";
 import { getCountryCode, getNationalityCode, isDateInPast } from "../constants/CodeUtils";
 import { onMount } from 'solid-js'
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 import 'chartjs-plugin-style';
 
 import { Bar, Line } from 'solid-chartjs'
@@ -13,6 +14,7 @@ import "../styles/races.css";
 const Races: Component = () => {
     const [racePaceGraphData, setRacePaceGraphData] = createSignal([]);
     const [raceResults, setRaceResults] = createSignal([]);
+    const [raceList, setRaceList] = createSignal([]);
 
     onMount(() => {
       Chart.register(Title, Tooltip, Legend, Colors,ChartDataLabels)
@@ -21,7 +23,8 @@ const Races: Component = () => {
       try {
         const winners = await fetchCircuitWinners(3);
         showCircuitResults(winners[0]?.race_id || '');
-
+        const races = await fetchRacesForSelectedYear();
+        setRaceList(races)
       } catch (error) {
         console.error(error);
       }
@@ -520,24 +523,22 @@ const Races: Component = () => {
           },
         ]
       };
-
+      const PrintRaceId = async (race_id: number) => {
+        try {
+          console.log(race_id)
+        } catch (error) {
+          console.error(error);
+        }
+      };
     return (
         <div class="RacesMain">
             <div class="RacesList">
+            {raceList().map((race_info: any) => (
+
               <ul>
-                <li><button>race1 </button></li>
-                <li><button>race2 </button></li>
-                <li><button>race 3</button></li>
-                <li><button>race4 </button></li>
-                <li><button>race 5</button></li>
-                <li><button>race 6</button></li>
-                <li><button>race 7</button></li>
-                <li><button>race 8</button></li>
-                <li><button>race 9</button></li>
-                <li><button>race 10</button></li>
-                <li><button>race 11</button></li>
-                <li><button>race 12</button></li>
+                <li><button onClick={() => PrintRaceId(race_info.raceId)}>{race_info.country}  </button></li>
               </ul>
+            ))}
             </div>
 
             <div class="RaceResultsBox">
