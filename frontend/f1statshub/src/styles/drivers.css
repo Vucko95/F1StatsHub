@@ -20,7 +20,8 @@
 }
 
 .driversTable table  td {
-  border-top: 2px solid white;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;
   padding: 5px;
 
 }
@@ -37,7 +38,8 @@
 .driversTable {
   width: 30%;
   overflow-y: auto;
-  border: 1px solid white;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;
   max-height: 52%;
   height: 550px;
 }
@@ -47,7 +49,8 @@
 .DriversChartBox {
   width: 50%;
   height: 50%;
-  border: 2px solid white;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;
   padding: 20px;   
 }
 
@@ -55,7 +58,8 @@
   
   width: 30%;
   height: 52%;
-  border: 2px solid white;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;
   padding: 20px;  
   margin-top: 5%;
 }
@@ -63,7 +67,7 @@
 .AveragePointsPerRaceForDriver {
   width: 50%;
   height: 42%;
-  border: 2px solid white;
-  padding: 20px;  
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;  padding: 20px;  
   margin-top: 5%;
 }

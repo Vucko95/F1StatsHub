@@ -1,5 +1,6 @@
 .RacesMain { 
     font-size: 30px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 100%;
     height: 150%;
     display: flex;
@@ -9,15 +10,38 @@
     margin-top: 5%;
     gap: 2.5%;
   }
-
-
+.RacesList {
+    height: 2.5%;
+    width: 90%;
+    /* border: 1px solid white; */
+    /* gap: 20px; */
+}
+.RacesList ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+.RacesList  li {
+    display: inline-block;
+    margin-right: 1%;
+} 
+.RacesList li button  {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background: none;
+    color: white;
+    border: 2px solid rgb(43, 38, 38);
+    padding: 5px 12.5px;
+    border-radius: 10px;
+    font-size:x-large
+}
 .RaceResultsBox {
     margin: 10px;
     display: flex;
     justify-content: center;
     width: 30%;
     height: 42.5%;
-    /* border: 2px solid white; */
+    border: 2px solid rgb(43, 38, 38);
+    border-radius: 2.5%;
     padding: 10px;   
 }
 
@@ -26,47 +50,54 @@
     /* max-height: 30%; */
     /* max-width: 32%; */
     height: 52%;
-    border: 2px solid white;
+    border: 2px solid rgb(43, 38, 38);
+    border-radius: 2.5%;
+
     padding: 20px;   
 }
-.QualyQ3GapBox {
-    width: 40%;
-    /* max-height: 50%; */
-    /* max-width: 52%; */
-    height: 52.5%;
-    border: 2px solid white;
-    padding: 20px;   
-}
+
 .QualyResultBox {
     margin: 10px;
     display: flex;
     justify-content: center;
     width: 30%;
     height: 42.5%;
-    border: 2px solid white;
+    border: 2px solid rgb(43, 38, 38);
+    border-radius: 2.5%;
+
     padding: 10px;  
+}
+.QualyQ3GapBox {
+    width: 40%;
+
+    height: 52.5%;
+    border: 2px solid rgb(43, 38, 38);
+    border-radius: 2.5%;
+    padding: 20px;   
 }
 
 
+
 .AverageRaceLapGapToFastest {
-    width: 35%;
+    width: 30%;
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 20px;
     height: 42.5%;
-    border: 2px solid white;
-    padding: 10px;   
+    border: 2px solid rgb(43, 38, 38);
+    border-radius: 2.5%;
+
 }
 
 
 .RaceTeamateGapBasedOnAverageLap {
-    width: 35%;
+    width: 40%;
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 20px;
     height: 42.5%;
-    border: 2px solid white;
-    padding: 10px;   
+    border: 2px solid rgb(43, 38, 38);
+    border-radius: 2.5%;
 }
 
 .RaceResultsBox  table tr td img {

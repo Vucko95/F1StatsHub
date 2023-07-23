@@ -12,46 +12,25 @@ import "../styles/races.css";
 
 const Races: Component = () => {
     const [racePaceGraphData, setRacePaceGraphData] = createSignal([]);
-    const [circuits, setCircuits] = createSignal([]);
-    const [circuitWinners, setCircuitWinners] = createSignal([]);
-    const [circuitResults, setCircuitResults] = createSignal([]);
-    const [circuitLayout, setCircuitLayout] = createSignal('');
-    const [selectedCircuitName, setSelectedCircuitName] = createSignal('');
-    const [selectedCircuitCountry, setSelectedCircuitCountry] = createSignal('');
+    const [raceResults, setRaceResults] = createSignal([]);
 
+    onMount(() => {
+      Chart.register(Title, Tooltip, Legend, Colors,ChartDataLabels)
+                  })
     createEffect(async () => {
       try {
-        const circuitData = await fetchCircuitsByYear();
-        setCircuits(circuitData);
         const winners = await fetchCircuitWinners(3);
-        setCircuitLayout(winners[0]?.circuit_country || '');
-        setCircuitWinners(winners);
-        setSelectedCircuitName(winners[0]?.circuit_name || '');
-        setSelectedCircuitCountry(winners[0]?.circuit_country || '');
         showCircuitResults(winners[0]?.race_id || '');
-
 
       } catch (error) {
         console.error(error);
       }
     });
 
-    const showCircuitDetails = async (circuitId: number) => {
-      try {
-        const winners = await fetchCircuitWinners(circuitId);
-        setCircuitWinners(winners);
-        setCircuitLayout(winners[0]?.circuit_country || '');
-        setSelectedCircuitName(winners[0]?.circuit_name || '');
-        setSelectedCircuitCountry(winners[0]?.circuit_country || '');
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     const showCircuitResults = async (raceId: number) => {
       try {
         const race_results = await fetchCircuitResults(raceId);
-        setCircuitResults(race_results);
+        setRaceResults(race_results);
         console.log(race_results)
       } catch (error) {
         console.error(error);
@@ -68,9 +47,7 @@ const Races: Component = () => {
       });
 
 
-    onMount(() => {
-        Chart.register(Title, Tooltip, Legend, Colors,ChartDataLabels)
-    })
+
     const chartOptions = {
        responsive: true,
         maintainAspectRatio: false,
@@ -79,7 +56,7 @@ const Races: Component = () => {
         scales: {
             y: {
               beginAtZero: false,
-              borderRadius: 0,
+              // borderRadius: 0,
               // min: 72,
               ticks: {
                 color: 'white',
@@ -216,7 +193,7 @@ const Races: Component = () => {
         },
         title: {
           display: true,
-          text: 'Average Lap Gap Time Per Team',
+          text: 'RACE - Average Lap Gap Time Per Team',
           color: 'white',
           font: {
             size: 24,
@@ -224,7 +201,7 @@ const Races: Component = () => {
       },
         datalabels: {
           font: {
-            size: 24,
+            size: 20,
           },
           color: '#FFFFFF'
         },
@@ -272,7 +249,7 @@ const Races: Component = () => {
         },
         title: {
           display: true,
-          text: 'Average Lap Pace Gap to Teamamte',
+          text: 'RACE - Average Lap Pace Gap to Teamamte',
           color: 'white',
           font: {
             size: 24,
@@ -546,7 +523,23 @@ const Races: Component = () => {
 
     return (
         <div class="RacesMain">
-        
+            <div class="RacesList">
+              <ul>
+                <li><button>race1 </button></li>
+                <li><button>race2 </button></li>
+                <li><button>race 3</button></li>
+                <li><button>race4 </button></li>
+                <li><button>race 5</button></li>
+                <li><button>race 6</button></li>
+                <li><button>race 7</button></li>
+                <li><button>race 8</button></li>
+                <li><button>race 9</button></li>
+                <li><button>race 10</button></li>
+                <li><button>race 11</button></li>
+                <li><button>race 12</button></li>
+              </ul>
+            </div>
+
             <div class="RaceResultsBox">
                 <table>
                     <thead>
@@ -558,7 +551,7 @@ const Races: Component = () => {
                         {/* <th></th> */}
                         </tr>
                     </thead>
-                    {circuitResults().slice(0, 10).map((driver_result: any) => (
+                    {raceResults().slice(0, 10).map((driver_result: any) => (
                         <tr>
                             <td>{driver_result.position} </td>
                             <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
@@ -592,7 +585,7 @@ const Races: Component = () => {
                         {/* <th></th> */}
                         </tr>
                     </thead>
-                    {circuitResults().slice(0, 10).map((driver_result: any) => (
+                    {raceResults().slice(0, 10).map((driver_result: any) => (
                         <tr>
                             <td>{driver_result.position} </td>
                             <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
