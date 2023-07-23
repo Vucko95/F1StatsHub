@@ -79,9 +79,9 @@ async def get_driver_laptimes(raceId: int, db: Session = Depends(get_database_se
                 driver_laptimes["datasets"].append({
                     "label": driver_ref,
                     "data": [[lap_time_seconds]],
-                    "borderRadius": 20,
-                    "borderSkipped": False,
-                    "borderWidth": 5
+                    "borderRadius": 0,
+                    "borderWidth": 2
+                    # "borderSkipped": False,
                 })
             else:
                 driver_laptimes["datasets"][driver_index]["data"][0].append(lap_time_seconds)

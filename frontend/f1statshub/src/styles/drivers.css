@@ -1,44 +1,69 @@
-.constructorsMain {
+.DriversMainBox {
     font-size: 1.3vw;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    /* height: 150%;     */
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     /* align-items: center; */
     margin-top: 5%;
+    margin-bottom: 5%;
     gap: 2.5%;
 
   }
 
 
-.driversTable {
-  /* width: 30%; */
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-  max-height: 60%;
-  border: 1px solid white;
-  /* border-radius: 2.5%; */
-  /* padding: 2%; */
-  overflow: auto; 
-  width: 20%;
-}
 
+.driversTable table {
+  overflow-y: auto;
+}
 
 .driversTable table  td {
   border-top: 2px solid white;
-  padding: 10px;
-  border: 2px solid white;
+  padding: 5px;
+
 }
 
 .driversTable img {
   border-radius: 10%;
 }
 
-.Constructors-ChartBox {
+.DriversChartBox {
     width: 60%;
     height: 60%;
     border: 1px solid;
 }
+.driversTable {
+  width: 30%;
+  overflow-y: auto;
+  border: 1px solid white;
+  max-height: 52%;
+  height: 550px;
+}
+.driversTable table {
+  width: 100%;
+}
+.DriversChartBox {
+  width: 50%;
+  height: 50%;
+  border: 2px solid white;
+  padding: 20px;   
+}
 
+.DonutChartBox{
+  
+  width: 30%;
+  height: 52%;
+  border: 2px solid white;
+  padding: 20px;  
+  margin-top: 5%;
+}
 
+.AveragePointsPerRaceForDriver {
+  width: 50%;
+  height: 42%;
+  border: 2px solid white;
+  padding: 20px;  
+  margin-top: 5%;
+}

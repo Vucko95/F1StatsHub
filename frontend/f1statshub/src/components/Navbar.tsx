@@ -22,9 +22,9 @@ interface NavbarProps {
           <li class={activeItem() === "Home" ? "active" : ""}>
             <button onClick={handleItemClick("Home")}>Home</button>
           </li>
-          <li class={activeItem() === "Standings" ? "active" : ""}>
+          {/* <li class={activeItem() === "Standings" ? "active" : ""}>
             <button onClick={handleItemClick("Standings")}>Standings</button>
-          </li>
+          </li> */}
           {/* <li class={activeItem() === "DriverInfo" ? "active" : ""}>
             <button onClick={handleItemClick("DriverInfo")}>DriverInfo</button>
           </li> */}

@@ -1,61 +1,82 @@
 .RacesMain { 
     font-size: 30px;
     width: 100%;
-    height: 100vh;
+    height: 150%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    /* align-items:center; */
+    align-items:center;
     margin-top: 5%;
     gap: 2.5%;
   }
 
 
-
-.RaceResultsBox  table {
-    border: 2px solid white;
-    border-radius: 10px;
+.RaceResultsBox {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    width: 30%;
+    height: 42.5%;
+    /* border: 2px solid white; */
     padding: 10px;   
 }
-.RaceResultsBox {
+
+.RacePaceBox {
+    width: 40%;
+    /* max-height: 30%; */
+    /* max-width: 32%; */
+    height: 52%;
+    border: 2px solid white;
+    padding: 20px;   
+}
+.QualyQ3GapBox {
+    width: 40%;
+    /* max-height: 50%; */
+    /* max-width: 52%; */
+    height: 52.5%;
+    border: 2px solid white;
+    padding: 20px;   
+}
+.QualyResultBox {
+    margin: 10px;
     display: flex;
     justify-content: center;
     width: 30%;
     height: 42.5%;
     border: 2px solid white;
-    padding: 10px;   
-}
-.RacePaceBox {
-    width: 30%;
-    max-height: 30%;
-    max-width: 32%;
-    height: 42.5%;
-    border: 2px solid white;
-    padding: 10px;   
-}
-.RaceVsQualyPlaceBox {
-    width: 30%;
-    height: 42.5%;
-    border: 2px solid white;
-    padding: 10px;   
-}
-.QualyResultBox {
-     width: 30%;
-    height: 42.5%;
-    border: 2px solid white;
     padding: 10px;  
 }
-.QualyPaceLinear {
-    width: 30%;
-    height: 42.5%;
-    border: 2px solid white;
-    padding: 10px;   
-}
-.QualyTeamateGap {
-    width: 30%;
+
+
+.AverageRaceLapGapToFastest {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
     height: 42.5%;
     border: 2px solid white;
     padding: 10px;   
 }
 
 
+.RaceTeamateGapBasedOnAverageLap {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    height: 42.5%;
+    border: 2px solid white;
+    padding: 10px;   
+}
+
+.RaceResultsBox  table tr td img {
+    /* border: 2px solid white; */
+    border-radius: 10%;
+}
+.RaceResultsBox  table tr td,th  {
+    padding: 5px;
+    /* border-radius: 4%; */
+    /* border: 1px solid white; */
+    
+}
+ 

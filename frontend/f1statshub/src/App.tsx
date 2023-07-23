@@ -2,7 +2,7 @@ import  { Component , createSignal,createEffect  } from 'solid-js';
 
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import Standings from './components/Standings';
+// import Standings from './components/Standings';
 // import DriverInfo from './components/DriverInfo';
 import Circuits from './components/Circuits';
 import Constructors from './components/Constructors';
@@ -25,7 +25,7 @@ const App: Component = () => {
         switchComponent={switchComponent} 
       />
       {activeComponent() === 'Home' && <Home />}
-      {activeComponent() === 'Standings' && <Standings />}
+      {/* {activeComponent() === 'Standings' && <Standings />} */}
       {/* {activeComponent() === 'DriverInfo' && <DriverInfo />} */}
       {/* {activeComponent() === 'Circuits' && <Circuits />} */}
       {activeComponent() === 'Circuits' && <Circuits />}
