@@ -57,6 +57,7 @@ const Races: Component = () => {
 
    
         scales: {
+
             y: {
               beginAtZero: false,
               // borderRadius: 0,
@@ -69,10 +70,18 @@ const Races: Component = () => {
           },
           plugins: {
             datalabels: {
+              color: 'white',
+              rotation: -90,
               display: true,
               align: 'end',
-              anchor: 'end',
-              
+              anchor: 'start',
+              formatter: function (value: any, context: any) {
+                // Access the label (driver name) for the current dataset
+                const driverName = context.dataset.label;
+        
+                // Return the label (driver name) to display in the tooltip
+                return driverName;
+              }
             },
             title: {
               display: true,

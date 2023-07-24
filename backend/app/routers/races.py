@@ -80,7 +80,8 @@ async def get_driver_laptimes(raceId: int, db: Session = Depends(get_database_se
                     "label": driver_ref,
                     "data": [[lap_time_seconds]],
                     "borderRadius": 0,
-                    "borderWidth": 2
+                    "borderWidth": 2,
+                    "barPercentage": 1.05
                     # "borderSkipped": False,
                 })
             else:
@@ -98,7 +99,9 @@ async def get_driver_laptimes(raceId: int, db: Session = Depends(get_database_se
                 dataset["data"][0] = []
 
         driver_laptimes["datasets"].sort(key=lambda x: x["data"][0][0] if x["data"][0] else float("inf"))
-
+        # Shorten the driver_ref  before the return
+        for dataset in driver_laptimes["datasets"]:
+            dataset["label"] = dataset["label"][:3]
         return driver_laptimes
 
     except Exception as e:
