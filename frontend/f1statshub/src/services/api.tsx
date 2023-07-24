@@ -156,6 +156,34 @@ export const fetchDriverStandings = async () => {
       throw error;
     }
   };
+  export const fetchDriverStandignsForDonuts = async () => {
+    try {
+      const response = await fetch('http://localhost:8888/drivers/donut/2023', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+  export const fetchDriverStandignsBarGraph = async () => {
+    try {
+      const response = await fetch('http://localhost:8888/drivers/bar/2023', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
 
 
 

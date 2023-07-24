@@ -69,7 +69,9 @@ const Races: Component = () => {
           },
           plugins: {
             datalabels: {
-              display: false
+              display: true,
+              align: 'end',
+              anchor: 'end',
               
             },
             title: {
@@ -203,6 +205,9 @@ const Races: Component = () => {
           },
       },
         datalabels: {
+          align: 'end',
+          anchor: 'end',
+  
           font: {
             size: 20,
           },

@@ -1,11 +1,12 @@
 import { Component, createSignal, createEffect } from "solid-js";
-import { fetchDriversPointsForGraph, fetchDriverStandings } from "../services/api";
+import { fetchDriverStandignsBarGraph,fetchDriversPointsForGraph, fetchDriverStandings, fetchDriverStandignsForDonuts } from "../services/api";
 // import "../styles/right_sidebar.css";
 import "../styles/drivers.css";
 import { Line } from 'solid-chartjs'
 import { Doughnut } from 'solid-chartjs'
 import { Bar } from 'solid-chartjs'
 import "../styles/right_sidebar.css";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 import { getCountryCode, getNationalityCode } from "../constants/CodeUtils";
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
@@ -14,6 +15,8 @@ import { onMount } from 'solid-js'
 const Drivers: Component = () => {
     const [driverGraphData, setDriverGraphData] = createSignal([]);
     const [driverStandings, setDriverStandings] = createSignal([]);
+    const [donutdriverStandings, setDonutDriverStandings] = createSignal([]);
+    const [bardriverStandings, setBarDriverStandings] = createSignal([]);
 
 
 
@@ -23,6 +26,10 @@ const Drivers: Component = () => {
         setDriverStandings(driverStandingsData);
         const driversPointsForGraph = await fetchDriversPointsForGraph();
         setDriverGraphData(driversPointsForGraph);
+        const donutPointsGraph = await fetchDriverStandignsForDonuts();
+        setDonutDriverStandings(donutPointsGraph);
+        const barPointsGraph = await fetchDriverStandignsBarGraph();
+        setBarDriverStandings(barPointsGraph);
           console.log(driverStandingsData)
         } catch (error) {
           console.error(error);
@@ -30,7 +37,7 @@ const Drivers: Component = () => {
       });
 
       onMount(() => {
-        Chart.register(Title, Tooltip, Legend, Colors)
+        Chart.register(Title, Tooltip, Legend, Colors,ChartDataLabels)
     })
 
     const chartOptions = {
@@ -59,23 +66,23 @@ const Drivers: Component = () => {
         
         },
       }
-      const data = {
+      const data2 = {
         labels: [
-          'RedBull',
-          'Mercedes',
-          'Ferrari',
-          'Mclaren'
+          'Max',
+          'Hamilton',
+          'Lando',
+          'Ruseel'
         ],
         datasets: [{
-          label: 'My First Dataset',
           data: [300, 50, 100,150],
-          backgroundColor: [
-            'blue',
-            'teal',
-            'red',
-            'orange',
-          ],
-          hoverOffset: 4
+          // label: 'My First Dataset',
+          // backgroundColor: [
+          //   'blue',
+          //   'teal',
+          //   'red',
+          //   'orange',
+          // ],
+          // hoverOffset: 4
         }]
       };
 
@@ -234,11 +241,11 @@ const Drivers: Component = () => {
             </div>
             <div class="DonutChartBox">
 
-              <Doughnut data={data}  options={chartOptions2}  />
+              <Doughnut data={donutdriverStandings()}  options={chartOptions2}  />
             </div>
             <div class="AveragePointsPerRaceForDriver">
 
-              <Bar data={data5}  options={chartOptions5}  />
+              <Bar data={bardriverStandings()}  options={chartOptions5}  />
             </div>
 
         </div>

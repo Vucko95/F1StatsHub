@@ -143,8 +143,209 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
 
 
 
+@router.get("/drivers/donut/{year}")
+async def driver_standings(year: int, db: Session = Depends(get_database_session)):
+    try:
+        subquery_latest_race = (
+            db.query(Race.raceId)
+            .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
+            .order_by(desc(Race.date))
+            .limit(1)
+            .subquery()
+        )
+        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        driver_points_query = (
+            db.query(
+                DriverStanding.driverId,
+                func.sum(DriverStanding.points).label("total_points")
+            )
+            .filter(DriverStanding.raceId == latest_race_id)
+            .group_by(DriverStanding.driverId)
+            .subquery()
+        )
+
+        results_query = (
+            db.query(
+                Driver,
+                driver_points_query.c.total_points,
+                Constructor.constructorId,
+                Constructor.constructorRef
+            )
+            .join(driver_points_query, Driver.driverId == driver_points_query.c.driverId)
+            .join(Result, Result.driverId == Driver.driverId)
+            .join(Constructor, Constructor.constructorId == Result.constructorId)
+            .filter(Result.raceId == latest_race_id)
+            .order_by(desc(driver_points_query.c.total_points))
+            .all()
+        )
+        if not results_query:
+            latest_race_id = latest_race_id - 1
+            driver_points_query = (
+                db.query(
+                    DriverStanding.driverId,
+                    func.sum(DriverStanding.points).label("total_points")
+                )
+                .filter(DriverStanding.raceId == latest_race_id)
+                .group_by(DriverStanding.driverId)
+                .subquery()
+            )
+        
+            results_query = (
+                db.query(
+                    Driver,
+                    driver_points_query.c.total_points,
+                    Constructor.constructorId,
+                    Constructor.constructorRef
+                )
+                .join(driver_points_query, Driver.driverId == driver_points_query.c.driverId)
+                .join(Result, Result.driverId == Driver.driverId)
+                .join(Constructor, Constructor.constructorId == Result.constructorId)
+                .filter(Result.raceId == latest_race_id)
+                .order_by(desc(driver_points_query.c.total_points))
+                .all()
+            )
+             
+        driver_standings = []
+        for driver, total_points, constructor_id, constructor_ref in results_query:
+            driver_standings.append(
+                {
+                    "driver_ref": driver.driverRef,
+                    "total_points": total_points,
+                }
+            )
+        response = {
+            "labels" : [],
+            "datasets": [{
+                "data": [],
+            }]
+        }
+        for entry in driver_standings:
+            response["labels"].append(entry["driver_ref"])
+            response["datasets"][0]["data"].append(entry["total_points"]) 
+        return response
 
 
+                    # "driver_id": driver.driverId,
+                    # "driver_name": f"{driver.forename} {driver.surname}",
+                    # "constructorId": constructor_id,
+                    # "constructorRef": constructor_ref
+
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}
+
+
+@router.get("/drivers/bar/{year}")
+async def driver_standings(year: int, db: Session = Depends(get_database_session)):
+    try:
+        subquery_latest_race = (
+            db.query(Race.raceId)
+            .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
+            .order_by(desc(Race.date))
+            .limit(1)
+            .subquery()
+        )
+        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        driver_points_query = (
+            db.query(
+                DriverStanding.driverId,
+                func.sum(DriverStanding.points).label("total_points")
+            )
+            .filter(DriverStanding.raceId == latest_race_id)
+            .group_by(DriverStanding.driverId)
+            .subquery()
+        )
+
+        results_query = (
+            db.query(
+                Driver,
+                driver_points_query.c.total_points,
+                Constructor.constructorId,
+                Constructor.constructorRef
+            )
+            .join(driver_points_query, Driver.driverId == driver_points_query.c.driverId)
+            .join(Result, Result.driverId == Driver.driverId)
+            .join(Constructor, Constructor.constructorId == Result.constructorId)
+            .filter(Result.raceId == latest_race_id)
+            .order_by(desc(driver_points_query.c.total_points))
+            .all()
+        )
+        if not results_query:
+            latest_race_id = latest_race_id - 1
+            driver_points_query = (
+                db.query(
+                    DriverStanding.driverId,
+                    func.sum(DriverStanding.points).label("total_points")
+                )
+                .filter(DriverStanding.raceId == latest_race_id)
+                .group_by(DriverStanding.driverId)
+                .subquery()
+            )
+        
+            results_query = (
+                db.query(
+                    Driver,
+                    driver_points_query.c.total_points,
+                    Constructor.constructorId,
+                    Constructor.constructorRef
+                )
+                .join(driver_points_query, Driver.driverId == driver_points_query.c.driverId)
+                .join(Result, Result.driverId == Driver.driverId)
+                .join(Constructor, Constructor.constructorId == Result.constructorId)
+                .filter(Result.raceId == latest_race_id)
+                .order_by(desc(driver_points_query.c.total_points))
+                .all()
+            )
+            races_before_count = (
+            db.query(func.count(Race.raceId))
+            .filter(Race.year == year, Race.date < func.CURRENT_DATE())
+            .scalar()
+        )
+        driver_standings = []
+        for driver, total_points, constructor_id, constructor_ref in results_query:
+            average_points = total_points/races_before_count
+            driver_standings.append(
+                {
+                    "driver_ref": driver.driverRef,
+                    "total_points": average_points,
+                }
+            )
+        top_10_driver_standings = driver_standings[:10]
+
+        response = {
+            "labels" : [],
+            "datasets": [{
+                "data": [],
+        "backgroundColor": [
+                'blue',
+                'blue',
+                'teal',
+                'white',
+                'teal',
+                'grey',
+                'lime',
+                'red',
+                'yellow',
+                'purple',
+                'yellow',
+              ],
+            }]
+        }
+        for entry in top_10_driver_standings:
+            response["labels"].append(entry["driver_ref"])
+            response["datasets"][0]["data"].append(round(entry["total_points"], 1))  # Round to 1 decimal place
+        return response
+
+
+                    # "driver_id": driver.driverId,
+                    # "driver_name": f"{driver.forename} {driver.surname}",
+                    # "constructorId": constructor_id,
+                    # "constructorRef": constructor_ref
+
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}
+    
 @router.get("/year/constructorstandings")
 async def constructor_standings(db: Session = Depends(get_database_session)):
     try:
