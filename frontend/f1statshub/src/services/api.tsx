@@ -60,7 +60,7 @@ export const fetchDriverStandings = async () => {
 
   export const fetchConstructorStandings = async () => {
     try {
-      const response = await fetch('http://localhost:8888/year/constructorstandings', {
+      const response = await fetch('http://localhost:8888/standings/constructors/2023', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
