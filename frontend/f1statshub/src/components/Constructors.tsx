@@ -50,9 +50,9 @@ const Constuctors: Component = () => {
   
 
       return (
-        <div class="constructorsMain" >
+        <div class="constructorsMain" id="style-1" >
 
-            <div class="constructorsTable" >
+            <div class="constructorsTable" id="style-1" >
               <table>
                 <thead>
                   <tr>

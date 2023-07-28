@@ -12,22 +12,21 @@
 
 
 .constructorsTable {
-  /* width: 30%; */
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
-  max-height: 60%;
-  border: 1px solid white;
-  /* border-radius: 2.5%; */
-  /* padding: 2%; */
-  /* overflow: auto;  */
+  width: 30%;
+  overflow-y: auto;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;
+  max-height: 55%;
+  height: 557px;
+}
+.constructorsTable table {
+  width: 100%;
 }
 
-
 .constructorsTable table  td {
-  border-top: 2px solid white;
-  padding: 10px;
-  border: 2px solid white;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;
+  padding: 5px;
 }
 
 .constructorsTable img {
