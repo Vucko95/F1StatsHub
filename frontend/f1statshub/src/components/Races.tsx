@@ -1,54 +1,61 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { Circuit } from '../models/models' 
-import { fetchRacesForSelectedYear, fetchCircuitsByYear, fetchCircuitWinners, fetchCircuitResults, fetchRacePaceGraph } from "../services/api";
+import { fetchRacesForSelectedYear, fetchCircuitsByYear, fetchCircuitWinners, fetchRaceResults, fetchRacePaceGraph } from "../services/api";
 import { getCountryCode, getNationalityCode, isDateInPast } from "../constants/CodeUtils";
 import { onMount } from 'solid-js'
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+
 import 'chartjs-plugin-style';
 
 import { Bar, Line } from 'solid-chartjs'
 import "../styles/races.css";
+import "../styles/base.css";
 
 const Races: Component = () => {
-    const [racePaceGraphData, setRacePaceGraphData] = createSignal([]);
+    const [raceButtons, setRaceButtons] = createSignal([]);
     const [raceResults, setRaceResults] = createSignal([]);
-    const [raceList, setRaceList] = createSignal([]);
+    const [racePaceGraphData, setRacePaceGraphData] = createSignal([]);
 
     onMount(() => {
       Chart.register(Title, Tooltip, Legend, Colors,ChartDataLabels)
                   })
     createEffect(async () => {
       try {
-        const winners = await fetchCircuitWinners(3);
-        showCircuitResults(winners[0]?.race_id || '');
-        const races = await fetchRacesForSelectedYear();
-        setRaceList(races)
+        const race_list = await fetchRacesForSelectedYear();
+        setRaceButtons(race_list)
+//      ADD LOGIC TO FETCH LAST RACE BASED ON DATE
+        const race_results = await fetchRaceResults(1108);
+        setRaceResults(race_results);
+        const racePaceGraphData = await fetchRacePaceGraph(1108);
+        setRacePaceGraphData(racePaceGraphData);
       } catch (error) {
         console.error(error);
       }
     });
 
-    const showCircuitResults = async (raceId: number) => {
+    const fetchSelectedRaceData = async (race_id: number) => {
       try {
-        const race_results = await fetchCircuitResults(raceId);
+        const race_results = await fetchRaceResults(race_id);
         setRaceResults(race_results);
-        console.log(race_results)
+        const racePaceGraphData = await fetchRacePaceGraph(race_id);
+        setRacePaceGraphData(racePaceGraphData);
+      } catch (error) {
+        console.log(error)
+        
+      }
+    }
+
+    const PrintRaceId = async (race_id: number) => {
+      try {
+        console.log(race_id)
+        // MAKE REQUEST TO ALL GRAPHS WITH THAT RACE ID
+        // WHEN CLICKED SEND ON REQUEST TO ALL GRAPHS
       } catch (error) {
         console.error(error);
       }
     };
-
-    createEffect(async () => {
-        try {
-        const racePaceGraphData = await fetchRacePaceGraph();
-        setRacePaceGraphData(racePaceGraphData);
-        } catch (error) {
-          console.error(error);
-        }
-      });
-
 
 
     const chartOptions = {
@@ -537,25 +544,21 @@ const Races: Component = () => {
           },
         ]
       };
-      const PrintRaceId = async (race_id: number) => {
-        try {
-          console.log(race_id)
-        } catch (error) {
-          console.error(error);
-        }
-      };
+
+
     return (
         <div class="RacesMain">
             <div class="RacesList">
-            {raceList().map((race_info: any) => (
+            {raceButtons().map((race_info: any) => (
 
               <ul>
-                <li><button onClick={() => PrintRaceId(race_info.raceId)}>{race_info.country}  </button></li>
+                <li><button onClick={() => fetchSelectedRaceData(race_info.raceId)}>{race_info.country}  </button></li>
               </ul>
             ))}
             </div>
 
             <div class="RaceResultsBox">
+                <div class="baseTable">
                 <table>
                     <thead>
                       <tr>
@@ -567,7 +570,7 @@ const Races: Component = () => {
                         </tr>
                     </thead>
                     {raceResults().slice(0, 10).map((driver_result: any) => (
-                        <tr>
+                      <tr>
                             <td>{driver_result.position} </td>
                             <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
                             <td>{driver_result.driver}</td>
@@ -578,6 +581,7 @@ const Races: Component = () => {
                         </tr>
                     ))}
                 </table>
+                </div>
             </div>
 
 
@@ -590,6 +594,8 @@ const Races: Component = () => {
             </div>
 
             <div class="RaceResultsBox">
+                
+                <div class="baseTable">
                 <table>
                     <thead>
                       <tr>
@@ -612,6 +618,7 @@ const Races: Component = () => {
                         </tr>
                     ))}
                 </table>
+                </div>
             </div>
 
 
