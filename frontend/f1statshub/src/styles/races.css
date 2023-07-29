@@ -1,6 +1,6 @@
 .RacesMain { 
     font-size: 30px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
     width: 100%;
     height: 150%;
     display: flex;
@@ -44,9 +44,9 @@
     justify-content: center;
     width: 30%;
     height: 42.5%;
-    border: 2px solid rgb(43, 38, 38);
+    /* border: 2px solid rgb(43, 38, 38); */
     border-radius: 2.5%;
-    padding: 10px;   
+    /* padding: 10px;    */
 }
 
 .RacePaceBox {
@@ -104,16 +104,7 @@
     border-radius: 2.5%;
 }
 
-.RaceResultsBox  table tr td img {
-    /* border: 2px solid white; */
-    border-radius: 10%;
-}
-.RaceResultsBox  table tr td,th  {
-    padding: 5px;
-    /* border-radius: 4%; */
-    /* border: 1px solid white; */
-    
-}
+
  
 .past-date {
     color: rgba(223, 43, 43, 0.758);

@@ -1,0 +1,22 @@
+.baseTable {
+    /* width: 30%; */
+    font-size: 1.3vw;
+    overflow-y: auto;
+    border: 2px solid rgb(43, 38, 38);
+    border-radius: 2.5%;
+    /* max-height: 52%; */
+    /* height: 550px; */
+  }
+.baseTable table {
+width: 100%;
+overflow-y: auto;
+}
+
+
+
+.baseTable table  td {
+border: 2px solid rgb(43, 38, 38);
+border-radius: 2.5%;
+padding: 5px;
+
+  }
