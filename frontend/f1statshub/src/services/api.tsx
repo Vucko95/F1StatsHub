@@ -170,6 +170,34 @@ export const fetchDriverStandings = async () => {
       throw error;
     }
   };
+  export const fetchConstructorStandignsBarGraph = async () => {
+    try {
+      const response = await fetch('http://localhost:8888/constructors/bar/2023', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+  export const fetchConstructorStandignsForDonuts = async () => {
+    try {
+      const response = await fetch('http://localhost:8888/constructors/donut/2023', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
   export const fetchDriverStandignsBarGraph = async () => {
     try {
       const response = await fetch('http://localhost:8888/drivers/bar/2023', {

@@ -177,6 +177,47 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
+    
+@router.get("/constructors/donut/{year}")
+async def driver_standings(year: int, db: Session = Depends(get_database_session)):
+    try:
+        subquery_latest_race = (
+            db.query(Race.raceId)
+            .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
+            .order_by(desc(Race.date))
+            .limit(1)
+            .subquery()
+        )
+        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1108
+        constructor_standings_query = (db.query(ConstructorStanding,Constructor)
+                                    .join(Constructor, Constructor.constructorId == ConstructorStanding.constructorId)
+                                    .filter(ConstructorStanding.raceId == latest_race_id)
+                                    .all()       ) 
+             
+        constructor_standings = []
+        for constructor_standing, constructor in constructor_standings_query:
+            constructor_standings.append({
+                
+                    "driver_ref": constructor.constructorRef,
+                    "total_points": constructor_standing.points,
+                })
+        response = {
+            "labels" : [],
+            "datasets": [{
+                "data": [],
+            }]}
+        sorted_constructor_standings = sorted(constructor_standings, key=lambda x: x["total_points"], reverse=True)
+
+        top_10_constructor_standings = sorted_constructor_standings[:10]
+        for entry in top_10_constructor_standings:
+            response["labels"].append(entry["driver_ref"])
+            response["datasets"][0]["data"].append(entry["total_points"]) 
+        return response
+
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}
 
 
 @router.get("/drivers/bar/{year}")
@@ -238,17 +279,77 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             response["labels"].append(entry["driver_ref"])
             response["datasets"][0]["data"].append(round(entry["total_points"], 1))  # Round to 1 decimal place
         return response
-
-
-                    # "driver_id": driver.driverId,
-                    # "driver_name": f"{driver.forename} {driver.surname}",
-                    # "constructorId": constructor_id,
-                    # "constructorRef": constructor_ref
-
+    
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
     
+@router.get("/constructors/bar/{year}")
+async def driver_standings(year: int, db: Session = Depends(get_database_session)):
+    try:
+        subquery_latest_race = (
+            db.query(Race.raceId)
+            .filter(Race.year == year, Race.date <= func.CURRENT_DATE())
+            .order_by(desc(Race.date))
+            .limit(1)
+            .subquery()
+        )
+        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1108
+        constructor_standings_query = (db.query(ConstructorStanding,Constructor)
+                                    .join(Constructor, Constructor.constructorId == ConstructorStanding.constructorId)
+                                    .filter(ConstructorStanding.raceId == latest_race_id)
+                                    .all()       ) 
+ 
+        races_before_count = (
+        db.query(func.count(Race.raceId))
+        .filter(Race.year == year, Race.date < func.CURRENT_DATE())
+        .scalar()
+    )
+        constructor_standings = []
+        for constructor_standing, constructor in constructor_standings_query:
+
+            average_points = constructor_standing.points/races_before_count
+            constructor_standings.append(
+                {
+                    "driver_ref": constructor.constructorRef,
+                    "total_points": average_points,
+                }
+            )
+        sorted_constructor_standings = sorted(constructor_standings, key=lambda x: x["total_points"], reverse=True)
+
+        top_10_constructor_standings = sorted_constructor_standings[:10]
+
+        response = {
+            "labels" : [],
+            "datasets": [{
+                "data": [],
+        "backgroundColor": [
+                'blue',
+                'blue',
+                'teal',
+                'white',
+                'teal',
+                'grey',
+                'lime',
+                'red',
+                'yellow',
+                'purple',
+                'yellow',
+              ],
+            }]
+        }
+        for entry in top_10_constructor_standings:
+            response["labels"].append(entry["driver_ref"])
+            response["datasets"][0]["data"].append(round(entry["total_points"], 1))  # Round to 1 decimal place
+        return response
+    
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}
+    
+
+
 @router.get("/year/constructorstandings")
 async def constructor_standings(db: Session = Depends(get_database_session)):
     try:

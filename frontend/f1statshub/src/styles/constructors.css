@@ -1,12 +1,15 @@
 .constructorsMain {
-    font-size: 1.3vw;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    margin-top: 5%;
-    gap: 2.5%;
+  font-size: 1.3vw;
+  width: 100%;
+  height: 100%;
+  /* height: 150%;     */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* align-items: center; */
+  margin-top: 5%;
+  margin-bottom: 5%;
+  gap: 2.5%;
 
   }
 
@@ -34,9 +37,27 @@
 }
 
 .Constructors-ChartBox {
-    width: 60%;
-    height: 60%;
-    border: 1px solid;
+  width: 50%;
+  height: 50%;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;
+  padding: 20px;  
+}
+.DonutChartBox{
+  
+  width: 30%;
+  height: 52%;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;
+  padding: 20px;  
+  margin-top: 5%;
 }
 
+.AveragePointsPerRaceForDriver {
+  width: 50%;
+  height: 42%;
+  border: 2px solid rgb(43, 38, 38);
+  border-radius: 2.5%;  padding: 20px;  
+  margin-top: 5%;
+}
 
