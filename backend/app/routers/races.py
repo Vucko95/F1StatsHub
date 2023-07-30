@@ -152,3 +152,128 @@ async def get_driver_laptimes(year: int, db: Session = Depends(get_database_sess
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
 
+@router.get("/race/results/{race_id}")
+def get_race_results(race_id: int, db: Session = Depends(get_database_session)):
+    try:
+        race_results = (
+            db.query(Result, Driver, Constructor.constructorRef)
+            .join(Driver, Driver.driverId == Result.driverId)
+            .join(Constructor, Constructor.constructorId == Result.constructorId)
+            .filter(Result.raceId == race_id)
+            .all()
+        )
+
+        race_results_list = []
+        for result, driver, constructorRef in race_results:
+            race_results_list.append(
+                {
+                    'race_id': race_id,
+                    'driver': f"{driver.forename} {driver.surname}",
+                    'constructorRef': constructorRef,
+                    'position': result.position,
+                    'points': result.points,
+                    'laps': result.laps,
+                    'time': result.time
+                }
+            )
+
+        return race_results_list
+
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}
+    
+
+@router.get("/qualy/results/{race_id}")
+def get_qualy_results(race_id: int, db: Session = Depends(get_database_session)):
+    try:
+        qualy_results = (
+            db.query(Qualifying, Driver, Constructor.constructorRef)
+            .join(Driver, Driver.driverId == Qualifying.driverId)
+            .join(Constructor, Constructor.constructorId == Qualifying.constructorId)
+            .filter(Qualifying.raceId == race_id)
+            .all()
+        )
+        first_driver_q3_time = None
+        if qualy_results:
+            first_driver_q3_time = qualy_results[0][0].q3
+        qualy_results_list = []
+        for qualy, driver, constructorRef in qualy_results:
+            q3_time = qualy.q3
+            gap = None
+            if first_driver_q3_time and q3_time:
+                first_driver_time = datetime.strptime(first_driver_q3_time, "%M:%S.%f")
+                driver_time = datetime.strptime(q3_time, "%M:%S.%f")
+                time_difference = driver_time - first_driver_time
+                gap = time_difference.total_seconds()
+            qualy_results_list.append(
+                {
+                    'race_id': race_id,
+                    'driver': f"{driver.forename} {driver.surname}",
+                    'constructorRef': constructorRef,
+                    'q3': qualy.q3,
+                    'gap': gap,
+                    'position': qualy.position,
+                    'time': qualy.q3
+                }
+            )
+
+        return qualy_results_list[:10]
+
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}
+    
+@router.get("/qualy/gap/{race_id}")
+def get_qualy_results(race_id: int, db: Session = Depends(get_database_session)):
+    try:
+        qualy_results = (
+            db.query(Qualifying, Driver, Constructor.constructorRef)
+            .join(Driver, Driver.driverId == Qualifying.driverId)
+            .join(Constructor, Constructor.constructorId == Qualifying.constructorId)
+            .filter(Qualifying.raceId == race_id)
+            .limit(10)
+            .all()
+        )
+        first_driver_q3_time = None
+        if qualy_results:
+            first_driver_q3_time = qualy_results[0][0].q3
+        qualy_results_list = []
+        gaps_data = []
+        labels = []
+        for qualy, driver, constructorRef in qualy_results:
+            q3_time = qualy.q3
+            gap = None
+            if first_driver_q3_time and q3_time:
+                first_driver_time = datetime.strptime(first_driver_q3_time, "%M:%S.%f")
+                driver_time = datetime.strptime(q3_time, "%M:%S.%f")
+                time_difference = driver_time - first_driver_time
+                gap = time_difference.total_seconds()
+            qualy_results_list.append(
+                {
+                    'race_id': race_id,
+                    'driver': f"{driver.forename} {driver.surname}",
+                    'constructorRef': constructorRef,
+                    'q3': qualy.q3,
+                    'gap': gap,
+                    'position': qualy.position,
+                }
+            )
+
+            gaps_data.append(gap)
+            labels.append(f"{driver.driverRef}")
+        response = {
+                "labels": labels,
+                "datasets": [
+                    {
+                        "label": "Gaps to First",
+                        "data": gaps_data,
+                    }
+                ]
+            }
+        # return qualy_results_list[:10]
+        return response
+
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}

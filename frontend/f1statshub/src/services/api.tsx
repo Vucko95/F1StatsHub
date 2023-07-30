@@ -248,10 +248,39 @@ export const fetchDriverStandings = async () => {
       throw error;
     }
   }
+  export const fetchQualyResults =async (raceId: number) => {
+
+    try {
+      const response = await fetch(`http://localhost:8888/qualy/results/${raceId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
   export const fetchRacePaceGraph = async (raceId: number) => {
     try {
       const response = await fetch(`http://localhost:8888/race/${raceId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+  export const fetchQualyGapGraph = async (raceId: number) => {
+    try {
+      const response = await fetch(`http://localhost:8888/qualy/gap/${raceId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

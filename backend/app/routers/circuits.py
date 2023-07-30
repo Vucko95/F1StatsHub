@@ -137,33 +137,3 @@ def get_past_winners(circuit_id: int, db: Session = Depends(get_database_session
         return {"error": "An error occurred while processing the request"}
 
 
-@router.get("/race/results/{race_id}")
-def get_race_results(race_id: int, db: Session = Depends(get_database_session)):
-    try:
-        race_results = (
-            db.query(Result, Driver, Constructor.constructorRef)
-            .join(Driver, Driver.driverId == Result.driverId)
-            .join(Constructor, Constructor.constructorId == Result.constructorId)
-            .filter(Result.raceId == race_id)
-            .all()
-        )
-
-        race_results_list = []
-        for result, driver, constructorRef in race_results:
-            race_results_list.append(
-                {
-                    'race_id': race_id,
-                    'driver': f"{driver.forename} {driver.surname}",
-                    'constructorRef': constructorRef,
-                    'position': result.position,
-                    'points': result.points,
-                    'laps': result.laps,
-                    'time': result.time
-                }
-            )
-
-        return race_results_list
-
-    except Exception as e:
-        print(f"An error occurred while processing the request: {str(e)}")
-        return {"error": "An error occurred while processing the request"}

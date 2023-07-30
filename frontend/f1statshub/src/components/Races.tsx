@@ -1,6 +1,6 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { Circuit } from '../models/models' 
-import { fetchRacesForSelectedYear, fetchCircuitsByYear, fetchCircuitWinners, fetchRaceResults, fetchRacePaceGraph } from "../services/api";
+import { fetchRacesForSelectedYear, fetchCircuitsByYear, fetchCircuitWinners, fetchRaceResults, fetchQualyResults, fetchRacePaceGraph, fetchQualyGapGraph } from "../services/api";
 import { getCountryCode, getNationalityCode, isDateInPast } from "../constants/CodeUtils";
 import { onMount } from 'solid-js'
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
@@ -16,7 +16,9 @@ import "../styles/base.css";
 const Races: Component = () => {
     const [raceButtons, setRaceButtons] = createSignal([]);
     const [raceResults, setRaceResults] = createSignal([]);
+    const [qualyResults, setQualyResults] = createSignal([]);
     const [racePaceGraphData, setRacePaceGraphData] = createSignal([]);
+    const [qualyGapGraphData, setQualyGapGraphData] = createSignal([]);
 
     onMount(() => {
       Chart.register(Title, Tooltip, Legend, Colors,ChartDataLabels)
@@ -28,8 +30,12 @@ const Races: Component = () => {
 //      ADD LOGIC TO FETCH LAST RACE BASED ON DATE
         const race_results = await fetchRaceResults(1108);
         setRaceResults(race_results);
+        const qualy_results = await fetchQualyResults(1108);
+        setQualyResults(qualy_results);
         const racePaceGraphData = await fetchRacePaceGraph(1108);
         setRacePaceGraphData(racePaceGraphData);
+        const qualyGapGraphData = await fetchQualyGapGraph(1108);
+        setQualyGapGraphData(qualyGapGraphData);
       } catch (error) {
         console.error(error);
       }
@@ -39,8 +45,12 @@ const Races: Component = () => {
       try {
         const race_results = await fetchRaceResults(race_id);
         setRaceResults(race_results);
+        const qualy_results = await fetchQualyResults(race_id);
+        setQualyResults(qualy_results);
         const racePaceGraphData = await fetchRacePaceGraph(race_id);
         setRacePaceGraphData(racePaceGraphData);
+        const qualyGapGraphData = await fetchQualyGapGraph(race_id);
+        setQualyGapGraphData(qualyGapGraphData);
       } catch (error) {
         console.log(error)
         
@@ -425,39 +435,36 @@ const Races: Component = () => {
     };
   
     const data4 = {
-      labels: ['VER', 'PER', 'HAM', 'RUS', 'NOR', 'PIA', 'ZOU', 'BOT', 'RIC', 'TSU'],
-      datasets: [
+    "labels": [
+        "leclerc",
+        "vettel",
+        "hamilton",
+        "bottas",
+        "max_verstappen",
+        "kevin_magnussen",
+        "sainz",
+        "grosjean",
+        "raikkonen",
+        "norris"
+    ],
+    "datasets": [
         {
-          label: 'Lap Times',
-          data: [
-            0.00, 
-            0.1,
-            0.23,
-            0.255,
-            0.405,
-            0.425,
-            0.505, 
-            0.600, 
-            0.640, 
-            0.710, 
-          ],
-          
-      backgroundColor: [
-        'red',
-        'lime',
-        'teal',
-        'blue',
-        'purple',
-        'orange',
-        'pink',
-        'green',
-        'yellow',
-        'brown',
-      ]
-        },
-      ],
-      
-    };  
+            "label": "Gaps to First",
+            "data": [
+                0.0,
+                0.294,
+                0.324,
+                0.39,
+                0.886,
+                0.891,
+                0.947,
+                1.149,
+                1.156,
+                1.177
+            ]
+        }
+    ]
+}
 
         const data = {
         labels: [1,2],
@@ -601,12 +608,12 @@ const Races: Component = () => {
                       <tr>
                       <th></th>
                         <th colspan="4" >
-                  Race Results
+                  Qualy Results
                         </th>
                         {/* <th></th> */}
                         </tr>
                     </thead>
-                    {raceResults().slice(0, 10).map((driver_result: any) => (
+                    {qualyResults().slice(0, 10).map((driver_result: any) => (
                         <tr>
                             <td>{driver_result.position} </td>
                             <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
@@ -614,6 +621,7 @@ const Races: Component = () => {
                             {/* <td>{driver_result.constructor_ref} </td> */}
                             {/* <td></td> */}
                             <td>{driver_result.time} </td>
+                            <td>{driver_result.gap} </td>
 
                         </tr>
                     ))}
@@ -624,8 +632,8 @@ const Races: Component = () => {
 
             <div class="QualyQ3GapBox">
                 {/* <h1>RaceVsQualyPlaceBox</h1> */}
-                {/* <Line data={data}  options={chartOptions2} /> */}
-                <Bar data={data4}  options={chartOptions4} />
+                {/* <Bar data={data4}  options={chartOptions4} /> */}
+                <Bar data={qualyGapGraphData()}  options={chartOptions4} />
 
             </div>
             {/* NEW ROW */}
