@@ -8,6 +8,7 @@ import { Bar } from 'solid-chartjs'
 import { getCountryCode, getNationalityCode } from "../constants/CodeUtils";
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
 import { onMount } from 'solid-js'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 const Constuctors: Component = () => {
     const [constructorStandings, setConstructorStandings] = createSignal([]);
@@ -36,7 +37,7 @@ const Constuctors: Component = () => {
       });
 
       onMount(() => {
-        Chart.register(Title, Tooltip, Legend, Colors)
+        Chart.register(Title, Tooltip, Legend, Colors,ChartDataLabels)
     })
 
     const chartOptions = {

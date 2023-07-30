@@ -621,7 +621,7 @@ const Races: Component = () => {
                             {/* <td>{driver_result.constructor_ref} </td> */}
                             {/* <td></td> */}
                             <td>{driver_result.time} </td>
-                            <td>{driver_result.gap} </td>
+                            {/* <td>{driver_result.gap} </td> */}
 
                         </tr>
                     ))}

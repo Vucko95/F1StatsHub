@@ -266,7 +266,7 @@ export const fetchDriverStandings = async () => {
 
   export const fetchRacePaceGraph = async (raceId: number) => {
     try {
-      const response = await fetch(`http://localhost:8888/race/${raceId}`, {
+      const response = await fetch(`http://localhost:8888/race/average/${raceId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
