@@ -140,3 +140,31 @@ def date_to_timestamp(date_object):
     timestamp_ms = timestamp * 1000
 
     return timestamp_ms
+
+@router.get("/race/last/api")
+def get_drivers(db: Session = Depends(get_database_session)):
+    try:
+        url = f"http://ergast.com/api/f1/current/last/results.json"
+        response = requests.get(url)
+        data = response.json()
+        next_race_info = []
+        race_data = data['MRData']['RaceTable']['Races'][0]
+        next_race_info.append(
+            {
+                "round": race_data["round"],
+                "circuit_name": race_data['Circuit']['circuitName'],
+                "country": race_data['Circuit']['Location']['country'],
+                "first_place" : race_data['Results'][0]['Driver']['givenName'] + ' ' + race_data['Results'][0]['Driver']['familyName']  ,
+                "second_place" : race_data['Results'][1]['Driver']['givenName'] + ' ' + race_data['Results'][1]['Driver']['familyName']  ,
+                "third_place" : race_data['Results'][2]['Driver']['givenName'] + ' ' + race_data['Results'][2]['Driver']['familyName']  ,
+                "first_place_nat" : race_data['Results'][0]['Driver']['nationality'],
+                "second_place_nat" : race_data['Results'][1]['Driver']['nationality'],
+                "third_place_nat" : race_data['Results'][2]['Driver']['nationality'],
+            }
+        )
+ 
+        return next_race_info
+    
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request" }
