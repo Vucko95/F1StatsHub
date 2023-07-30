@@ -111,3 +111,32 @@ async def last_race(db: Session = Depends(get_database_session)):
         print(f"An error occurred while fetching the last race: {str(e)}")
         return {"error": "Failed to fetch last race data"}
 
+
+@router.get("/race/date")
+async def next_race(db: Session = Depends(get_database_session)):
+    try:
+        next_race_query = db.query(Race).filter(Race.date > datetime.now().date()).order_by(Race.date).all()
+        all__next_races = []
+        for race in next_race_query:
+            all__next_races.append(
+                {
+                "date" : race.date,
+                }
+            )
+        print(all__next_races)
+        for race in all__next_races:
+            race["timestamp"] = date_to_timestamp(race["date"])
+        timestamps_list = [race["timestamp"] for race in all__next_races]
+
+        return timestamps_list
+    
+    except Exception as e:
+        print(f"An error occurred while processing the request: {str(e)}")
+        return {"error": "An error occurred while processing the request"}
+    
+def date_to_timestamp(date_object):
+    timestamp = int(datetime(date_object.year, date_object.month, date_object.day).timestamp())
+
+    timestamp_ms = timestamp * 1000
+
+    return timestamp_ms

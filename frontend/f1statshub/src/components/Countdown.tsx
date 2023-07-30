@@ -3,6 +3,18 @@ import "../styles/right_sidebar.css";
 import "../styles/countdown.css";
 import { createSignal, onCleanup, createEffect } from "solid-js";
 
+const racesLeft = [
+  1693087200000,
+  1693692000000,
+  1694901600000,
+  1695506400000,
+  1696716000000,
+  1697925600000,
+  1698530400000,
+  1699138800000,
+  1700348400000,
+  1700953200000
+]
 
 const Countdown: Component = () => { 
 
@@ -10,31 +22,36 @@ const Countdown: Component = () => {
       const [hours, setHours] = createSignal("00");
       const [minutes, setMinutes] = createSignal("00");
       const [seconds, setSeconds] = createSignal("00");
+
       const calculateTimeLeft = () => {
         const currentDate = new Date().getTime();
-        const nextRaceDate = 1688860800000
-      
-        const timeDifference = nextRaceDate - currentDate;
-        const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-        const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
-      
-        setDays(daysLeft.toString().padStart(1, "0"));
-        setHours(hoursLeft.toString().padStart(2, "0"));
-        setMinutes(minutesLeft.toString().padStart(2, "0"));
-        setSeconds(secondsLeft.toString().padStart(2, "0"));
-    
-        let dd = document.getElementById('dd') as HTMLElement;
-        let hh = document.getElementById('hh') as HTMLElement;
-        let mm = document.getElementById('mm') as HTMLElement;
-        let ss = document.getElementById('ss') as HTMLElement;
-      
-        dd.style.strokeDashoffset = `${440 - (440 * daysLeft) / 365}`;
-        hh.style.strokeDashoffset = `${440 - (440 * hoursLeft) / 24}`;
-        mm.style.strokeDashoffset = `${440 - (440 * minutesLeft) / 60}`;
-        ss.style.strokeDashoffset = `${440 - (440 * secondsLeft) / 60}`;
-      };
+       
+        // const nextRaceDate = 1693087200000
+        const nextRaceDate = racesLeft.find(date => date > currentDate);
+        if (nextRaceDate) {
+
+          const timeDifference = nextRaceDate - currentDate;
+          const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+          const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+          const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
+          
+          setDays(daysLeft.toString().padStart(1, "0"));
+          setHours(hoursLeft.toString().padStart(2, "0"));
+          setMinutes(minutesLeft.toString().padStart(2, "0"));
+          setSeconds(secondsLeft.toString().padStart(2, "0"));
+          
+          let dd = document.getElementById('dd') as HTMLElement;
+          let hh = document.getElementById('hh') as HTMLElement;
+          let mm = document.getElementById('mm') as HTMLElement;
+          let ss = document.getElementById('ss') as HTMLElement;
+          
+          dd.style.strokeDashoffset = `${440 - (440 * daysLeft) / 365}`;
+          hh.style.strokeDashoffset = `${440 - (440 * hoursLeft) / 24}`;
+          mm.style.strokeDashoffset = `${440 - (440 * minutesLeft) / 60}`;
+          ss.style.strokeDashoffset = `${440 - (440 * secondsLeft) / 60}`;
+        }
+        };
 
 
 
