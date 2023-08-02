@@ -70,12 +70,12 @@ const Circuits: Component = () => {
                   {circuits().map((circuitInfo: Circuit) => (
                     <tr>
                     <td><img src={`/countries/${getCountryCode(circuitInfo.country)}.png`}   width="50" height="25" /></td>
-                    <td>{circuitInfo.name}</td>
                     <td class={isDateInPast(circuitInfo.date) ? 'past-date' : ''}>{circuitInfo.date}</td>
-
+                    <td>{circuitInfo.name}</td>
                     <td>
                       <button class="baseBtn" onClick={() => { showCircuitDetails(circuitInfo.circuitId); showCircuitResults(circuitInfo.raceId); }}>Details</button>
                     </td>
+
                   </tr>
                   ))} 
                   </tbody>
