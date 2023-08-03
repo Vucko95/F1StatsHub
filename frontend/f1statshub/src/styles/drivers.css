@@ -10,17 +10,38 @@
     margin-top: 5%;
     margin-bottom: 5%;
     gap: 2.5%;
+    
 
   }
 
 
-
+.driversTable {
+  width: 30%;
+  overflow-y: auto;
+  border: 2px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  background: #24242519;
+  /* background: #24242567;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px; */
+  /* -webkit-box-shadow: inset 0px 0px 37px 0px rgba(138,14,138,1);
+  -moz-box-shadow: inset 0px 0px 37px 0px rgba(138,14,138,1);
+  box-shadow: inset 0px 0px 37px 0px rgba(138,14,138,1); */
+  
+  border-radius: 2.5%;
+  max-height: 52%;
+  height: 550px;
+}
+.driversTable table {
+  width: 100%;
+}
 .driversTable table {
   overflow-y: auto;
+  
 }
 
 .driversTable table  td {
-  border: 2px solid rgb(43, 38, 38);
+  border: 2px solid rgba(254, 254, 254, 0.097);  
   border-radius: 2.5%;
   padding: 5px;
 
@@ -35,21 +56,16 @@
     height: 60%;
     border: 1px solid;
 }
-.driversTable {
-  width: 30%;
-  overflow-y: auto;
-  border: 2px solid rgb(43, 38, 38);
-  border-radius: 2.5%;
-  max-height: 52%;
-  height: 550px;
-}
-.driversTable table {
-  width: 100%;
-}
+
 .DriversChartBox {
   width: 50%;
   height: 50%;
-  border: 2px solid rgb(43, 38, 38);
+  background: #24242567;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  /* -webkit-box-shadow: 0px 0px 27px 0px rgba(138,14,138,1);
+  -moz-box-shadow: 0px 0px 27px 0px rgba(138,14,138,1);
+  box-shadow: 0px 0px 27px 0px rgba(138,14,138,1); */
   border-radius: 2.5%;
   padding: 20px;   
 }
@@ -58,7 +74,12 @@
   
   width: 30%;
   height: 52%;
-  border: 2px solid rgb(43, 38, 38);
+  /* -webkit-box-shadow: 0px 0px 27px 0px rgba(138,14,138,1);
+  -moz-box-shadow: 0px 0px 27px 0px rgba(138,14,138,1);
+  box-shadow: 0px 0px 27px 0px rgba(138,14,138,1); */
+  background: #24242567;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
   border-radius: 2.5%;
   padding: 20px;  
   margin-top: 5%;
@@ -67,7 +88,12 @@
 .AveragePointsPerRaceForDriver {
   width: 50%;
   height: 42%;
-  border: 2px solid rgb(43, 38, 38);
+  /* -webkit-box-shadow: 0px 0px 27px 0px rgba(138,14,138,1);
+  -moz-box-shadow: 0px 0px 27px 0px rgba(138,14,138,1);
+  box-shadow: 0px 0px 27px 0px rgba(138,14,138,1); */
+  background: #24242567;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
   border-radius: 2.5%;  padding: 20px;  
   margin-top: 5%;
 }

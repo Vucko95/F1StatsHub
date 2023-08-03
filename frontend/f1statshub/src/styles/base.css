@@ -2,20 +2,23 @@
     /* width: 30%; */
     font-size: 1.3vw;
     overflow-y: auto;
-    border: 2px solid rgb(43, 38, 38);
-    border-radius: 2.5%;
+    border: 2px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    background: #24242519;
+
     /* max-height: 52%; */
     /* height: 550px; */
   }
 .baseTable table {
 width: 100%;
+/* width: 100px; */
 overflow-y: auto;
 }
 
 
 
 .baseTable table  td {
-border: 2px solid rgb(43, 38, 38);
+border: 2px solid rgba(254, 254, 254, 0.097);  
 border-radius: 2.5%;
 padding: 5px;
 

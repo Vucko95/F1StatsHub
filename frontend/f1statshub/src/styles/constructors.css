@@ -17,17 +17,21 @@
 .constructorsTable {
   width: 30%;
   overflow-y: auto;
-  border: 2px solid rgb(43, 38, 38);
-  border-radius: 2.5%;
+  /* border: 2px solid rgb(43, 38, 38); */
+  /* border-radius: 2.5%; */
   max-height: 55%;
   height: 557px;
+  border: 2px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  background: #24242519;
 }
 .constructorsTable table {
   width: 100%;
+  
 }
 
 .constructorsTable table  td {
-  border: 2px solid rgb(43, 38, 38);
+  border: 2px solid rgba(254, 254, 254, 0.097);  
   border-radius: 2.5%;
   padding: 5px;
 }
@@ -39,8 +43,11 @@
 .Constructors-ChartBox {
   width: 50%;
   height: 50%;
-  border: 2px solid rgb(43, 38, 38);
-  border-radius: 2.5%;
+  background: #24242567;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  /* border: 2px solid rgb(43, 38, 38); */
+  /* border-radius: 2.5%; */
   padding: 20px;  
 }
 .DonutChartBox{

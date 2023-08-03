@@ -63,10 +63,10 @@ const Countdown: Component = () => {
     return  (
         <div id="countdown">
         <div class="circle" style="--clr: #ffffff;">
-          <svg>
-            <circle cx="70" cy="70" r="70"></circle>
-            <circle cx="70" cy="70" r="70" id="dd"></circle>
-          </svg>
+        <svg >
+          <circle cx="70" cy="70" r="70"></circle>
+          <circle cx="70" cy="70" r="70" id="dd"></circle>
+        </svg>
           <div >{days()}<br /><span>Days</span></div>
         </div>
         <div class="circle" style="--clr: #60ff21;">

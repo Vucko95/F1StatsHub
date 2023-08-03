@@ -348,16 +348,16 @@ const Races: Component = () => {
         {
           label: 'Lap Times',
           data: [
-            0.230, // Verstappen
-            0.255, // Hamilton
-            0.405, // Norris
-            0.505, // Leclerc
-            0.610, // Ricciardo
-            0.735, // Sainz
-            1.255, // Perez
-            1.277, // Gasly
-            1.900, // Ocon
-            2.105, // Vettel
+            0.230, 
+            0.255, 
+            0.405,
+            0.505, 
+            0.610, 
+            0.735,
+            1.255, 
+            1.277, 
+            1.900,
+            2.105, 
           ],
           
       backgroundColor: [
@@ -397,7 +397,13 @@ const Races: Component = () => {
           font: {
             size: 24,
           },
-          color: '#FFFFFF'
+          color: '#FFFFFF',
+          formatter: (value:any, context:any) => {
+            if (context.dataIndex === 0) {
+              return '';
+            }
+            return value;
+          },
         },
       },
       scales: {
@@ -407,7 +413,11 @@ const Races: Component = () => {
             display: false,
             text: 'Lap Time (seconds)',
           },
+          
           ticks: {
+            font: {
+              size: 24,
+            },
             beginAtZero: true,
             autoSkip: false,
             color: 'white', 
@@ -423,7 +433,9 @@ const Races: Component = () => {
           ticks: {
             reverse: true,
             color: 'white', 
-
+            font: {
+              size: 24,
+            },
           },
         },
         
@@ -636,18 +648,14 @@ const Races: Component = () => {
                 <Bar data={qualyGapGraphData()}  options={chartOptions4} />
 
             </div>
-            {/* NEW ROW */}
-            <div class="AverageRaceLapGapToFastest">
+
+            {/* <div class="AverageRaceLapGapToFastest">
                 <Bar data={data5}  options={chartOptions5}  />
-                {/* <h1>QualyResultBox</h1> */}
             </div>
             <div class="RaceTeamateGapBasedOnAverageLap">
                 <Bar data={data6}  options={chartOptions6} />
-                {/* <h1>QualyPaceLinear</h1> */}
-            </div>
-            {/* <div class="QualyTeamateGap">
-                <h1>QualyTeamateGap</h1>
             </div> */}
+
 
         </div>
 

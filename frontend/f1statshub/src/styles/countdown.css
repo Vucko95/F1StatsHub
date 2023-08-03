@@ -6,6 +6,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* position: relative; */
+
     flex-wrap: wrap;
     gap: 2.5em;
     -webkit-backdrop-filter: blur(3px);
@@ -14,18 +16,25 @@
   
   #countdown .circle {
     position: relative;
-    width: 150px;
-    height: 150px;
+    
+    /* width: 150px; */
+    height: 250px; 
+    width: 12.5%; 
+    /* height: 0; */
+
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
   #countdown .circle svg {
-    position: relative;
+    /* position: relative; */
+    position: absolute;
+
     width: 150px;
     height: 150px;
     transform: rotate(270deg);
+
   }
   
   #countdown .circle svg circle {

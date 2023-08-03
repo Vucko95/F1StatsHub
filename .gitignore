@@ -1,4 +1,5 @@
 *.vscode
 *F1_environment/
+f1statshub/*
 *__pycache__
 *.sql*

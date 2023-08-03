@@ -10,19 +10,19 @@ const Circuits: Component = () => {
     const [circuits, setCircuits] = createSignal([]);
     const [circuitWinners, setCircuitWinners] = createSignal([]);
     const [circuitResults, setCircuitResults] = createSignal([]);
-    const [circuitLayout, setCircuitLayout] = createSignal('');
-    const [selectedCircuitName, setSelectedCircuitName] = createSignal('');
-    const [selectedCircuitCountry, setSelectedCircuitCountry] = createSignal('');
+    // const [circuitLayout, setCircuitLayout] = createSignal('');
+    // const [selectedCircuitName, setSelectedCircuitName] = createSignal('');
+    // const [selectedCircuitCountry, setSelectedCircuitCountry] = createSignal('');
 
     createEffect(async () => {
       try {
         const circuitData = await fetchCircuitsByYear();
         setCircuits(circuitData);
         const winners = await fetchCircuitWinners(3);
-        setCircuitLayout(winners[0]?.circuit_country || '');
+        // setCircuitLayout(winners[0]?.circuit_country || '');
         setCircuitWinners(winners);
-        setSelectedCircuitName(winners[0]?.circuit_name || '');
-        setSelectedCircuitCountry(winners[0]?.circuit_country || '');
+        // setSelectedCircuitName(winners[0]?.circuit_name || '');
+        // setSelectedCircuitCountry(winners[0]?.circuit_country || '');
         showCircuitResults(winners[0]?.race_id || '');
 
 
@@ -35,9 +35,9 @@ const Circuits: Component = () => {
       try {
         const winners = await fetchCircuitWinners(circuitId);
         setCircuitWinners(winners);
-        setCircuitLayout(winners[0]?.circuit_country || '');
-        setSelectedCircuitName(winners[0]?.circuit_name || '');
-        setSelectedCircuitCountry(winners[0]?.circuit_country || '');
+        // setCircuitLayout(winners[0]?.circuit_country || '');
+        // setSelectedCircuitName(winners[0]?.circuit_name || '');
+        // setSelectedCircuitCountry(winners[0]?.circuit_country || '');
       } catch (error) {
         console.error(error);
       }

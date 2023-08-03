@@ -43,7 +43,7 @@ const Home: Component = () => {
       
 
         <div class="countDownBox">
-        {nextRace() && (<h1>{nextRace()?.raceName}</h1> )}
+        {/* {nextRace() && (<h2>{nextRace()?.raceName}</h2> )} */}
           <Countdown/>
         </div>
       

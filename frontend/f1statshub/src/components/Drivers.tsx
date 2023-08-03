@@ -57,8 +57,7 @@ const Drivers: Component = () => {
             }},
           tooltip: {
             bodyFont: {
-              size: 14,
-              color: '#FFFFFF', 
+              size: 14, 
             },
           },
         },
@@ -114,7 +113,7 @@ const Drivers: Component = () => {
             tooltip: {
               bodyFont: {
                 size: 14,
-                color: '#FFFFFF', // Set the tooltip text color to white
+                color: '#FFFFFF', 
               },
             },
           },
