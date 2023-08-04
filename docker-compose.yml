@@ -1,6 +1,17 @@
 version: "3.9"
 
 services:
+  frontend:
+    image: my-frontend
+    ports:
+      - "80:80"
+
+  backend:
+    image: my-backend
+    ports:
+      - "8888:8888"
+    environment:
+      - RUN_MODE=container
   mysql:
     image: mysql:latest
     environment:
