@@ -1,24 +1,17 @@
 
-  /* navbar.css */
-
 .navbar {
-  /* background-color: #333; */
-  /* color: #fff; */
+
   display: flex;
   justify-content: center;
-  /* align-items: center; */
   width: 98%;
   padding: 15px;
   position: absolute;
-  /* left: 35%; */
 }
 
 .navbar-menu {
   list-style: none;
   display: flex;
-  /* justify-content: space-around; */
-  /* align-items: center; */
-  /* padding: 0; */
+
   margin: 0;
 }
 
@@ -33,13 +26,15 @@
   border: 0;
   cursor: pointer;
   font-family: monospace;
-  font-size: 40px;
+  font-size: 1.6rem;
   padding: 10px;
+  color: grey;
 }
+
 
 .navbar-menu li button:hover {
   /* text-decoration: underline; */
-  color: red;
+  color: white;
 
 }
 

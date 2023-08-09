@@ -1,24 +1,24 @@
 version: "3.9"
 
 services:
-  frontend:
-    image: my-frontend
-    ports:
-      - "80:80"
+  # frontend:
+  #   image: my-frontend
+  #   ports:
+  #     - "80:80"
 
-  backend:
-    image: my-backend
-    ports:
-      - "8888:8888"
-    environment:
-      - RUN_MODE=container
+  # backend:
+  #   image: my-backend
+  #   ports:
+  #     - "8888:8888"
+  #   environment:
+  #     - RUN_MODE=container
   mysql:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: f1db
     volumes:
-      - ./f1db.sql:/docker-entrypoint-initdb.d/f1db.sql
+      - ./f1db2.sql:/docker-entrypoint-initdb.d/f1db.sql
     ports:
       - "3306:3306"
 

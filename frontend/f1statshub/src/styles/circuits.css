@@ -1,6 +1,7 @@
 .circuit_info_box{ 
-    font-size: 2.2rem;
-    width: 100%;
+    font-size: 2rem;
+    width: 90%;
+    margin-left: 5%;
     
     height: 100vh;
     /* font: 20px; */
@@ -8,7 +9,7 @@
     justify-content: center;
     /* align-items:center; */
     margin-top: 5%;
-    margin-left: 5%;
+
     gap: 2.5%;
   }
   
