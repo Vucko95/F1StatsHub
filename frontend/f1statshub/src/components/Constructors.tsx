@@ -1,11 +1,10 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { fetchConstructorsGraph, fetchConstructorStandings, fetchConstructorStandignsBarGraph,fetchConstructorStandignsForDonuts  } from "../services/api";
-// import "../styles/right_sidebar.css";
 import "../styles/constructors.css";
 import { Line } from 'solid-chartjs'
 import { Doughnut } from 'solid-chartjs'
 import { Bar } from 'solid-chartjs'
-import { getCountryCode, getNationalityCode } from "../constants/CodeUtils";
+import { chartOptions,chartOptions5, chartOptions2 } from "../constants/ConstructorCharts"
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
 import { onMount } from 'solid-js'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -40,112 +39,6 @@ const Constuctors: Component = () => {
         Chart.register(Title, Tooltip, Legend, Colors,ChartDataLabels)
     })
 
-    const chartOptions = {
-      responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-
-          tooltip: {
-            bodyFont: {
-              size: 14,
-              color: '#FFFFFF', // Set the tooltip text color to white
-            },
-          },
-        },
-        scales: {
-        
-        },
-      }
-  
-
-      const chartOptions2 = {
-        responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'right',
-              labels: {
-                color: 'white', 
-                // padding: 10,
-    
-              }},
-              datalabels: {
-                font: {
-                  size: 24,
-                },
-                color: '#FFFFFF'
-              },
-              title: {
-                display: true,
-                text: 'Constructor Points',
-                color: 'white',
-                font: {
-                  size: 24,
-                }},
-  
-            tooltip: {
-              bodyFont: {
-                size: 14,
-                color: '#FFFFFF', // Set the tooltip text color to white
-              },
-            },
-          },
-          scales: {
-          
-          },
-        }
-        const chartOptions5 = {
-          responsive: true,
-          maintainAspectRatio: false,
-    
-          plugins: {
-            legend: 
-            {
-              display:false
-            },
-            title: {
-              display: true,
-              text: 'Average Team Points Per Race',
-              color: 'white',
-              font: {
-                size: 24,
-              },
-          },
-            datalabels: {
-              font: {
-                size: 24,
-              },
-              color: '#FFFFFF'
-            },
-          },
-          scales: {
-            x: {
-              display: true,
-              ticks : {
-                color: 'white', 
-                font: {
-                  size: 13,
-                },
-              }
-              
-            },
-            y: {
-              display: true,
-              ticks: {
-                color: 'white', 
-                // reverse: true,
-                font: {
-                  size: 18,
-                },
-              },
-            },
-          },
-          elements: {
-            bar: {
-              borderRadius: 10, 
-              // borderWidth: 5, 
-            }}
-        };
       return (
         <div class="constructorsMain" id="style-1" >
 
