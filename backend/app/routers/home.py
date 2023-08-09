@@ -15,9 +15,6 @@ router = APIRouter()
 
 
 
-    
-
-
 @router.get("/race/next")
 async def next_race(db: Session = Depends(get_database_session)):
     try:
@@ -41,9 +38,11 @@ async def next_race(db: Session = Depends(get_database_session)):
             "time": next_race_query.time,
             "startFP1": next_race_query.fp1_time,
             "startFP2": next_race_query.fp2_time,
-            "startQualy": next_race_query.quali_time,
+            "startQualy": next_race_query.quali_time.strftime('%H:%M'),
             "startSprint": next_race_query.sprint_time,
-            "startRace": next_race_query.time,
+            # "startRace": next_race_query.time,
+            "startRace": next_race_query.time.strftime('%H:%M'),
+
         }
 
         return next_race
