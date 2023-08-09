@@ -23,7 +23,6 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .subquery()
         )
         latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
-        latest_race_id = 1108
         driver_standings_query = (db.query(DriverStanding, Result, Constructor, Driver)
                                     .join(Result, and_(DriverStanding.driverId == Result.driverId,
                                                     DriverStanding.raceId == Result.raceId))
@@ -48,7 +47,9 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
                     "constructorRef": constructor.constructorRef
                 }
             )
-        return driver_standings
+        sorted_standings = sorted(driver_standings, key=lambda x: x["total_points"], reverse=True)
+
+        return sorted_standings
 
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
@@ -69,7 +70,6 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .subquery()
         )
         latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
-        latest_race_id = 1108
         driver_standings_query = (db.query(DriverStanding, Driver)
                                     .join(Driver, Driver.driverId == DriverStanding.driverId)
                                     .filter(DriverStanding.raceId == latest_race_id)
@@ -113,7 +113,6 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .subquery()
         )
         latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
-        latest_race_id = 1108
         driver_standings_query = (db.query(DriverStanding, Driver)
                                     .join(Driver, Driver.driverId == DriverStanding.driverId)
                                     .filter(DriverStanding.raceId == latest_race_id)
@@ -182,6 +181,7 @@ async def get_driver_points_by_race(year: int, db: Session = Depends(get_databas
         driver_results = {}
         for race_id in all_past_races_ids:
             results = db.query(Result.driverId, Result.points).filter(Result.raceId == race_id).all()
+            
 
             for result in results:
                 driver_id = result.driverId

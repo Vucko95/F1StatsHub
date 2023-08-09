@@ -187,7 +187,7 @@ type Timezone = {
 </div>
 
 <h3>Qualy time {nextRace()?.startQualy}</h3>
-<h3>Race time{nextRace()?.startQualy}</h3>
+<h3>Race time {nextRace()?.startQualy}</h3>
 
 
     </div>

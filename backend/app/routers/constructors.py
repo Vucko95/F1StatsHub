@@ -21,7 +21,6 @@ async def constructor_standings(year: int, db: Session = Depends(get_database_se
             .subquery()
         )
         latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
-        latest_race_id = 1108
         constructor_standings_query = (db.query(ConstructorStanding,Constructor)
                                     .join(Constructor, Constructor.constructorId == ConstructorStanding.constructorId)
                                     .filter(ConstructorStanding.raceId == latest_race_id)
@@ -39,7 +38,9 @@ async def constructor_standings(year: int, db: Session = Depends(get_database_se
                     "total_points" : constructor_standing.points
                 }
             )
-        return constructor_standings
+        sorted_standings = sorted(constructor_standings, key=lambda x: x["total_points"], reverse=True)
+
+        return sorted_standings
 
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
@@ -57,7 +58,6 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .subquery()
         )
         latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
-        latest_race_id = 1108
         constructor_standings_query = (db.query(ConstructorStanding,Constructor)
                                     .join(Constructor, Constructor.constructorId == ConstructorStanding.constructorId)
                                     .filter(ConstructorStanding.raceId == latest_race_id)
@@ -100,7 +100,6 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .subquery()
         )
         latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
-        latest_race_id = 1108
         constructor_standings_query = (db.query(ConstructorStanding,Constructor)
                                     .join(Constructor, Constructor.constructorId == ConstructorStanding.constructorId)
                                     .filter(ConstructorStanding.raceId == latest_race_id)
