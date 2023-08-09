@@ -59,3 +59,8 @@ export interface Circuit {
     driver_ref: string;
     points: number[];
   }
+
+export type Timezone = {
+  display: string;
+  value: string;
+};
