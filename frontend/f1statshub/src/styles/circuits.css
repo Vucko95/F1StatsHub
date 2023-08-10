@@ -1,5 +1,33 @@
-@media (min-width: 768px) {
-.circuit_info_box{ 
+@media (max-width: 768px) {
+
+  .CircuitsMainBox {
+    /* font-size: 5vw;  */
+    display: flex;
+    flex-direction: column;
+    width: 100%;  
+  }
+
+  .baseBtn {
+    background-color: transparent;
+    background: #24242567;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 10px;
+    padding:4px 10px;
+  }
+  .circuit_results {
+    width: 100%;
+    margin-left: 5%;
+  }
+
+
+}
+  @media (min-width: 768px) {
+.CircuitsMainBox{ 
     font-size: 2rem;
     width: 90%;
     margin-left: 5%;
@@ -24,7 +52,7 @@
     border-radius: 24px;
   }
   
-  .circuit_info_box table {
+  .CircuitsMainBox table {
     border-radius: 10px;
     padding: 10px;   
     background: #24242567;
@@ -32,7 +60,7 @@
     border-radius: 24px;
 
   }
-  .circuit_info_box table td {
+  .CircuitsMainBox table td {
     padding-left: 25px;
   }
   .winners_table td {
@@ -59,7 +87,7 @@
     padding:4px 10px;
   }
 
-.circuit_info_box img {
+.CircuitsMainBox img {
   border-radius: 5px;
 }
 .past-date {

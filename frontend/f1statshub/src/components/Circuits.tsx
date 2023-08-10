@@ -60,7 +60,7 @@ const Circuits: Component = () => {
       
     
     return (
-        <div class="circuit_info_box">
+        <div class="CircuitsMainBox">
         
           <div class="circuitsListBox">
               <table>
