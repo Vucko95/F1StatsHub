@@ -95,7 +95,7 @@ const handleTimezoneChange = (event: Event) => {
       <div class="past_nextRaceBox" >              
             {lastRaceData().map((last_race_details: any) => (
                       <div class="lastRaceDetailsBox">
-                        <h2> Previous Race Stats  {last_race_details.position}
+                        <h2> Previous Race Stats{last_race_details.position}
                         <img src={`/countries/${getCountryCode(last_race_details.country)}.png`}width="50"height="25"style="border-radius: 10%;"/>
                         </h2>
                         <h3>{last_race_details.circuit_name}</h3>
@@ -135,7 +135,7 @@ const handleTimezoneChange = (event: Event) => {
   {nextRace() && (
     <div>
       <h2>{nextRace()?.raceName}     
-      <img src={`/countries/${getCountryCode(nextRace()?.country)}.png`}width="50"height="25"style="border-radius: 10%;"/>
+      <img class="country-flag" src={`/countries/${getCountryCode(nextRace()?.country)}.png`}width="50"height="25"style="border-radius: 10%;"/>
 
       </h2>
       {/* <h3>{nextRace()?.raceName}</h3> */}

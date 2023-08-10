@@ -1,3 +1,59 @@
+/* MOBILE */
+@media (max-width: 762px) {
+.countDownBox {
+  display: none;
+}
+.mainDashboardBox {
+    font-size:1.1rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column ;
+  }
+  .past_nextRaceBox {
+    display: flex;
+    font-style: italic;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 2.5%;
+    color: #a9a9a9;
+  }
+  .past_nextRaceBox h3 {
+    text-align: center;
+  }
+  .lastRaceDetailsBox h2 {
+    margin: 0;
+  }
+
+  .lastRaceDetailsBox table td {
+    padding: 5px;
+  }
+  
+  .lastRaceDetailsBox table {
+    width: 100%;
+  }
+
+  .dropdown select {
+    background: #000000;
+    border: 1px solid rgba(255,255,255,.08);
+    color: white;
+    padding:  10px 16px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-family: monospace;
+  }
+  
+  .dropdown {
+    display: inline-block;
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 762px) {
 .mainDashboardBox {
   font-size:1.8rem;
     width: 100%;
@@ -5,9 +61,9 @@
     display: flex;
     align-items: center;
     flex-direction: column ;
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: aliceblue;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: aliceblue;
   }
 
 
@@ -108,6 +164,57 @@
 
 
 
+
+#style-1::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgb(0, 0, 0);
+  border-radius: 10%;
+  background-color: #000000;
+}
+
+#style-1::-webkit-scrollbar
+{
+  border-radius: 15px;
+  
+  width: 12px;
+  background-color: #030202;
+  
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color:rgba(251, 253, 253, 0.116);
+}
+#style-1 {
+  /* overflow: hidden; */
+  scrollbar-color: rgba(74, 80, 80, 0.411) #030202;
+  scrollbar-width: thin;
+}
+
+
+.dropdown select {
+  background: #000000;
+  border: 1px solid rgba(255,255,255,.08);
+  color: white;
+  padding:  10px 16px;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-family: monospace;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+}
+
+
 .button-85 {
   display: flex;
   align-items: center;
@@ -176,54 +283,7 @@
   border-radius: 10px;
 }
 
-.button-85 img {
-  margin-bottom: 15px;
-}
 
-#style-1::-webkit-scrollbar-track
-{
-  -webkit-box-shadow: inset 0 0 6px rgb(0, 0, 0);
-  border-radius: 10%;
-  background-color: #000000;
+.country-flag {
+  margin-left: 20px;
 }
-
-#style-1::-webkit-scrollbar
-{
-  border-radius: 15px;
-  
-  width: 12px;
-  background-color: #030202;
-  
-}
-
-#style-1::-webkit-scrollbar-thumb
-{
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-  background-color:rgba(251, 253, 253, 0.116);
-}
-#style-1 {
-  /* overflow: hidden; */
-  scrollbar-color: rgba(74, 80, 80, 0.411) #030202;
-  scrollbar-width: thin;
-}
-
-
-.dropdown select {
-  background: #000000;
-  border: 1px solid rgba(255,255,255,.08);
-  color: white;
-  padding:  10px 16px;
-  font-size: 1.5rem;
-  border-radius: 10px;
-  cursor: pointer;
-  appearance: none; 
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  font-family: monospace;
-}
-
-.dropdown {
-  display: inline-block;
-}
-
