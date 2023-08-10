@@ -1,16 +1,11 @@
 import { Component, createSignal, createEffect } from "solid-js";
-import { Circuit } from '../models/models' 
-import { fetchRacesForSelectedYear, fetchCircuitsByYear, fetchCircuitWinners, fetchRaceResults, fetchQualyResults, fetchRacePaceGraph, fetchQualyGapGraph } from "../services/api";
-import { getCountryCode, getNationalityCode, isDateInPast } from "../constants/CodeUtils";
+import { fetchRacesForSelectedYear, fetchRaceResults, fetchQualyResults, fetchRacePaceGraph, fetchQualyGapGraph } from "../services/api";
 import { onMount } from 'solid-js'
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { chartOptions,chartOptions4 } from "../constants/RacesCharts"
-
-
 import 'chartjs-plugin-style';
-
-import { Bar, Line } from 'solid-chartjs'
+import { Bar } from 'solid-chartjs'
 import "../styles/races.css";
 import "../styles/base.css";
 
@@ -58,100 +53,74 @@ const Races: Component = () => {
       }
     }
 
-
-
-
     return (
-        <div class="RacesMain">
-            <div class="RacesList">
-            {raceButtons().map((race_info: any) => (
+        <div class="RacesMainBox">
 
-              <ul>
-                <li><button onClick={() => fetchSelectedRaceData(race_info.raceId)}>{race_info.country}  </button></li>
-              </ul>
-            ))}
-            </div>
+
+      <div class="RacesDropdown">
+        <h3>Select Race   </h3>
+          <select id="style-1"
+              onInput={(e) => fetchSelectedRaceData(parseInt(e.target.value))}
+          >
+              {raceButtons().map((race_info: any) => (
+                  <option value={race_info.raceId}>{race_info.country}</option>
+              ))}
+          </select>
+      </div>
+
 
             <div class="RaceResultsBox">
-                <div class="baseTable">
+                {/* <div class="baseTable"> */}
                 <table>
                     <thead>
                       <tr>
-                      <th></th>
-                        <th colspan="4" >
-                  Race Results
-                        </th>
-                        {/* <th></th> */}
-                        </tr>
+                        <th></th>
+                        <th colspan="4" >Race Results</th>
+                      </tr>
                     </thead>
                     {raceResults().slice(0, 10).map((driver_result: any) => (
                       <tr>
                             <td>{driver_result.position} </td>
                             <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
                             <td>{driver_result.driver}</td>
-                            {/* <td>{driver_result.constructor_ref} </td> */}
-                            {/* <td></td> */}
                             <td>{driver_result.time} </td>
 
-                        </tr>
+                      </tr>
                     ))}
                 </table>
-                </div>
+                {/* </div> */}
             </div>
 
 
             <div class="RacePaceBox">
-                {/* <h1>RacePaceBox</h1> */}
-                {/* <Bar data={data}  options={chartOptions} /> */}
                 <Bar data={racePaceGraphData()}  options={chartOptions} />
-                {/* <Bar data={data}  options={chartOptions}  /> */}
-
             </div>
 
             <div class="RaceResultsBox">
                 
-                <div class="baseTable">
+                {/* <div class="baseTable"> */}
                 <table>
                     <thead>
                       <tr>
-                      <th></th>
-                        <th colspan="4" >
-                  Qualy Results
-                        </th>
-                        {/* <th></th> */}
-                        </tr>
+                        <th></th>
+                        <th colspan="4" > Qualy Results </th>
+                      </tr>
                     </thead>
                     {qualyResults().slice(0, 10).map((driver_result: any) => (
                         <tr>
                             <td>{driver_result.position} </td>
                             <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
                             <td>{driver_result.driver}</td>
-                            {/* <td>{driver_result.constructor_ref} </td> */}
-                            {/* <td></td> */}
                             <td>{driver_result.time} </td>
-                            {/* <td>{driver_result.gap} </td> */}
-
                         </tr>
                     ))}
                 </table>
-                </div>
+                {/* </div> */}
             </div>
-
 
             <div class="QualyQ3GapBox">
-                {/* <h1>RaceVsQualyPlaceBox</h1> */}
-                {/* <Bar data={data4}  options={chartOptions4} /> */}
                 <Bar data={qualyGapGraphData()}  options={chartOptions4} />
-
             </div>
-
-            {/* <div class="AverageRaceLapGapToFastest">
-                <Bar data={data5}  options={chartOptions5}  />
-            </div>
-            <div class="RaceTeamateGapBasedOnAverageLap">
-                <Bar data={data6}  options={chartOptions6} />
-            </div> */}
-
 
         </div>
 
