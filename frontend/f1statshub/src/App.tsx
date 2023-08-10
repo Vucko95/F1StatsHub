@@ -1,21 +1,10 @@
-import  { Component , createSignal,createEffect  } from 'solid-js';
-
-import Navbar from './components/Navbar';
-import Home from './components/Home';
-// import Standings from './components/Standings';
-// import DriverInfo from './components/DriverInfo';
-import Circuits from './components/Circuits';
-import Constructors from './components/Constructors';
-import Drivers from './components/Drivers';
-import Races from './components/Races';
+import { Component, createSignal, createEffect, Switch, Match } from 'solid-js';
+import { Navbar, Home, Circuits, Constructors, Drivers, Races } from './components';
 import styles from './App.module.css';
-
 
 const App: Component = () => {
   const [activeComponent, setActiveComponent] = createSignal(localStorage.getItem("activeComponent") || 'Home');
-
   createEffect(() => localStorage.setItem("activeComponent", activeComponent()));
-
   const switchComponent = (componentName: string) => () => setActiveComponent(componentName);
 
   return (
@@ -24,14 +13,13 @@ const App: Component = () => {
         activeComponent={activeComponent} 
         switchComponent={switchComponent} 
       />
-      {activeComponent() === 'Home' && <Home />}
-      {/* {activeComponent() === 'Standings' && <Standings />} */}
-      {/* {activeComponent() === 'DriverInfo' && <DriverInfo />} */}
-      {/* {activeComponent() === 'Circuits' && <Circuits />} */}
-      {activeComponent() === 'Circuits' && <Circuits />}
-      {activeComponent() === 'Constructors' && <Constructors />}
-      {activeComponent() === 'Drivers' && <Drivers />}
-      {activeComponent() === 'Races' && <Races />}
+      <Switch fallback={<div>Not found</div>}>
+        <Match when={activeComponent() === 'Home'}><Home /></Match>
+        <Match when={activeComponent() === 'Circuits'}><Circuits /></Match>
+        <Match when={activeComponent() === 'Constructors'}><Constructors /></Match>
+        <Match when={activeComponent() === 'Drivers'}><Drivers /></Match>
+        <Match when={activeComponent() === 'Races'}><Races /></Match>
+      </Switch>
     </div>
   );
 };
