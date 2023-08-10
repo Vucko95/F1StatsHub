@@ -9,35 +9,35 @@ interface NavbarProps {
   const Navbar: Component<NavbarProps> = ({activeComponent, switchComponent}) => {
     const [activeItem, setActiveItem] = createSignal("");
 
-    
+    const [menuOpen, setMenuOpen] = createSignal(true);
+    const toggleMenu = () => {
+      setMenuOpen(!menuOpen());
+    };
     const handleItemClick = (componentName: string) => {
       setActiveItem(componentName);
+      setMenuOpen(!menuOpen()); 
+
       return switchComponent(componentName);
     };
 
 
     return (
       <div class="navbar">
-        <ul class="navbar-menu">
-          <li class={activeItem() === "Home" ? "active" : ""}>
+    <button class="hamburger-menu" onClick={toggleMenu}>☰</button> 
+      <ul class={`navbar-menu ${menuOpen() ? 'open' : ''}`}>
+      <li class={activeItem() === "Home" ? "active" : ""} onClick={toggleMenu}>
             <button onClick={handleItemClick("Home")}>Home</button>
-          </li>
-          {/* <li class={activeItem() === "Standings" ? "active" : ""}>
-            <button onClick={handleItemClick("Standings")}>Standings</button>
-          </li> */}
-          {/* <li class={activeItem() === "DriverInfo" ? "active" : ""}>
-            <button onClick={handleItemClick("DriverInfo")}>DriverInfo</button>
-          </li> */}
-          <li class={activeItem() === "Circuits" ? "active" : ""}>
+      </li>
+          <li class={activeItem() === "Circuits" ? "active" : ""} onClick={toggleMenu} >
             <button onClick={handleItemClick("Circuits")}>Circuits</button>
           </li>
-          <li class={activeItem() === "Constructors" ? "active" : ""}>
+          <li class={activeItem() === "Constructors" ? "active" : ""} onClick={toggleMenu}>
             <button onClick={handleItemClick("Constructors")}>Constructors</button>
           </li>
-          <li class={activeItem() === "Drivers" ? "active" : ""}>
-            <button onClick={handleItemClick("Drivers")}>Drivers</button>
+          <li class={activeItem() === "Drivers" ? "active" : ""} onClick={toggleMenu} >
+            <button onClick={handleItemClick("Drivers")} >Drivers</button>
           </li>
-          <li class={activeItem() === "Races" ? "active" : ""}>
+          <li class={activeItem() === "Races" ? "active" : ""}onClick={toggleMenu}>
             <button onClick={handleItemClick("Races")}>Races</button>
           </li>
         </ul>
