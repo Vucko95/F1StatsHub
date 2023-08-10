@@ -40,9 +40,9 @@ const Constuctors: Component = () => {
     })
 
       return (
-        <div class="constructorsMain" id="style-1" >
+        <div class="constructorsMainBox" id="style-1" >
 
-            <div class="constructorsTable" id="style-1" >
+            <div class="constructorsStandignsBox" id="style-1" >
               <table>
                 <thead>
                   <tr>
@@ -66,17 +66,17 @@ const Constuctors: Component = () => {
 
 
             <div class="Constructors-ChartBox">
-
               <Line data={constructorGraphData()}  options={chartOptions}  />
             </div>
-            <div class="DonutChartBox">
 
+            <div class="DonutChartBox">
               <Doughnut data={donutconstructorStandings()}  options={chartOptions2}  />
             </div>
-            <div class="AveragePointsPerRaceForDriver">
 
+            <div class="AveragePointsPerRaceForDriver">
               <Bar data={barconstructorStandings()}  options={chartOptions5}  />
             </div>
+
         </div>
       );
  }
