@@ -14,9 +14,10 @@
     width: 100%; 
     margin: 5%;
   }
-}
-.constructorsStandignsBox {
-  margin: 5%;
+  .constructorsStandignsBox {
+    margin: 5%;
+  }
+  
 }
 
 /* DESKTOP */

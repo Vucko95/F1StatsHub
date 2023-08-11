@@ -85,7 +85,7 @@ const handleTimezoneChange = (event: Event) => {
   return (
     <div class="mainDashboardBox">
 
-
+      
               <div class="countDownBox">
         {/* {nextRace() && (<h2>{nextRace()?.raceName}</h2> )} */}
           <Countdown/>
@@ -164,7 +164,9 @@ const handleTimezoneChange = (event: Event) => {
       </div>
             <div class="donationBox">
               
-              <button onClick={coffeOpen} class="button-85"> SMALL COFFE <img src={`coffe.gif`}  height="80"  /></button>
+              <button onClick={coffeOpen} class="button-85"> Buy me a Coffe
+               <img src={`coffe.gif`}  height="60"  />
+               </button>
             </div>
     </div>
   );

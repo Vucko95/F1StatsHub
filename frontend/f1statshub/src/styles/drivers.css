@@ -13,11 +13,12 @@
   .AveragePointsPerRaceForDriver {
     width: 100%; 
   }
+  .driversStandingsBox {
+    margin: 5%;
+  }
 }
 
-.driversStandingsBox {
-  margin: 5%;
-}
+
 /* DESKTOP */
 @media (min-width: 762px) {
   .DriversMainBox {
@@ -39,7 +40,8 @@
     border-radius: 24px;
     border-radius: 2.5%;
     max-height: 52%;
-    height: 550px;
+    height: 500px;
+    /* overflow: hidden; */
   }
 
 
