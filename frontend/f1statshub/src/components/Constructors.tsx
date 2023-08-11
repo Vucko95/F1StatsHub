@@ -45,16 +45,16 @@ const Constuctors: Component = () => {
             <div class="constructorsStandignsBox" id="style-1" >
               <table>
                 <thead>
+                {/* <tr><th colspan="4" >Race Results</th></tr> */}
                   <tr>
-                    <th>Team</th>
-                    <th></th>
-                    <th>Points</th>
+                    <th colspan="4"> Constructor Points</th>
+                    {/* <th>Points</th> */}
                   </tr>
                 </thead>
                 <tbody>
                   {constructorStandings().map((constructor: any) => (
                     <tr>
-                      <td><img src={`/teamlogos/${constructor.constructorRef}.webp`}  width="80" height="30" /></td>
+                      <td><img src={`/teamlogos/${constructor.constructorRef}.webp`}  width="70" height="30"style="border-radius: 10%;" /></td>
 
                       <td>{constructor.constructor_name}</td>
                       <td>{constructor.total_points}</td>

@@ -47,9 +47,7 @@ const Drivers: Component = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>Team</th>
-                      <th></th>
-                      <th>Points</th>
+                    <th colspan="4"> Driver Points</th>
                     </tr>
                   </thead>
                   <tbody>

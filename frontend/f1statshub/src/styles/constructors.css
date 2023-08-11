@@ -13,11 +13,18 @@
   .AveragePointsPerRaceForDriver {
     width: 100%; 
     margin: 5%;
+
   }
   .constructorsStandignsBox {
-    margin: 5%;
+    margin-left: 10%;
   }
   
+.constructorsStandignsBox table  td {
+  padding: 5px;
+  
+}
+  
+
 }
 
 /* DESKTOP */
