@@ -1,8 +1,6 @@
 /* MOBILE */
 @media (max-width: 762px) {
     .RacesMainBox { 
-        /* width: 100%; */
-        /* margin-left: 5%; */
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -10,8 +8,6 @@
       .RacesDropdown {
         display: flex;
         flex-direction: column;
-        width: 80%;
-        margin-left: 10%;
         margin-bottom: 5%;
       }
       .RacesDropdown h3 {
@@ -32,8 +28,6 @@
       -moz-appearance: none;
       font-family: monospace;
       margin: 0;
-      width: 80%;
-      margin-left: 10%;
     }
     .RaceResultsBox,
     .RacePaceBox,
