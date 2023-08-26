@@ -2,6 +2,7 @@ import { Component, createSignal, createEffect } from "solid-js";
 import { fetchDriverStandignsBarGraph,fetchDriversPointsForGraph, fetchDriverStandings, fetchDriverStandignsForDonuts } from "../services/api";
 // import "../styles/right_sidebar.css";
 import "../styles/drivers.css";
+import "../styles/teams.css";
 import { Line } from 'solid-chartjs'
 import { Doughnut } from 'solid-chartjs'
 import { Bar } from 'solid-chartjs'
@@ -45,20 +46,26 @@ const Drivers: Component = () => {
 
             <div class="driversStandingsBox" id="style-1" >
                 <table>
-                  <thead>
+                  {/* <thead>
                     <tr>
                     <th colspan="4"> Driver Points</th>
                     </tr>
-                  </thead>
+                  </thead> */}
                   <tbody>
-                    {driverStandings().map((driver: any) => (
+                    {driverStandings().map((driver: any, index: number) => (
                       <tr>
+                        <td id={`${driver.constructorRef}`}>
+                          {index + 1}
+                        </td>
                         {/* <td><img src={`/teamlogos/${driver.driverRef}.webp`}  width="80" height="30" /></td> */}
-                        <td><img src={`/teamlogos/${driver.constructorRef}.webp`}   width="50"height="25"style="border-radius: 10%;" /></td>
-
-                        <td>{driver.driver_name}</td>
-                        <td><img src={`/countries/${getNationalityCode(driver.nationality)}.png`}width="50"height="25"style="border-radius: 10%;"/></td>
-                        <td>{driver.total_points}</td>
+                        <td id={`${driver.constructorRef}`} ><img src={`/countries/${getNationalityCode(driver.nationality)}.png`}width="35"height="25"style="border-radius: 50%;"/></td>
+                        <td id={`${driver.constructorRef}`}>{driver.driver_name}</td>
+                        {/* <td id={`${driver.constructorRef}`} ><img src={`/teamlogos/${driver.constructorRef}.webp`}   width="50"height="25"style="border-radius: 10%;" /></td> */}
+                        <td id={`${driver.constructorRef}`} class="td-with-image" >
+                          <img src={`/teamlogos2/${driver.constructorRef}.png`}   width="70"height="30"style="border-radius: 10%;" />
+                          </td>
+                        {/* <td id="red_bull">{driver.driver_name}</td> */}
+                        <td id={`${driver.constructorRef}`}>{driver.total_points}</td>
                       </tr>
                     ))}
                   </tbody>

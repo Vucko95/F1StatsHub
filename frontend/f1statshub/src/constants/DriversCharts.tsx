@@ -8,7 +8,8 @@ export const chartOptions = {
           
         },
         legend: {
-          position: 'right',
+          // position: 'right',
+          position: 'bottom',
           labels: {
             color: 'white', 
             padding: 10,
@@ -32,7 +33,8 @@ export const chartOptions2 = {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            position: 'right',
+            // position: 'right',
+            position: 'bottom',
             labels: {
               color: 'white', 
               // padding: 10,
@@ -44,19 +46,18 @@ export const chartOptions2 = {
               },
               color: '#FFFFFF'
             },
-            title: {
-              display: true,
-              text: 'Driver Points',
-              color: 'white',
-              font: {
-                size: 24,
-              }},
+            // title: {
+            //   display: true,
+            //   text: 'Driver Points',
+            //   color: 'white',
+            //   font: {
+            //     size: 24,
+            //   }},
 
           tooltip: {
             bodyFont: {
               size: 14,
-              color: '#FFFFFF', 
-            },
+              color: '#FFFFFF', },
           },
         },
         scales: {
@@ -75,7 +76,7 @@ export const chartOptions5 = {
           },
           title: {
             display: true,
-            text: 'Average Points Per Race Top 10 Drivers',
+            text: 'Average Points Per Race Top 10',
             color: 'white',
             font: {
               size: 24,
@@ -83,9 +84,10 @@ export const chartOptions5 = {
         },
           datalabels: {
             font: {
-              size: 24,
+              size: 20,
             },
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            rotation: -90,
           },
         },
         scales: {
@@ -94,16 +96,19 @@ export const chartOptions5 = {
             ticks : {
               color: 'white', 
               font: {
-                size: 13,
+                size: 10,
               },
+              // reverse: true,
+              // backgroundColor: '#FFFFFF',
+              // rotation: -90, 
+              // padding: 30,
             }
             
           },
           y: {
-            display: true,
+            display: false,
             ticks: {
               color: 'white', 
-              // reverse: true,
               font: {
                 size: 18,
               },
@@ -113,6 +118,6 @@ export const chartOptions5 = {
         elements: {
           bar: {
             borderRadius: 10, 
-            // borderWidth: 5, 
-          }}
+            // borderWidth: 10,
+          }},
       };

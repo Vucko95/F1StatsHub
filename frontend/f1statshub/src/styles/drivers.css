@@ -4,20 +4,34 @@
     font-size: 5vw; 
     display: flex;
     flex-direction: column;
-    width: 90%;
+    /* width: 90%; */
   }
 
   .driversStandingsBox,
   .DriversChartBox,
   .DonutChartBox,
   .AveragePointsPerRaceForDriver {
-    width: 100%; 
+    width: 90%; 
   }
-  .driversStandingsBox {
+
+  .driversStandingsBox table{
     margin: 5%;
+
   }
 }
-
+.driversStandingsBox table{
+  border-radius: 10%;
+  width: 100%;
+}
+.driversStandingsBox  {
+  /* width: 100%; */
+  border-radius: 10%;
+}
+.driversStandingsBox table {
+  border-collapse: collapse; 
+  font-weight: 700;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
 
 /* DESKTOP */
 @media (min-width: 762px) {
@@ -78,6 +92,7 @@
   }
 
 }
+
 
 
 
