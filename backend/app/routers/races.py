@@ -38,8 +38,8 @@ def prepare_chart_data(data):
         'mag': '#9f9e9e',
         'bot': '#760909',
         'zho': '#760909',
-        'ham': '#0af1e6',
-        'rus': '#0af1e6',
+        'ham': '#0af1e5d4',
+        'rus': '#0af1e5d4',
         'nor': '#FF8000',
         'pia': '#FF8000',
         'alo': '#066945',
@@ -161,6 +161,7 @@ async def get_driver_laptimes(raceId: int, db: Session = Depends(get_database_se
         # Shorten the driver_ref  before the return
         for dataset in driver_laptimes["datasets"]:
             dataset["label"] = dataset["label"][:3]
+            # dataset["label"] = dataset["label"][:3].upper()
         driver_laptimes = prepare_chart_data(driver_laptimes)
 
         return driver_laptimes
@@ -226,10 +227,12 @@ def get_race_results(race_id: int, db: Session = Depends(get_database_session)):
 
         race_results_list = []
         for result, driver, constructorRef in race_results:
+            
             race_results_list.append(
                 {
                     'race_id': race_id,
-                    'driver': f"{driver.forename} {driver.surname}",
+                    # 'driver': f"{driver.forename} {driver.surname}",
+                    'driver': {driver.surname},
                     'constructorRef': constructorRef,
                     'position': result.position,
                     'points': result.points,
@@ -237,6 +240,10 @@ def get_race_results(race_id: int, db: Session = Depends(get_database_session)):
                     'time': result.time
                 }
             )
+            if race_results_list:
+                first_result = race_results_list[0]
+                if first_result['time']:
+                    first_result['time'] = first_result['time'].split('.')[0]  # Remove milliseconds
 
         return race_results_list
 
@@ -270,7 +277,7 @@ def get_qualy_results(race_id: int, db: Session = Depends(get_database_session))
             qualy_results_list.append(
                 {
                     'race_id': race_id,
-                    'driver': f"{driver.forename} {driver.surname}",
+                    'driver':  {driver.surname},
                     'constructorRef': constructorRef,
                     'q3': qualy.q3,
                     'gap': gap,
@@ -336,6 +343,11 @@ def get_qualy_results(race_id: int, db: Session = Depends(get_database_session))
             }
         # return qualy_results_list[:10]
         response = append_colors_to_labels(response)
+        response['labels'] = [label[:3].upper() for label in response['labels']]  
+        # Remove the first driver entry 
+        response['labels'] = response['labels'][1:]
+        response['datasets'][0]['data'] = response['datasets'][0]['data'][1:]
+        response['datasets'][0]['backgroundColor'] = response['datasets'][0]['backgroundColor'][1:]
 
         return response
 

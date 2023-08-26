@@ -8,7 +8,7 @@ import 'chartjs-plugin-style';
 import { Bar } from 'solid-chartjs'
 import "../styles/races.css";
 import "../styles/base.css";
-
+import "../styles/teams.css";
 const Races: Component = () => {
     const [raceButtons, setRaceButtons] = createSignal([]);
     const [raceResults, setRaceResults] = createSignal([]);
@@ -80,10 +80,10 @@ const Races: Component = () => {
                     </thead>
                     {raceResults().slice(0, 10).map((driver_result: any) => (
                       <tr>
-                            <td>{driver_result.position} </td>
-                            <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
-                            <td>{driver_result.driver}</td>
-                            <td>{driver_result.time} </td>
+                            <td id={`${driver_result.constructorRef}`}>{driver_result.position} </td>
+                            <td id={`${driver_result.constructorRef}`}>{driver_result.driver}</td>
+                            <td id={`${driver_result.constructorRef}`}><img src={`/teamlogos2/${driver_result.constructorRef}.png`}   width="80"height="30"style="border-radius: 10%;"/></td>
+                            <td id={`${driver_result.constructorRef}`}>{driver_result.time} </td>
 
                       </tr>
                     ))}
@@ -108,10 +108,10 @@ const Races: Component = () => {
                     </thead>
                     {qualyResults().slice(0, 10).map((driver_result: any) => (
                         <tr>
-                            <td>{driver_result.position} </td>
-                            <td><img src={`/teamlogos/${driver_result.constructorRef}.webp`}   width="80" height="30" /></td>
-                            <td>{driver_result.driver}</td>
-                            <td>{driver_result.time} </td>
+                            <td id={`${driver_result.constructorRef}`}>{driver_result.position} </td>
+                            <td id={`${driver_result.constructorRef}`}><img src={`/teamlogos2/${driver_result.constructorRef}.png`}   width="80" height="30" /></td>
+                            <td id={`${driver_result.constructorRef}`}>{driver_result.driver}</td>
+                            <td id={`${driver_result.constructorRef}`}>{driver_result.time} </td>
                         </tr>
                     ))}
                 </table>

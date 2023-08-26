@@ -12,7 +12,7 @@ export const chartOptions = {
            // min: 72,
            ticks: {
              color: 'white',
-             stepSize: 0.5,
+             stepSize: 5,
            },
          },
        },
@@ -23,12 +23,15 @@ export const chartOptions = {
            display: true,
            align: 'end',
            anchor: 'start',
+           font: {
+            size: 20,
+          },
            formatter: function (value: any, context: any) {
              // Access the label (driver name) for the current dataset
              const driverName = context.dataset.label;
-     
+             const uppercaseDriverName = driverName.toUpperCase();
              // Return the label (driver name) to display in the tooltip
-             return driverName;
+             return uppercaseDriverName ;
            }
          },
          title: {
@@ -40,7 +43,8 @@ export const chartOptions = {
            },
        },
          legend: {
-           position: 'right',
+            display: false,
+           position: 'bottom',
            labels: {
              color: 'white', 
              padding: 10,
@@ -321,7 +325,7 @@ export const chartOptions = {
        text: 'Qualiy Q3 GAP',
        color: 'white',
        font: {
-         size: 24,
+         size: 28,
        },
    },
      datalabels: {
@@ -329,12 +333,12 @@ export const chartOptions = {
          size: 24,
        },
        color: '#FFFFFF',
-       formatter: (value:any, context:any) => {
-         if (context.dataIndex === 0) {
-           return '';
-         }
-         return value;
-       },
+      //  formatter: (value:any, context:any) => {
+      //    if (context.dataIndex === 0) {
+      //      return '';
+      //    }
+      //    return value;
+      //  },
      },
    },
    scales: {
@@ -343,9 +347,10 @@ export const chartOptions = {
        title: {
          display: false,
          text: 'Lap Time (seconds)',
-       },
-       
-       ticks: {
+        },
+        
+        ticks: {
+         stepSize: 0.5,
          font: {
            size: 24,
          },
@@ -364,12 +369,13 @@ export const chartOptions = {
        ticks: {
          reverse: true,
          color: 'white', 
+        
          font: {
            size: 24,
          },
        },
      },
-     
+
    },
    elements: {
      bar: {

@@ -40,7 +40,8 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
                     "driverId": driver_standing.driverId,
                     "raceId": driver_standing.raceId,
                     "constructorId": result.constructorId,
-                    "driver_name": f"{driver.forename} {driver.surname}",
+                    # "driver_name": f"{driver.forename} {driver.surname}",
+                    "driver_name":  driver.surname,
                     "nationality": driver.nationality,
                     "driver_ref": driver.driverRef,
                     "total_points": driver_standing.points,
@@ -148,6 +149,8 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             response["datasets"][0]["data"].append(round(entry["total_points"], 1))  # Round to 1 decimal place
         
         response = append_colors_to_labels(response)
+        response['labels'] = [label[:3] for label in response['labels']]
+
         return response
     
     except Exception as e:
