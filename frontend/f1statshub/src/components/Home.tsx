@@ -3,6 +3,7 @@ import "../styles/right_sidebar.css";
 import "../styles/countdown.css";
 import { createSignal, onCleanup, createEffect } from "solid-js";
 import Countdown from "./Countdown";
+import Countdown2 from "./Countdown2";
 
 import {  LastRaceDetails, Driver, NextRaceDetails, Timezone  } from '../models/models' 
 import { fetchTimezone, fetchLastRaceDetailsErgast,fetchTimeBeforeNextRace, fetchLastRaceDetails } from "../services/api";
@@ -88,7 +89,8 @@ const handleTimezoneChange = (event: Event) => {
       
               <div class="countDownBox">
         {/* {nextRace() && (<h2>{nextRace()?.raceName}</h2> )} */}
-          <Countdown/>
+          {/* <Countdown/> */}
+          <Countdown2/>
         </div>
       
     <div class="racesInfoBox">

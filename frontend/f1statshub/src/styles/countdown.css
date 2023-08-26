@@ -1,76 +1,256 @@
+.countdown{
+  margin:0 auto;
+  max-width:1064px
+}
+.countdown ul{
+  list-style-type:none;
+  display:-webkit-flex;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-align-items:center;
+  -ms-flex-align:center;
+  align-items:center;
+  margin-bottom:60px
+}
+.countdown ul li{
+  width:266px;
+  height:256px;
+  margin-left:5px;
+  margin-right:5px;
+  -webkit-align-self:center;
+  -ms-flex-item-align:center;
+  align-self:center;
+  color:#fff;
+  text-align:center;
+  filter:hue-rotate(-55deg);
+  transform: rotate(90deg);
+  background-image: url("../../public/yellow.png");
+  background-size:contain;
+  background-repeat:no-repeat;
+  box-shadow:0 40px 40px 0 rgba(0,0,0,.6);
+  border-radius:50%;
+  position:relative
+}
+
+.countdown ul li   {
+  animation: rotateAnimation 2s infinite linear;
+}
 
 
-  
-  #countdown {
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* position: relative; */
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-    flex-wrap: wrap;
-    gap: 2.5em;
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
-  }
-  
-  #countdown .circle {
-    position: relative;
-    
-    /* width: 150px; */
-    height: 250px; 
-    width: 12.5%; 
-    /* height: 0; */
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  #countdown .circle svg {
-    /* position: relative; */
-    position: absolute;
+.countdown ul li > div.days {
+  animation: unset;
+}
+.countdown ul li>div.days,.countdown ul li>div.hours,.countdown ul li>div.minutes,.countdown ul li>div.seconds{
+  font-size:80px;
+  line-height:1;
+  margin-top:79px
+}
+.countdown ul li>div.days span,.countdown ul li>div.hours span,.countdown ul li>div.minutes span,.countdown ul li>div.seconds span{
+  line-height:1;
+  text-align:center;
+  display:block;
+  font-size:18px;
+  letter-spacing:3px;
+  text-transform:uppercase
+}
+.countdown ul li>div.days-progress,.countdown ul li>div.hours-progress,.countdown ul li>div.minutes-progress,.countdown ul li>div.seconds-progress{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  margin-top:0;
+  padding:23px
+}
 
-    width: 150px;
-    height: 150px;
-    transform: rotate(270deg);
+#hiddenCountDown{
+  display:none
+}
 
+@media screen and (max-width:1170px){
+  .countdown ul{
+      -webkit-justify-content:center;
+      -ms-flex-pack:center;
+      justify-content:center;
+      -webkit-flex-wrap:wrap;
+      -ms-flex-wrap:wrap;
+      flex-wrap:wrap;
+      margin-bottom:20px
   }
-  
-  #countdown .circle svg circle {
-    width: 100%;
-    height: 100%;
-    fill: transparent;
-    stroke-width: 8;
-    stroke: #36383b;
-    stroke-linecap: round;
-    transform: translate(5px, 5px);
+  .countdown ul li{
+      width:150px;
+      height:150px;
+      margin-bottom:30px
   }
-  
-  #countdown .circle svg circle:nth-child(2) {
-    stroke: var(--clr);
-    stroke-dasharray: 440;
-    stroke-dashoffset: 440;
+  .countdown ul li>div.days,.countdown ul li>div.hours,.countdown ul li>div.minutes,.countdown ul li>div.seconds{
+      font-size:43px;
+      line-height:1;
+      margin-top:48.5px
   }
-  
-  #countdown div {
-    position: absolute;
-    text-align: center;
-    font-weight: 500;
-    color: #fff;
-    font-size: 1.5em;
-    line-height: 0.5em;
+  .countdown ul li>div.days span,.countdown ul li>div.hours span,.countdown ul li>div.minutes span,.countdown ul li>div.seconds span{
+      line-height:1;
+      text-align:center;
+      display:block;
+      font-size:10px;
+      letter-spacing:3px;
+      text-transform:uppercase
   }
-  
-  #countdown div span {
-    font-size: 0.35em;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+  .countdown ul li>div.days-progress,.countdown ul li>div.hours-progress,.countdown ul li>div.minutes-progress,.countdown ul li>div.seconds-progress{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      margin-top:0;
+      padding:14px
   }
-  
-  @keyframes fall {
-    to {
-      transform: translateY(105vh);
-    }
+}
+@media screen and (max-width:750px){
+  h2{
+      margin-bottom:20px
   }
+  h3{
+      font-size:12px;
+      margin-bottom:50px
+  }
+  .eventlist li{
+      font-size:16px
+  }
+  .countdown ul{
+      margin-bottom:10px;
+  }
+  .page-footer .social>div{
+      display:block;
+      margin-left:0
+  }
+  .countdown ul li{
+      width:130px;
+      height:130px
+  }
+  .countdown ul li>div.days,.countdown ul li>div.hours,.countdown ul li>div.minutes,.countdown ul li>div.seconds{
+      font-size:37px;
+      margin-top:42.5px
+  }
+  .countdown ul li>div.days span,.countdown ul li>div.hours span,.countdown ul li>div.minutes span,.countdown ul li>div.seconds span{
+      font-size:8px
+  }
+  .countdown ul li>div.days-progress,.countdown ul li>div.hours-progress,.countdown ul li>div.minutes-progress,.countdown ul li>div.seconds-progress{
+      padding:14px
+  }
+}
+@media screen and (max-width:650px){
+  .countdown ul li{
+      width:110px;
+      height:110px
+  }
+  .countdown ul li>div.days,.countdown ul li>div.hours,.countdown ul li>div.minutes,.countdown ul li>div.seconds{
+      font-size:32px;
+      margin-top:35.5px
+  }
+  .countdown ul li>div.days span,.countdown ul li>div.hours span,.countdown ul li>div.minutes span,.countdown ul li>div.seconds span{
+      font-size:7px
+  }
+  .countdown ul li>div.days-progress,.countdown ul li>div.hours-progress,.countdown ul li>div.minutes-progress,.countdown ul li>div.seconds-progress{
+      padding:14px;
+  }
+}
+@media screen and (max-width:560px){
+  .gangster-wrapper{
+      -webkit-flex-wrap:wrap;
+      -ms-flex-wrap:wrap;
+      flex-wrap:wrap;
+      -webkit-justify-content:center;
+      -ms-flex-pack:center;
+      justify-content:center
+  }
+  .gangster-wrapper>div{
+      -webkit-flex:0 1 100%;
+      -ms-flex:0 1 100%;
+      flex:0 1 100%;
+      text-align:center
+  }
+  .gangster-wrapper>div:first-child{
+      margin-bottom:10px
+  }
+  .countdown ul li{
+      width:130px;
+      height:130px
+  }
+  .countdown ul li>div.days,.countdown ul li>div.hours,.countdown ul li>div.minutes,.countdown ul li>div.seconds{
+      margin-top:42.5px
+  }
+  .countdown ul li>div.days span,.countdown ul li>div.hours span,.countdown ul li>div.minutes span,.countdown ul li>div.seconds span{
+      font-size:8px
+  }
+  .countdown ul li>div.days-progress,.countdown ul li>div.hours-progress,.countdown ul li>div.minutes-progress,.countdown ul li>div.seconds-progress{
+      padding:14px;
+  }
+}
+/* @media screen and (max-width:500px){
+  h1{
+      margin-bottom:10px
+  }
+  h2{
+      font-size:12px
+  }
+  .event-wrapper .reversed{
+      display:block
+  }
+  .event-wrapper .reversed.not{
+      display:none
+  }
+} */
+/* @media screen and (max-width:400px){
+  body{
+      padding:30px 20px
+  }
+  .eventlist li{
+      margin-left:20px
+  }
+  .eventlist li:first-child{
+      margin-left:0
+  }
+} */
+/* @media screen and (max-height:800px){
+  .page-footer{
+      position:static;
+      margin-top:40px
+  }
+}
+@media only screen and (min-device-width:320px) and (max-device-width:480px) and (orientation:landscape){
+  .page-footer{
+      position:relative;
+      margin-top:40px;
+      width:100%;
+      left:0;
+      right:0;
+      bottom:0
+  }
+} */
+/* @media only screen and (min-device-width:320px) and (max-device-width:480px) and (orientation:portrait){
+  .page-footer{
+      position:relative;
+      margin-top:40px;
+      width:100%;
+      left:0;
+      right:0;
+      bottom:0
+  }
+}
+#newsletter{
+  text-align:center;
+  margin-top:30px;
+  font-size:20px
+} */
+
+
