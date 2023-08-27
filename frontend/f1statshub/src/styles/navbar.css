@@ -37,31 +37,50 @@
 }
 
 @media only screen and (max-width: 762px) {
-  .navbar {
-    justify-content: left;
+
+  
+  .hamburger-menu {
+    /* border: none; */
+    /* margin: 2.5%; */
+    padding: 5px;
+    display: block;
+    cursor: pointer;
+    font-size: 1.5rem;
+    /* background: #24242571; */
+    background-color: black;
+    width: 100%;
   }
+
+  .hamburger-btn {
+    /* background: #24242567;   */
+    margin-left: 25px;
+    background-color: black;
+    border: none;
+  }
+
+  .logo {
+    margin-left: 40px;
+  }
+
   .navbar-menu {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px;
-    left: 0px;
+    top: 7%;
     width: 100%;
     height: 100%;
     background-color: black;
     z-index: 1000;
   }
-
-  .hamburger-menu {
-    margin: 2.5%;
-    display: block;
-    cursor: pointer;
-    font-size: 2rem;
-    background-color: black;
-    color: white;
-  }
-
+  
   .navbar-menu.open {
     display: flex;
-}
+  }
+
+  .navbar-list-svg {
+    margin: 10px 15px;
+  }
+
+
+
 }
