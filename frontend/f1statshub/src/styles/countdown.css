@@ -88,7 +88,7 @@
   display:none
 }
 
-@media screen and (max-width:1170px){
+@media screen and (max-width:762px){
   .countdown ul{
       -webkit-justify-content:center;
       -ms-flex-pack:center;
@@ -126,56 +126,8 @@
       padding:14px
   }
 }
-@media screen and (max-width:750px){
-  h2{
-      margin-bottom:20px
-  }
-  h3{
-      font-size:12px;
-      margin-bottom:50px
-  }
-  .eventlist li{
-      font-size:16px
-  }
-  .countdown ul{
-      margin-bottom:10px;
-  }
-  .page-footer .social>div{
-      display:block;
-      margin-left:0
-  }
-  .countdown ul li{
-      width:130px;
-      height:130px
-  }
-  .countdown ul li>div.days,.countdown ul li>div.hours,.countdown ul li>div.minutes,.countdown ul li>div.seconds{
-      font-size:37px;
-      margin-top:42.5px
-  }
-  .countdown ul li>div.days span,.countdown ul li>div.hours span,.countdown ul li>div.minutes span,.countdown ul li>div.seconds span{
-      font-size:8px
-  }
-  .countdown ul li>div.days-progress,.countdown ul li>div.hours-progress,.countdown ul li>div.minutes-progress,.countdown ul li>div.seconds-progress{
-      padding:14px
-  }
-}
-@media screen and (max-width:650px){
-  .countdown ul li{
-      width:110px;
-      height:110px
-  }
-  .countdown ul li>div.days,.countdown ul li>div.hours,.countdown ul li>div.minutes,.countdown ul li>div.seconds{
-      font-size:32px;
-      margin-top:35.5px
-  }
-  .countdown ul li>div.days span,.countdown ul li>div.hours span,.countdown ul li>div.minutes span,.countdown ul li>div.seconds span{
-      font-size:7px
-  }
-  .countdown ul li>div.days-progress,.countdown ul li>div.hours-progress,.countdown ul li>div.minutes-progress,.countdown ul li>div.seconds-progress{
-      padding:14px;
-  }
-}
-@media screen and (max-width:560px){
+
+@media screen and (max-width:762px){
 
   .countdown {
     margin-right: 10%;
