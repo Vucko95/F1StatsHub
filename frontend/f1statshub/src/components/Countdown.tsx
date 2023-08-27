@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import "../styles/right_sidebar.css";
+import "../styles/home.css";
 import "../styles/countdown.css";
 import { createSignal, onCleanup, createEffect } from "solid-js";
 
@@ -25,34 +25,38 @@ const Countdown: Component = () => {
 
       const calculateTimeLeft = () => {
         const currentDate = new Date().getTime();
-       
-        // const nextRaceDate = 1693087200000
+    
         const nextRaceDate = racesLeft.find(date => date > currentDate);
         if (nextRaceDate) {
-
           const timeDifference = nextRaceDate - currentDate;
           const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-          const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+          const hoursLeft = Math.floor(
+            (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutesLeft = Math.floor(
+            (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+          );
           const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
-          
+    
           setDays(daysLeft.toString().padStart(1, "0"));
           setHours(hoursLeft.toString().padStart(2, "0"));
           setMinutes(minutesLeft.toString().padStart(2, "0"));
           setSeconds(secondsLeft.toString().padStart(2, "0"));
-          
-          let dd = document.getElementById('dd') as HTMLElement;
-          let hh = document.getElementById('hh') as HTMLElement;
-          let mm = document.getElementById('mm') as HTMLElement;
-          let ss = document.getElementById('ss') as HTMLElement;
-          
+    
+          const progressContainer = document.getElementById(
+            "defaultCountdown"
+          ) as HTMLElement;
+          const dd = progressContainer.querySelector(".days-progress") as HTMLElement;
+          const hh = progressContainer.querySelector(".hours-progress") as HTMLElement;
+          const mm = progressContainer.querySelector(".minutes-progress") as HTMLElement;
+          const ss = progressContainer.querySelector(".seconds-progress") as HTMLElement;
+    
           dd.style.strokeDashoffset = `${440 - (440 * daysLeft) / 365}`;
           hh.style.strokeDashoffset = `${440 - (440 * hoursLeft) / 24}`;
           mm.style.strokeDashoffset = `${440 - (440 * minutesLeft) / 60}`;
           ss.style.strokeDashoffset = `${440 - (440 * secondsLeft) / 60}`;
         }
-        };
-
+      };
 
 
       createEffect(() => {
@@ -61,36 +65,39 @@ const Countdown: Component = () => {
         onCleanup(() => clearInterval(interval));
       });
     return  (
-        <div id="countdown">
-        <div class="circle" style="--clr: #ffffff;">
-        <svg >
-          <circle cx="70" cy="70" r="70"></circle>
-          <circle cx="70" cy="70" r="70" id="dd"></circle>
-        </svg>
-          <div >{days()}<br /><span>Days</span></div>
+    <div id="countdown">
+        <div id="defaultCountdown" class="countdown">
+            <ul>
+            <li>
+{/* <div class="progress-wrapper"> */}
+
+  <div class="days-progress">
+
+{/* </div> */}
+  </div>
+  <div class="days"> {days()}<span>Days</span></div>
+</li>
+
+
+
+
+
+
+            <li>
+                <div class="hours-progress"><svg viewBox="0 0 100 100" style="display: block; width: 100%;"><path d="M 50,50 m 0,-47.5 a 47.5,47.5 0 1 1 0,95 a 47.5,47.5 0 1 1 0,-95" stroke="#ffff00" stroke-width="5" fill-opacity="0" style="stroke-dasharray: 298.493, 298.493; stroke-dashoffset: 298.493;"></path></svg></div>
+                <div class="hours">{hours()}<span>Hours</span></div>
+            </li>
+            <li>
+                <div class="minutes-progress"><svg viewBox="0 0 100 100" style="display: block; width: 100%;"><path d="M 50,50 m 0,-47.5 a 47.5,47.5 0 1 1 0,95 a 47.5,47.5 0 1 1 0,-95" stroke="#ff0000" stroke-width="5" fill-opacity="0" style="stroke-dasharray: 298.493, 298.493; stroke-dashoffset: 298.493;"></path></svg></div>
+                <div class="minutes">{minutes()}<span>Minutes</span></div>
+            </li>
+            <li>
+                <div class="seconds-progress"><svg viewBox="0 0 100 100" style="display: block; width: 100%;"><path d="M 50,50 m 0,-47.5 a 47.5,47.5 0 1 1 0,95 a 47.5,47.5 0 1 1 0,-95" stroke="#0070c8" stroke-width="5" fill-opacity="0" style="stroke-dasharray: 298.493, 298.493; stroke-dashoffset: 298.493;"></path></svg></div>
+                <div class="seconds">{seconds()}<span>Seconds</span></div>
+            </li>
+            </ul>
         </div>
-        <div class="circle" style="--clr: #60ff21;">
-          <svg>
-            <circle cx="70" cy="70" r="70"></circle>
-            <circle cx="70" cy="70" r="70" id="hh"></circle>
-          </svg>
-          <div >{hours()}<br /><span>Hours</span></div>
-        </div>
-        <div class="circle" style="--clr: #f8ed22;">
-          <svg>
-            <circle cx="70" cy="70" r="70"></circle>
-            <circle cx="70" cy="70" r="70" id="mm"></circle>
-          </svg>
-          <div >{minutes()}<br /><span>Minutes</span></div>
-        </div>
-        <div class="circle" style="--clr: #e71c1c;">
-          <svg>
-            <circle cx="70" cy="70" r="70"></circle>
-            <circle cx="70" cy="70" r="70" id="ss"></circle>
-          </svg>
-          <div >{seconds()}<br /><span>Seconds</span></div>
-        </div>
-      </div>
+    </div>
     )
 }
 

@@ -12,7 +12,13 @@
   align-items:center;
   margin-bottom:60px
 }
-.countdown ul li{
+
+
+
+
+
+
+/* .countdown ul li{
   width:266px;
   height:256px;
   margin-left:5px;
@@ -29,14 +35,18 @@
   background-repeat:no-repeat;
   box-shadow:0 40px 40px 0 rgba(0,0,0,.6);
   border-radius:50%;
-  position:relative
-}
+  position:relative;
 
-.countdown ul li   {
   animation: rotateAnimation 2s infinite linear;
 }
-
-
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
 @keyframes rotateAnimation {
   from {
     transform: rotate(0deg);
@@ -46,18 +56,53 @@
   }
 }
 
-
-.countdown ul li > div.days {
-  animation: unset;
+.countdown ul li {
+  width: 266px;
+  height: 256px;
+  margin-left: 5px;
+  margin-right: 5px;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: #fff;
+  text-align: center;
+  filter: hue-rotate(85deg);
+  background-image: url("../../public/yellow.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  box-shadow: 0 40px 40px 0 rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  position: relative;
 }
+
+.countdown ul li:before {
+  content: '';
+  /* display: block; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:  url("../../public/yellow.png");
+  background-size: contain, cover; 
+  background-repeat: no-repeat;
+  box-shadow: inherit;
+  border-radius: inherit;
+  animation: rotateAnimation 2s infinite linear;
+  z-index: -1;
+}
+
+/* .countdown ul li > div.days {
+  animation: unset;
+} */
 .countdown ul li>div.days,.countdown ul li>div.hours,.countdown ul li>div.minutes,.countdown ul li>div.seconds{
   font-size:80px;
   line-height:1;
   margin-top:79px
 }
 .countdown ul li>div.days span,.countdown ul li>div.hours span,.countdown ul li>div.minutes span,.countdown ul li>div.seconds span{
-  line-height:1;
-  text-align:center;
+  /* line-height:1; */
+  /* text-align:center; */
   display:block;
   font-size:18px;
   letter-spacing:3px;
@@ -67,10 +112,10 @@
   position:absolute;
   top:0;
   left:0;
-  width:100%;
-  height:100%;
-  margin-top:0;
-  padding:23px
+  /* width:100%; */
+  /* height:100%; */
+  /* margin-top:0; */
+  /* padding:23px */
 }
 
 #hiddenCountDown{

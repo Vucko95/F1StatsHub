@@ -6,7 +6,7 @@ import "../styles/teams.css";
 import { Line } from 'solid-chartjs'
 import { Doughnut } from 'solid-chartjs'
 import { Bar } from 'solid-chartjs'
-import "../styles/right_sidebar.css";
+import "../styles/home.css";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { chartOptions,chartOptions5, chartOptions2 } from "../constants/DriversCharts"
 
