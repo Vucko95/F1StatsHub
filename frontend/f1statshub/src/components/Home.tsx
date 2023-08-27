@@ -86,80 +86,64 @@ const handleTimezoneChange = (event: Event) => {
     <div class="mainDashboardBox">
 
       
-              <div class="countDownBox">
+      <div class="countDownBox">
         {/* {nextRace() && (<h2>{nextRace()?.raceName}</h2> )} */}
           <Countdown/>
-        </div>
+      </div>
       
-    <div class="racesInfoBox">
-      <div class="past_nextRaceBox" >              
+    <div class="RaceBoxesParent">
+      <div class="PrevAndNextRaceBox" >              
             {lastRaceData().map((last_race_details: any) => (
-                      <div class="lastRaceDetailsBox">
-                        <h2> Previous Race Stats{last_race_details.position}
-                        <img src={`/countries/${getCountryCode(last_race_details.country)}.png`}width="50"height="25"style="border-radius: 10%;"/>
-                        </h2>
-                        <h3>{last_race_details.circuit_name}</h3>
-                        
+        <div class="lastRaceInsideBox">
+            <h2> Previous Race Stats{last_race_details.position}<img src={`/countries/${getCountryCode(last_race_details.country)}.png`}width="50"height="25"style="border-radius: 10%;"/></h2>
+            <h3>{last_race_details.circuit_name}</h3>  
           <table>
-                    <thead>
-                      <tr><th colspan="4" >Race Results</th></tr>
-                    </thead>
+            <thead>
+              <tr><th colspan="4" >Race Results</th></tr>
+            </thead>
                     <tbody>
-
-                      <tr>
-                        <td></td>
-                            <td> 1. {last_race_details.first_place} </td>
-                        <td><img src={`/countries/${getNationalityCode(last_race_details.first_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
-     
-                        </tr>
                         <tr>
-                        <td></td>
-                            <td>2. {last_race_details.second_place}</td>
-                        <td><img src={`/countries/${getNationalityCode(last_race_details.second_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
-                        </tr>
-                        <tr>
-                        <td></td>
-                            <td>3. {last_race_details.third_place} </td>
-                        <td><img src={`/countries/${getNationalityCode(last_race_details.third_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
-
-                        </tr>
+                          <td></td>
+                              <td class="poduimDrivers"> 1. {last_race_details.first_place} </td>
+                          <td><img src={`/countries/${getNationalityCode(last_race_details.first_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
+                          </tr>
+                          <tr>
+                          <td></td>
+                              <td class="poduimDrivers">2. {last_race_details.second_place}</td>
+                          <td><img src={`/countries/${getNationalityCode(last_race_details.second_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
+                          </tr>
+                          <tr>
+                          <td></td>
+                              <td class="poduimDrivers">3. {last_race_details.third_place} </td>
+                          <td><img src={`/countries/${getNationalityCode(last_race_details.third_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
+                          </tr>
                     </tbody>
             </table>
-                    </div>
+        </div> // LAST RACES DETAILS 
                     ))}
-                    </div>
+    </div> {/*  close left box */}
 
-      {/*  close left box */}
+      <div class="PrevAndNextRaceBox">
+        {nextRace() && (
+        <div class="nextRaceBoxInside">
+          <h2>{nextRace()?.raceName}     
+          <img class="country-flag" src={`/countries/${getCountryCode(nextRace()?.country)}.png`}width="50"height="25"style="border-radius: 10%;"/>
+          </h2>
+          {/* <h3>{nextRace()?.raceName}</h3> */}
+          <h3 class="racedate">
+            {nextRace()?.first_practice_date} - {nextRace()?.race_date}
+          </h3>
+          <div class="dropdown">
+            <select id="style-1" value={selectedTimezone()} onInput={handleTimezoneChange}>
+              {timezones.map(tz => ( <option value={tz.value}>{tz.display}</option> ))}
+            </select>
+          </div>
 
-      <div class="past_nextRaceBox">
-  {nextRace() && (
-    <div>
-      <h2>{nextRace()?.raceName}     
-      <img class="country-flag" src={`/countries/${getCountryCode(nextRace()?.country)}.png`}width="50"height="25"style="border-radius: 10%;"/>
+          <h3 class="racetime">Qualy time {nextRace()?.startQualy}</h3>
+          <h3 class="racetime">Race time {nextRace()?.startQualy}</h3>
+      </div>)}  {/*  close right box */}
 
-      </h2>
-      {/* <h3>{nextRace()?.raceName}</h3> */}
-      <h3>
-        {nextRace()?.first_practice_date} - {nextRace()?.race_date}
-      </h3>
-      <div class="dropdown">
-  <select id="style-1"
-    value={selectedTimezone()}
-    onInput={handleTimezoneChange}
-  >
-    {timezones.map(tz => (
-      <option value={tz.value}>{tz.display}</option>
-    ))}
-  </select>
-</div>
-
-<h3>Qualy time {nextRace()?.startQualy}</h3>
-<h3>Race time {nextRace()?.startQualy}</h3>
-
-
-    </div>
-      )}
-    </div>
+    </div> {/*  close RaceBoxesParent box */}
 
       </div>
             <div class="donationBox">
@@ -167,7 +151,7 @@ const handleTimezoneChange = (event: Event) => {
               <button onClick={coffeOpen} class="button-85"> Buy me a Coffe
                <img src={`coffe.gif`}  height="60"  />
                </button>
-            </div>
+            </div> 
     </div>
   );
 };

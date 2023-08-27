@@ -9,53 +9,66 @@
     align-items: center;
     flex-direction: column ;
   }
-  .past_nextRaceBox {
+  .PrevAndNextRaceBox {
     display: flex;
     font-style: italic;
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 2.5%;
-    color: #a9a9a9;
+    /* margin: 2.5%; */
+    color: #fcf9f9;
   }
-  .past_nextRaceBox h3 {
+  .PrevAndNextRaceBox h3 {
     text-align: center;
+    font-size: 5vw;
+    /* padding: 5px; */
+    margin: 5px;
   }
-  .lastRaceDetailsBox h2 {
+  .PrevAndNextRaceBox h2 {
+    /* text-align: center; */
+    font-size: 7vw;
+  }
+  .lastRaceInsideBox h2 {
     margin: 0;
   }
 
-  .lastRaceDetailsBox table td {
-    padding: 5px;
-  }
+
   
-  .lastRaceDetailsBox table {
+  .lastRaceInsideBox table {
     width: 100%;
+    border: 1px solid white;
+    border-radius: 5%;
   }
 
   .dropdown select {
-    background: #000000;
+    background: #2b2929d4;
     border: 1px solid rgba(255,255,255,.08);
     color: white;
-    padding:  10px 16px;
+    padding:  8px 4px;
+    text-align: center;
     font-size: 1.2rem;
     border-radius: 10px;
     cursor: pointer;
     appearance: none; 
     -webkit-appearance: none;
     -moz-appearance: none;
-    font-family: monospace;
+    /* font-family: monospace; */
   }
   
   .dropdown {
-    display: inline-block;
+    /* display: inline-block; */
+    align-items: center;
+    margin-left: 7.5%;
+  }
+  .donationBox {
+    display: none;
   }
 }
 
 /* DESKTOP */
 @media (min-width: 762px) {
 .mainDashboardBox {
-  font-size:1.8rem;
+  font-size:1.35vw;
     width: 100%;
     height: 100%;
     display: flex;
@@ -63,62 +76,52 @@
     flex-direction: column ;
     background-repeat: no-repeat;
     background-size: cover;
-    color: aliceblue;
   }
 
-
-.countDownBox {
-  /* width: 60%; */
-  /* height: 20%; */
-  /* margin-top: 5%; */
-  /* border-radius: 24px; */
-
-
-}
-.racesInfoBox {
-  border-radius: 5%;
-  width: 80%;
-  min-height: 45%;
+.RaceBoxesParent {
+  /* border-radius: 5%; */
+  width: 100%;
+  /* min-height: 45%; */
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; 
+  /* overflow: hidden;  */
 }
-.past_nextRaceBox {
+.PrevAndNextRaceBox {
   display: flex;
   font-style: italic;
   justify-content: center;
   align-items: center;
-  background: #0f0f0f;
-  border: 1px solid rgba(255,255,255,.08);
   border-radius: 24px;
   width: 35%;
-  height: 400px;
-  margin: 2.5%;
+  min-height: 40vh;
+  margin: 2%;
   color: #a9a9a9;
+  background: #0f0f0f96;
+  border: 1px solid rgba(255,255,255,.08);
 }
-.past_nextRaceBox h2 {
+.PrevAndNextRaceBox h2 {
   color: white;
 }
 
 
-.lastRaceDetailsBox {
+.lastRaceInsideBox {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   overflow: hidden; 
 }
-.lastRaceDetailsBox h2 {
+.lastRaceInsideBox h2 {
   margin: 0;
   padding: 0;
 }
-.lastRaceDetailsBox table td {
+.lastRaceInsideBox table td {
   padding: 5px;
   text-align:justify;
 }
 
-.lastRaceDetailsBox table {
+.lastRaceInsideBox table {
   border-radius: 2%;
   width: 100%;
 }
@@ -149,6 +152,34 @@
   border-radius: 2%;
   width: 80%;
 }
+
+.nextRaceBoxInside {
+  text-align: center;
+}
+.racetime {
+  color: whitesmoke;
+  text-shadow: 2px 2px 6px rgba(237, 18, 18, 0.877);
+  /* padding: 5px; */
+  /* margin: 25px; */
+}
+.racedate {
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 2px rgba(7, 78, 5, 0.878);
+}
+.poduimDrivers {
+  color: rgba(255, 255, 255, 0.618);
+  text-shadow: 2px 2px 2px rgba(19, 105, 16, 0.878);
+  font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
 
 
 
