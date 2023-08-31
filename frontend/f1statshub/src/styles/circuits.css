@@ -4,7 +4,7 @@
     /* font-size: 5vw;  */
     display: flex;
     flex-direction: column;
-    width: 100%;  
+    /* width: 100%;   */
   }
 
   .baseBtn {
@@ -14,38 +14,54 @@
     border-radius: 24px;
     color: inherit;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 5vw;
     text-align: center;
     border-radius: 10px;
     padding:4px 10px;
   }
-  .circuit_results {
-    width: 100%;
+
+  .circuitsListBox  {
+    width: 90%;
+    /* padding: 5px; */
     margin-left: 5%;
+    border: 1px solid white;
+    border-radius: 5%;
+    font-size: 5vw;
+    max-height: 300px;
+  
+    /* max-height: 200px; */
+    overflow-y: auto;
+  }
+  
+  .date-td {
+    display: none;
   }
 
+  .circuit_results table {
+    border: 1px solid white;
+    border-radius: 5%;
+  }
 
-}
-  @media (min-width: 768px) {
-.CircuitsMainBox{ 
-    font-size: 2rem;
-    width: 90%;
+  .circuit_latest_results {
+    margin-left: 10%;
+    margin-top: 5%;
+  }
+
+  .circuit_history {
     margin-left: 5%;
-    /* height: 100vh; */
+  }
+}
+@media (min-width: 768px) {
+.CircuitsMainBox{ 
+    font-size: 1.5vw;
+    margin-left: 5%;
     display: flex;
     justify-content: center;
     margin-top: 5%;
     gap: 2.5%;
   }
   
-  .circuitsListBox {
-    width: 45%;
-    height: 80%;
-    
-  }
-  .circuit_results {
-    width: 45%;
-  }
+
   .circuit_results table {
     background: #24242567;
     border: 1px solid rgba(255,255,255,.08);
@@ -60,18 +76,6 @@
     border-radius: 24px;
 
   }
-  .CircuitsMainBox table td {
-    padding-left: 25px;
-  }
-  .winners_table td {
-    padding-left: 20px;    
-}
-
-.circuit_latest_results table {
-  padding: 10px;
-  width: 71.5%;
-}
-
 
 
   .baseBtn {
@@ -81,9 +85,9 @@
     border-radius: 24px;
     color: inherit;
     cursor: pointer;
-    font-size: 1.8rem;
+    font-size: 1vw;
     text-align: center;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding:4px 10px;
   }
 

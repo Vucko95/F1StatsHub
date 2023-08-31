@@ -70,7 +70,7 @@ const Circuits: Component = () => {
                   {circuits().map((circuitInfo: Circuit) => (
                     <tr>
                     <td><img src={`/countries/${getCountryCode(circuitInfo.country)}.png`}   width="50" height="25" /></td>
-                    <td class={isDateInPast(circuitInfo.date) ? 'past-date' : ''}>{circuitInfo.date}</td>
+                    <td class="date-td">{circuitInfo.date}</td>
                     <td>{circuitInfo.name}</td>
                     <td>
                       <button class="baseBtn" onClick={() => { showCircuitDetails(circuitInfo.circuitId); showCircuitResults(circuitInfo.raceId); }}>Details</button>
@@ -87,6 +87,7 @@ const Circuits: Component = () => {
 
           <div class="circuit_results">
             
+                <div class="circuit_latest_results">
 
               <table>
                 <thead></thead>
@@ -102,10 +103,10 @@ const Circuits: Component = () => {
                       </tr>
                   ))}
               </table>
+              </div> {/* circuit_latest_results */}
 
 
               <br />
-              <div class="circuit_latest_results">
 
 
               <div class="circuit_history">
@@ -133,7 +134,6 @@ const Circuits: Component = () => {
                   </tbody>
                 </table>
               </div> {/* circuit_history */}
-              </div> {/* circuit_latest_results */}
 
             </div>
 

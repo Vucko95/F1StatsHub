@@ -95,7 +95,7 @@ const handleTimezoneChange = (event: Event) => {
       <div class="PrevAndNextRaceBox" >              
             {lastRaceData().map((last_race_details: any) => (
         <div class="lastRaceInsideBox">
-            <h2> Previous Race Stats{last_race_details.position}<img src={`/countries/${getCountryCode(last_race_details.country)}.png`}width="50"height="25"style="border-radius: 10%;"/></h2>
+            <h2> Previous Race Stats{last_race_details.position}<img src={`/countries/${getCountryCode(last_race_details.country)}.png`} class="country-flag-img"  /></h2>
             <h3>{last_race_details.circuit_name}</h3>  
           <table>
             <thead>
@@ -105,17 +105,17 @@ const handleTimezoneChange = (event: Event) => {
                         <tr>
                           <td></td>
                               <td class="poduimDrivers"> 1. {last_race_details.first_place} </td>
-                          <td><img src={`/countries/${getNationalityCode(last_race_details.first_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
+                          <td><img src={`/countries/${getNationalityCode(last_race_details.first_place_nat)}.png`}class="country-flag-img"/></td>
                           </tr>
                           <tr>
                           <td></td>
                               <td class="poduimDrivers">2. {last_race_details.second_place}</td>
-                          <td><img src={`/countries/${getNationalityCode(last_race_details.second_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
+                          <td><img src={`/countries/${getNationalityCode(last_race_details.second_place_nat)}.png`}class="country-flag-img"/></td>
                           </tr>
                           <tr>
                           <td></td>
                               <td class="poduimDrivers">3. {last_race_details.third_place} </td>
-                          <td><img src={`/countries/${getNationalityCode(last_race_details.third_place_nat)}.png`}width="35"height="25" style="border-radius: 10%;"/></td>
+                          <td><img src={`/countries/${getNationalityCode(last_race_details.third_place_nat)}.png`}class="country-flag-img"/></td>
                           </tr>
                     </tbody>
             </table>
@@ -127,7 +127,7 @@ const handleTimezoneChange = (event: Event) => {
         {nextRace() && (
         <div class="nextRaceBoxInside">
           <h2>{nextRace()?.raceName}     
-          <img class="country-flag" src={`/countries/${getCountryCode(nextRace()?.country)}.png`}width="50"height="25"style="border-radius: 10%;"/>
+          <img  src={`/countries/${getCountryCode(nextRace()?.country)}.png`}class="country-flag-img"/>
           </h2>
           {/* <h3>{nextRace()?.raceName}</h3> */}
           <h3 class="racedate">

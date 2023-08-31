@@ -3,6 +3,12 @@
 .countDownBox {
   width: 100%;
 }
+.country-flag-img {
+  width: 20px;
+  height: 15px;
+  border-radius: 30%;
+  margin-left: 10px;
+}
 .mainDashboardBox {
     font-size:1.1rem;
     display: flex;
@@ -41,25 +47,27 @@
   }
 
   .dropdown select {
+
     background: #2b2929d4;
     border: 1px solid rgba(255,255,255,.08);
     color: white;
-    padding:  8px 4px;
+    align-items: center;
     text-align: center;
-    font-size: 1.2rem;
     border-radius: 10px;
-    cursor: pointer;
     appearance: none; 
     -webkit-appearance: none;
     -moz-appearance: none;
-    /* font-family: monospace; */
+    font-family: monospace;
   }
   
   .dropdown {
-    /* display: inline-block; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    margin-left: 7.5%;
   }
+
+  
   .donationBox {
     display: none;
   }
@@ -77,7 +85,11 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
-
+  .country-flag-img {
+    width: 50px;
+    height: 25px;
+    border-radius: 10%;
+  }
 .RaceBoxesParent {
   /* border-radius: 5%; */
   width: 100%;
@@ -173,11 +185,22 @@
 }
 
 
+.dropdown select {
+  background: black;
+  text-align: center;
+  width: 90%;
+  color: white;
+  border-radius: 5%;
+  border: 0;
+  padding: 1%;
+  font-size: 1.5rem;
+}
+.dropdown select option {
+  font-family: Arial, sans-serif; 
+  font-size: 1rem; 
 
 
-
-
-
+}
 
 
 
@@ -225,23 +248,7 @@
 }
 
 
-.dropdown select {
-  background: #000000;
-  border: 1px solid rgba(255,255,255,.08);
-  color: white;
-  padding:  10px 16px;
-  font-size: 1.5rem;
-  border-radius: 10px;
-  cursor: pointer;
-  appearance: none; 
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  font-family: monospace;
-}
 
-.dropdown {
-  display: inline-block;
-}
 
 }
 
