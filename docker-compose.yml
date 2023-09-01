@@ -1,17 +1,17 @@
 version: "3.9"
 
 services:
-  # frontend:
-  #   image: my-frontend
-  #   ports:
-  #     - "80:80"
+  frontend:
+    image: my-frontend
+    ports:
+      - "80:80"
 
-  # backend:
-  #   image: my-backend
-  #   ports:
-  #     - "8888:8888"
-  #   environment:
-  #     - RUN_MODE=container
+  backend:
+    image: my-backend
+    ports:
+      - "8888:8888"
+    environment:
+      - RUN_MODE=container
   mysql:
     image: mysql:latest
     environment:
@@ -23,24 +23,24 @@ services:
       - "3306:3306"
 
 
-  dbgate:
-    image: dbgate/dbgate
-    restart: always
-    ports:
-      - 3001:3000
-    volumes:
-      - dbgate-data:/root/.dbgate
-    environment:
-      CONNECTIONS: con1
+  # dbgate:
+  #   image: dbgate/dbgate
+  #   restart: always
+  #   ports:
+  #     - 3001:3000
+  #   volumes:
+  #     - dbgate-data:/root/.dbgate
+  #   environment:
+  #     CONNECTIONS: con1
 
-      LABEL_con1: MySql
-      SERVER_con1: mysql
-      USER_con1: root
-      PASSWORD_con1: 123
-      PORT_con1: 3306
-      ENGINE_con1: mysql@dbgate-plugin-mysql
+  #     LABEL_con1: MySql
+  #     SERVER_con1: mysql
+  #     USER_con1: root
+  #     PASSWORD_con1: 123
+  #     PORT_con1: 3306
+  #     ENGINE_con1: mysql@dbgate-plugin-mysql
  
 
-volumes:
-  dbgate-data:
-    driver: local
+# volumes:
+#   dbgate-data:
+#     driver: local
