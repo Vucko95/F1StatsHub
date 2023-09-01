@@ -20,7 +20,8 @@ async def constructor_standings(year: int, db: Session = Depends(get_database_se
             .limit(1)
             .subquery()
         )
-        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        # latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1110
         constructor_standings_query = (db.query(ConstructorStanding,Constructor)
                                     .join(Constructor, Constructor.constructorId == ConstructorStanding.constructorId)
                                     .filter(ConstructorStanding.raceId == latest_race_id)
@@ -57,7 +58,8 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .limit(1)
             .subquery()
         )
-        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        # latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1110
         constructor_standings_query = (db.query(ConstructorStanding,Constructor)
                                     .join(Constructor, Constructor.constructorId == ConstructorStanding.constructorId)
                                     .filter(ConstructorStanding.raceId == latest_race_id)
@@ -99,7 +101,8 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .limit(1)
             .subquery()
         )
-        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1110
+        # latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
         constructor_standings_query = (db.query(ConstructorStanding,Constructor)
                                     .join(Constructor, Constructor.constructorId == ConstructorStanding.constructorId)
                                     .filter(ConstructorStanding.raceId == latest_race_id)
@@ -152,7 +155,8 @@ async def get_constructor_points_by_race(year: int, db: Session = Depends(get_da
             .limit(1)
             .subquery()
         )
-        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1110
+        # latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
 
         all_past_races = (
             db.query(Race.raceId)

@@ -22,7 +22,8 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .limit(1)
             .subquery()
         )
-        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        # latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1110
         driver_standings_query = (db.query(DriverStanding, Result, Constructor, Driver)
                                     .join(Result, and_(DriverStanding.driverId == Result.driverId,
                                                     DriverStanding.raceId == Result.raceId))
@@ -55,7 +56,7 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
     except Exception as e:
         print(f"An error occurred while processing the request: {str(e)}")
         return {"error": "An error occurred while processing the request"}
-    
+
 
 
 
@@ -70,7 +71,8 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .limit(1)
             .subquery()
         )
-        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        # latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1110
         driver_standings_query = (db.query(DriverStanding, Driver)
                                     .join(Driver, Driver.driverId == DriverStanding.driverId)
                                     .filter(DriverStanding.raceId == latest_race_id)
@@ -113,7 +115,8 @@ async def driver_standings(year: int, db: Session = Depends(get_database_session
             .limit(1)
             .subquery()
         )
-        latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        # latest_race_id = db.query(subquery_latest_race.c.raceId).scalar()
+        latest_race_id = 1110
         driver_standings_query = (db.query(DriverStanding, Driver)
                                     .join(Driver, Driver.driverId == DriverStanding.driverId)
                                     .filter(DriverStanding.raceId == latest_race_id)

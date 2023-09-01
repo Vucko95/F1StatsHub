@@ -1,22 +1,18 @@
-from datetime import datetime
-from fastapi import APIRouter
-from pydantic import BaseModel
-from sqlalchemy import desc, func
-from settings.config import *
 # import aiohttp
 import asyncio
+from datetime import date, datetime
 from heapq import nlargest
-from sqlalchemy.orm import joinedload
-from pydantic import ValidationError
-from datetime import date
-from pydantic import BaseModel
-from typing import List, Dict
+from typing import Dict, List
+
 import requests
-from sqlalchemy.orm import Session
-from settings.db import Session
+from fastapi import APIRouter, Depends
 from models.models import *
-from fastapi import Depends
-from settings.db import get_database_session
+# from pydantic import BaseModel, ValidationError
+from settings.config import *
+from settings.db import Session, get_database_session
+from sqlalchemy import desc, func
+from sqlalchemy.orm import Session, joinedload
+
 router = APIRouter()
 def get_driver_standings_from_db(year: int, db: Session):
     return db.query(DriverStanding, Driver).filter(DriverStanding.year == year).join(Driver, Driver.driverId == DriverStanding.driverId).all()
@@ -56,30 +52,6 @@ def prepare_chart_data(data):
             dataset['borderColor'] = color
     return data
 
-# def prepare_chart_data(data):
-#     labels = data['labels']
-#     datasets = data['datasets']
-#     color_mapping = {
-#         'ferrari': '#FF0000',
-#         'haas': '#9f9e9e',
-#         'alphatauri': '#007e94',
-#         'williams': '#2a98ed',
-#         'alpine': '#334396',
-#         'alfa': '#760909',
-#         'mercedes': '#0af1e6',
-#         'mclaren': '#FF8000',
-#         'aston_martin': '#066945',
-#         'red_bull': '#0a208d',
-#     }
-
-#     for dataset in datasets:
-#         label = dataset['label']
-#         if label in color_mapping:
-#             color = color_mapping[label]
-#             dataset['backgroundColor'] = color
-#             dataset['borderColor'] = color
-
-#     return data
 def append_colors_to_labels(response_data):
     color_mapping = {
         'max_verstappen': '#0a208d',
