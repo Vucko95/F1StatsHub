@@ -4,28 +4,39 @@
     font-size: 5vw; 
     display: flex;
     flex-direction: column;
-    width: 90%;
+    /* width: 90%; */
+  }
+  .Constructors-ChartBox { 
+    display: none;
   }
 
   .constructorsStandignsBox,
   .Constructors-ChartBox,
   .DonutChartBox,
   .AveragePointsPerRaceForDriver {
-    width: 100%; 
-    margin: 5%;
-
+    width: 90%; 
+    /* margin-left: 7.5%; */
+    margin-left: 5%;
+    
   }
-  .constructorsStandignsBox {
-    margin-left: 10%;
+  .constructorsStandignsBox table {
+    margin-left: 5%;
+    border-collapse: collapse; 
+    font-weight: 700;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    
   }
   
-.constructorsStandignsBox table  td {
-  padding: 5px;
-  
+  .constructorsStandignsBox table  td {
+    padding: 5px;
+    /* border-radius: 10%; */
+    border: 0;
+    
 }
   
 
 }
+
 
 /* DESKTOP */
 @media (min-width: 762px) {
@@ -45,16 +56,20 @@
 
   .constructorsStandignsBox {
     width: 30%;
-    overflow-y: auto;
-    max-height: 55%;
-    height: 557px;
+    /* overflow-y: auto; */
+    /* max-height: 55%; */
+    /* height: 557px; */
     border-radius: 24px;
+    /* background: #24242567; */
   }
   .constructorsStandignsBox table {
     width: 100%;
+    text-align: center;
   }
-
-
+  
+  .constructorsStandignsBox table td {
+  border-radius: 12px;
+  }
 
   .Constructors-ChartBox {
     width: 50%;
@@ -64,6 +79,8 @@
     border-radius: 24px;
     padding: 20px;  
   }
+
+
   .DonutChartBox{
     
     width: 30%;

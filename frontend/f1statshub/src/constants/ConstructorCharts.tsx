@@ -20,7 +20,7 @@ export const chartOptions2 = {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: 'right',
+          position: 'bottom',
           labels: {
             color: 'white', 
             // padding: 10,
@@ -32,13 +32,13 @@ export const chartOptions2 = {
             },
             color: '#FFFFFF'
           },
-          title: {
-            display: true,
-            text: 'Constructor Points',
-            color: 'white',
-            font: {
-              size: 24,
-            }},
+          // title: {
+          //   display: true,
+          //   text: 'Constructor Points',
+          //   color: 'white',
+          //   font: {
+          //     size: 24,
+          //   }},
 
         tooltip: {
           bodyFont: {
@@ -71,9 +71,10 @@ export const chartOptions5 = {
     },
       datalabels: {
         font: {
-          size: 24,
+          size: 20,
         },
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        rotation: -90,
       },
     },
     scales: {

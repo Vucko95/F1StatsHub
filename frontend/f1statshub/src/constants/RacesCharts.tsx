@@ -12,9 +12,9 @@ export const chartOptions = {
            // min: 72,
            ticks: {
              color: 'white',
-             stepSize: 5,
+             stepSize: 2,
            },
-         },
+         }
        },
        plugins: {
          datalabels: {
@@ -24,7 +24,7 @@ export const chartOptions = {
            align: 'end',
            anchor: 'start',
            font: {
-            size: 20,
+            size: 16,
           },
            formatter: function (value: any, context: any) {
              // Access the label (driver name) for the current dataset

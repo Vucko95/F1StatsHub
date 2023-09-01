@@ -1,12 +1,11 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { fetchDriverStandignsBarGraph,fetchDriversPointsForGraph, fetchDriverStandings, fetchDriverStandignsForDonuts } from "../services/api";
-// import "../styles/right_sidebar.css";
 import "../styles/drivers.css";
 import "../styles/teams.css";
 import { Line } from 'solid-chartjs'
 import { Doughnut } from 'solid-chartjs'
 import { Bar } from 'solid-chartjs'
-import "../styles/home.css";
+// import "../styles/home.css";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { chartOptions,chartOptions5, chartOptions2 } from "../constants/DriversCharts"
 
@@ -43,7 +42,6 @@ const Drivers: Component = () => {
 
       return (
         <div class="DriversMainBox" id="style-1" >
-
             <div class="driversStandingsBox" id="style-1" >
                 <table>
                   {/* <thead>

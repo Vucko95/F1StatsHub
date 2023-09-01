@@ -8,10 +8,10 @@
       .RacesDropdown {
         display: flex;
         flex-direction: column;
-        margin-bottom: 5%;
+        /* margin-bottom: 5%; */
       }
       .RacesDropdown h3 {
-        font-size: 2rem;
+        font-size: 1.5rem;
         margin: 2.5%;
         text-align: center;
     }
@@ -20,7 +20,7 @@
       background: #000000;
       border: 1px solid white;
       color: white;
-      font-size: 2rem;
+      font-size: 1.5rem;
       border-radius: 10px;
       cursor: pointer;
       appearance: none; 
@@ -38,19 +38,19 @@
     .RacePaceBox {
       display: none;
     }
-
+    .RaceResultsBox th  {
+      font-size: 1.5rem;
+      padding: 5px;
+    }
     .RaceResultsBox table {
       width: 90%;
       margin-left: 5%;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       border-collapse: collapse; 
       font-weight: 700;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     }
-    .RaceResultsBox th  {
-      font-size: 2rem;
-      padding: 5px;
-    }
+
 
 }
 
@@ -75,7 +75,7 @@
     margin-bottom: 2.5%;
   }
 .RacesDropdown h3 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin: 0;
   padding-top: 10px;
 }
@@ -87,7 +87,7 @@
   color: white;
   text-align: center;
   padding:  10px 16px;
-  font-size: 2.5rem;
+  font-size: 2rem;
   border-radius: 10px;
   cursor: pointer;
   appearance: none; 
@@ -101,7 +101,7 @@
     margin: 10px;
     width: 40%;
     height: 52%;
-    font-size: 2.5rem;    
+    font-size: 2rem;    
   }
   
   

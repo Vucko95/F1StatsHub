@@ -47,17 +47,20 @@ const Constuctors: Component = () => {
                 <thead>
                 {/* <tr><th colspan="4" >Race Results</th></tr> */}
                   <tr>
-                    <th colspan="4"> Constructor Points</th>
+                    {/* <th colspan="4"> Constructor Points</th> */}
                     {/* <th>Points</th> */}
                   </tr>
                 </thead>
                 <tbody>
-                  {constructorStandings().map((constructor: any) => (
+                  {constructorStandings().map((constructor: any, index: number) => (
                     <tr>
-                      <td><img src={`/teamlogos/${constructor.constructorRef}.webp`}  width="70" height="30"style="border-radius: 10%;" /></td>
+                      <td id={`${constructor.constructorRef}`}>
+                          {index + 1}
+                        </td>
+                      <td id={`${constructor.constructorRef}`}><img src={`/teamlogos2/${constructor.constructorRef}.png`}  width="70" height="30"style="border-radius: 10%;" /></td>
 
-                      <td>{constructor.constructor_name}</td>
-                      <td>{constructor.total_points}</td>
+                      <td id={`${constructor.constructorRef}`}>{constructor.constructor_name}</td>
+                      <td id={`${constructor.constructorRef}`}>{constructor.total_points}</td>
                     </tr>
                   ))}
                 </tbody>
