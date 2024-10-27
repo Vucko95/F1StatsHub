@@ -1,8 +1,9 @@
 # F1StatsHub
-[![Stack](https://skills.thijs.gg/icons?i=py,fastapi,solidjs,ts,mysql&theme=dark)](https://skills.thijs.gg)
+
+[![App Tech](https://skillicons.dev/icons?i=py,fastapi,solidjs,ts,mysql)](https://skillicons.dev)
 
 Welcome to **F1StatsHub** This application provides a comprehensive platform for Formula 1 enthusiasts to explore a wealth of data from previous races, circuits, driver standings, and more. With interactive graphs and insightful visualizations, F1StatsHub offers a deep dive into the world of Formula 1 racing.
-
+py,fastapi,solidjs,ts,mysql&theme
 ## Table of Contents
 
 - [Features](#features)
