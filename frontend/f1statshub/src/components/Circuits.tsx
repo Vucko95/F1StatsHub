@@ -61,7 +61,6 @@ const Circuits: Component = () => {
     
     return (
         <div class="CircuitsMainBox">
-        
           <div class="circuitsListBox">
               <table>
                   <thead>
@@ -70,7 +69,7 @@ const Circuits: Component = () => {
                   {circuits().map((circuitInfo: Circuit) => (
                     <tr>
                     <td><img src={`/countries/${getCountryCode(circuitInfo.country)}.png`}   width="50" height="25" /></td>
-                    <td class="date-td">{circuitInfo.date}</td>
+                    <td class="dateTd">{circuitInfo.date}</td>
                     <td>{circuitInfo.name}</td>
                     <td>
                       <button class="baseBtn" onClick={() => { showCircuitDetails(circuitInfo.circuitId); showCircuitResults(circuitInfo.raceId); }}>Details</button>
