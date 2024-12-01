@@ -1,5 +1,12 @@
 /* MOBILE */
 @media (max-width: 762px) {
+  .constructorsMainBox img {
+    border-radius: 20%;
+    width: 2.5vw;
+    height: 1.5vw;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
   .constructorsMainBox {
     font-size: 5vw; 
     display: flex;
@@ -40,6 +47,11 @@
 
 /* DESKTOP */
 @media (min-width: 762px) {
+  .constructorsMainBox img {
+    border-radius: 20%;
+    width: 3.5vw;
+    height: 1.5vw;
+  }
   .constructorsMainBox {
     font-size: 1.3vw;
     width: 90%;
@@ -55,21 +67,23 @@
 
 
   .constructorsStandignsBox {
+    margin-top: 2.5%;
     width: 30%;
-    /* overflow-y: auto; */
-    /* max-height: 55%; */
-    /* height: 557px; */
-    border-radius: 24px;
-    /* background: #24242567; */
+    overflow-y: auto;
+    border-radius: 2.5%;
+    max-height: 52%;
+    color: rgb(204, 202, 202);
   }
   .constructorsStandignsBox table {
+    border-collapse: collapse;
     width: 100%;
-    text-align: center;
+    text-shadow: 2px 2px 6px rgb(0, 0, 0);
+    border-radius: 24px; 
+    overflow: hidden;  
   }
   
-  .constructorsStandignsBox table td {
-  border-radius: 12px;
-  }
+
+
 
   .Constructors-ChartBox {
     width: 50%;
@@ -88,7 +102,7 @@
     border: 2px solid rgb(43, 38, 38);
     border-radius: 2.5%;
     padding: 20px;  
-    margin-top: 5%;
+    /* margin-top: 5%; */
   }
 
   .AveragePointsPerRaceForDriver {
@@ -96,7 +110,7 @@
     height: 42%;
     border: 2px solid rgb(43, 38, 38);
     border-radius: 2.5%;  padding: 20px;  
-    margin-top: 5%;
+    /* margin-top: 5%; */
   }
 
 }

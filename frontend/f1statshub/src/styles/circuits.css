@@ -1,6 +1,8 @@
 
+ /* DESKTOP */
 @media (min-width: 768px) {
 .CircuitsMainBox{ 
+    height: 100vh;
     color: aliceblue;
     font-size: 1.3vw;
     margin-left: 5%;
@@ -16,16 +18,16 @@
   }
 
   .CircuitsMainBox table  {
-    max-height: 80vh;
+    max-height: 70vh;
     overflow-y: auto; 
     display: block;
-    background: wheat;
   }
   .circuit_results table {
     border: 1px solid rgba(255,255,255,.08);
   }
 
     .CircuitsMainBox table {
+    /* height: 80vh; */
     border-radius: 10px;
     padding: 10px;   
     background: #24242567;
