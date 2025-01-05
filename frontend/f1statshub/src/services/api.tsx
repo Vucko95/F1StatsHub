@@ -2,216 +2,91 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-export const fetchTimeBeforeNextRace = async () => {
-    try {
-    const response = await fetch('http://localhost:8888/race/next', {
-      method: 'GET',
+const fetchData = async (url: string, method: string = 'GET', body: any = null) => {
+  try {
+    const options: RequestInit = {
+      method,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-    });
+    };
+
+    if (body) {
+      options.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.error(`Error fetching ${url}:`, error);
     throw error;
   }
-  };
-export const fetchLastRaceDetails = async () => {
-    try {
-    const response = await fetch('http://localhost:8888/race/last', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+};
+
+
+
+  export const fetchTimeBeforeNextRace = async () => {
+    return await fetchData('http://localhost:8888/race/nex');
   };
 
-
-export const fetchDriverStandings = async (year: number, raceNumber: number) => {
-    try {
-    const response = await fetch(`http://localhost:8888/standings/drivers/${year}/${raceNumber}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  export const fetchLastRaceDetails = async () => {
+    return await fetchData('http://localhost:8888/race/last');
   };
-export const fetchNumberOfRaces = async () => {
-    try {
-    const response = await fetch('http://localhost:8888/race/list/2023', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+
+  export const fetchDriverStandings = async (year: number, raceNumber: number) => {
+    return await fetchData(`http://localhost:8888/standings/drivers/${year}/${raceNumber}`);
+  };
+
+  
+  export const fetchNumberOfRaces = async () => {
+    return await fetchData('http://localhost:8888/race/list/2023');
   };
 
 
   export const fetchConstructorStandings = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/standings/constructors/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return await fetchData('http://localhost:8888/standings/constructors/2023');
   };
+  
   export const fetchCircuitsByYear = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/circuits/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return await fetchData('http://localhost:8888/circuits/2023');
   };
+  
   export const fetchDriversForSpecificYear = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/drivers/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return await fetchData('http://localhost:8888/drivers/2023');
   };
+  
   export const fetchDriversPointsForGraph = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/drivers/graph/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return await fetchData('http://localhost:8888/drivers/graph/2023');
   };
+  
   export const fetchConstructorsGraph = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/constructors/graph/2024', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return await fetchData('http://localhost:8888/constructors/graph/2024');
   };
+  
 
   export const fetchRacesForSelectedYear = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/race/list/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+    return await fetchData('http://localhost:8888/race/list/2023');
   };
-  export const fetchDriverStandignsForDonuts = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/drivers/donut/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+  
+  export const fetchDriverStandingsForDonuts = async () => {
+    return await fetchData('http://localhost:8888/drivers/donut/2023');
   };
-  export const fetchConstructorStandignsBarGraph = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/constructors/bar/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+  
+  export const fetchConstructorStandingsBarGraph = async () => {
+    return await fetchData('http://localhost:8888/constructors/bar/2023');
   };
-  export const fetchConstructorStandignsForDonuts = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/constructors/donut/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+  
+  export const fetchConstructorStandingsForDonuts = async () => {
+    return await fetchData('http://localhost:8888/constructors/donut/2023');
   };
-  export const fetchDriverStandignsBarGraph = async () => {
-    try {
-      const response = await fetch('http://localhost:8888/drivers/bar/2023', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
-      return await response.json();
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+  
+  export const fetchDriverStandingsBarGraph = async () => {
+    return await fetchData('http://localhost:8888/drivers/bar/2023');
   };
 
 
