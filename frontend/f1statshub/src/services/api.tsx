@@ -42,9 +42,23 @@ export const fetchLastRaceDetails = async () => {
   };
 
 
-export const fetchDriverStandings = async () => {
+export const fetchDriverStandings = async (year: number, raceNumber: number) => {
     try {
-    const response = await fetch('http://localhost:8888/standings/drivers/2023', {
+    const response = await fetch(`http://localhost:8888/standings/drivers/${year}/${raceNumber}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+  };
+export const fetchNumberOfRaces = async () => {
+    try {
+    const response = await fetch('http://localhost:8888/race/list/2023', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -116,7 +130,7 @@ export const fetchDriverStandings = async () => {
   };
   export const fetchConstructorsGraph = async () => {
     try {
-      const response = await fetch('http://localhost:8888/constructors/graph/2023', {
+      const response = await fetch('http://localhost:8888/constructors/graph/2024', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
