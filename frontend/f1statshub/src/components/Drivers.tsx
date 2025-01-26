@@ -1,5 +1,5 @@
 import { Component, createSignal, createEffect } from "solid-js";
-import { fetchDriverStandignsBarGraph, fetchNumberOfRaces, fetchDriversPointsForGraph, fetchDriverStandings, fetchDriverStandignsForDonuts } from "../services/api";
+import { fetchDriverStandignsBarGraph, fetchNumberOfRaces, fetchDriversPointsForGraph, fetchDriverStandings, fetchDriverStandingsForDonuts } from "../services/api";
 import "../styles/drivers.css";
 // import "../styles/teams.css";
 import { Line, Doughnut, Bar } from 'solid-chartjs'
@@ -7,6 +7,7 @@ import "../styles/slider.css";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { chartOptions, chartOptions5, chartOptions2 } from "../constants/DriversCharts"
 import noUiSlider from 'nouislider';
+import { PipsMode } from 'nouislider';
 
 import { getCountryCode, getNationalityCode } from "../constants/CodeUtils";
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
@@ -17,24 +18,21 @@ const Drivers: Component = () => {
   const [driverStandings, setDriverStandings] = createSignal([]);
   const [donutdriverStandings, setDonutDriverStandings] = createSignal([]);
   const [bardriverStandings, setBarDriverStandings] = createSignal([]);
-  const [racenumber, setracenumber] = createSignal([]);
 
   const [numberOfRaces, setNumberOfRaces] = createSignal(0);
   const [isSliderReady, setIsSliderReady] = createSignal(false);
 
   const [selectedYear, setSelectedYear] = createSignal(2023);
-  
+  const [selectedRace, setSelectedRace] = createSignal(0);
+
+  // const [selectedHardcodedYear, setSelectedHardcodedYear] = createSignal(2024);
+
   createEffect(async () => {
     try {
-      const racesArray = await fetchNumberOfRaces();
-      console.log(racesArray)
-      const numberOfRaces = racesArray.length;
-      console.log(numberOfRaces)
 
-
-      const driversPointsForGraph = await fetchDriversPointsForGraph();
+      const driversPointsForGraph = await fetchDriversPointsForGraph(selectedYear());
       setDriverGraphData(driversPointsForGraph);
-      const donutPointsGraph = await fetchDriverStandignsForDonuts();
+      const donutPointsGraph = await fetchDriverStandingsForDonuts(selectedYear());
       setDonutDriverStandings(donutPointsGraph);
       const barPointsGraph = await fetchDriverStandignsBarGraph();
       setBarDriverStandings(barPointsGraph);
@@ -46,7 +44,7 @@ const Drivers: Component = () => {
 
   createEffect(async () => {
     try {
-      const racesArray = await fetchNumberOfRaces();
+      const racesArray = await fetchNumberOfRaces(selectedYear());
       setNumberOfRaces(racesArray.length);
       setIsSliderReady(true);
     } catch (error) {
@@ -67,13 +65,17 @@ const Drivers: Component = () => {
               min: 0,
               max: numberOfRaces(),
             },
+            pips: {
+              mode: PipsMode.Steps, 
+              density: 5,  
+            },
           });
           
           sliderInstance.on("update", async (values) => {
             const selectedRace = parseInt(String(values[0]), 10);
 
             console.log("Slider value:", selectedRace);
-  
+
             try {
               const driverStandingsData = await fetchDriverStandings(selectedYear(), selectedRace);
               setDriverStandings(driverStandingsData);
@@ -83,16 +85,64 @@ const Drivers: Component = () => {
           });
         }
       }
+
     });
+
+  });
+
+  onMount(() => {
+    const yearSlider = document.getElementById("sliderYear");
+    if (yearSlider) {
+      const yearSliderInstance = noUiSlider.create(yearSlider, {
+        start: selectedYear(),
+        step: 1,
+        connect: false,
+        range: {
+          min: 2018,
+          max: 2024,
+        },
+        pips: {
+          mode: PipsMode.Values,
+          values: [2018, 2019, 2020, 2021, 2022, 2023, 2024],
+          density: 5,
+        },
+      });
+
+      yearSliderInstance.on("update", async (values) => {
+        const selectedYearValue = parseInt(String(values[0]), 10);
+        setSelectedYear(selectedYearValue);
+      });
+    }
+  });
+
+
+  createEffect(async () => {
+    if (isSliderReady() && selectedRace() >= 0) {
+      try {
+        const driverStandingsData = await fetchDriverStandings(
+          selectedYear(),
+          selectedRace()
+        );
+        setDriverStandings(driverStandingsData);
+      } catch (error) {
+        console.error("Error fetching driver standings:", error);
+      }
+    }
   });
 
 
   return (
     <div class="DriversMainBoxOutside"  >
-      <h1>Select Races</h1>
-      <div class="RacesDropdown">
+      <h1 id="driver_heading">Select Year</h1>
+      <div class="DriverDropdowns">
+        <div class="slider" id="sliderYear"></div>
+      </div>
+
+      <h1 id="driver_heading">Select Races</h1>
+      <div  class="DriverDropdowns">
         <div class="slider" id="slider"></div>
       </div>
+
       <div class="DriversMainBox"  >
         <div class="driversStandingsBox"  >
           <table>

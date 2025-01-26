@@ -54,11 +54,11 @@
     .DriversMainBoxOutside {
       text-align: center;
     }
-    .RacesDropdown
-    {
-      /* background: blue; */
-      /* height: 10%; */
-      /* width: 100%; */
+    .RacesDropdown h3 {
+      font-size: 1.7rem;
+      font-style: italic;
+      margin: 0;
+      padding-top: 10px;
     }
     .slider {
       width: 50%;
@@ -119,6 +119,21 @@
     border-radius: 2.5%;  padding: 20px;  
     margin-top: 5%;
   }
+
+
+  .DriverDropdowns {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2.5%;
+  }
+
+  #driver_heading {
+  font-style: italic;
+  padding-top: 10px;
+  }
+  
+
 
 }
 
