@@ -80,11 +80,16 @@ def append_colors_to_bar_graph(response_data):
         'russell': '#0af1e6',
         'hamilton': '#0af1e6',
         'albon': '#2a98ed',
+        'sargeant': '#2a98ed',
         'hulkenberg': '#9f9e9e',
+        'kevin_magnussen': '#9f9e9e',
         'alonso': '#066945',
         'stroll': '#066945',
         'ocon': '#2263e6',
         'tsunoda': '#334396',
+        'ricciardo': '#334396',
+        'de_vries': '#334396',
+        'lawson': '#334396',
         'gasly': '#2263e6',
     }
 
