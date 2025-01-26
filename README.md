@@ -29,11 +29,11 @@ F1StatsHub offers a range of features that cater to both casual fans and dedicat
 
 <div style="text-align:center;">
   <img src="/img/home.gif" alt="Home Screen">
-  <img src="/img/race.png" alt="Home Screen">
-  <img src="/img/drivers.png" alt="Home Screen">
-  <img src="/img/donut.png" alt="Home Screen">
-  <img src="/img/qualy.png" alt="Home Screen">
-  <img src="/img/circuits.png" alt="Home Screen">
+  <img src="/img/D1.png" alt="Home Screen">
+  <img src="/img/D1.5.png" alt="Home Screen">
+  <img src="/img/D2.png" alt="Home Screen">
+  <!-- <img src="/img/qualy.png" alt="Home Screen"> -->
+  <!-- <img src="/img/circuits.png" alt="Home Screen"> -->
 </div>
 
 
