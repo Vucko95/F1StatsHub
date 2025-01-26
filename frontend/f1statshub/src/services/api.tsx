@@ -43,10 +43,10 @@ const fetchData = async (url: string, method: string = 'GET', body: any = null) 
   };
 
   
-  export const fetchNumberOfRaces = async () => {
-    return await fetchData('http://localhost:8888/race/list/2023');
-  };
 
+  export const fetchNumberOfRaces = async (year: number) => {
+    return await fetchData(`http://localhost:8888/race/list/${year}`);
+  };
 
   export const fetchConstructorStandings = async () => {
     return await fetchData('http://localhost:8888/standings/constructors/2023');
@@ -60,8 +60,8 @@ const fetchData = async (url: string, method: string = 'GET', body: any = null) 
     return await fetchData('http://localhost:8888/drivers/2023');
   };
   
-  export const fetchDriversPointsForGraph = async () => {
-    return await fetchData('http://localhost:8888/drivers/graph/2023');
+  export const fetchDriversPointsForGraph = async (year: number) => {
+    return await fetchData(`http://localhost:8888/drivers/graph/${year}`);
   };
   
   export const fetchConstructorsGraph = async () => {
@@ -73,8 +73,8 @@ const fetchData = async (url: string, method: string = 'GET', body: any = null) 
     return await fetchData('http://localhost:8888/race/list/2023');
   };
   
-  export const fetchDriverStandingsForDonuts = async () => {
-    return await fetchData('http://localhost:8888/drivers/donut/2023');
+  export const fetchDriverStandingsForDonuts = async (year: number) => {
+    return await fetchData(`http://localhost:8888/drivers/donut/${year}`);
   };
   
   export const fetchConstructorStandingsBarGraph = async () => {
@@ -85,7 +85,7 @@ const fetchData = async (url: string, method: string = 'GET', body: any = null) 
     return await fetchData('http://localhost:8888/constructors/donut/2023');
   };
   
-  export const fetchDriverStandingsBarGraph = async () => {
+  export const fetchDriverStandignsBarGraph = async () => {
     return await fetchData('http://localhost:8888/drivers/bar/2023');
   };
 

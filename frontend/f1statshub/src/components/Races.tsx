@@ -1,6 +1,8 @@
 import { Component, createSignal, createEffect } from "solid-js";
 import { fetchRacesForSelectedYear, fetchRaceResults, fetchQualyResults, fetchRacePaceGraph, fetchQualyGapGraph } from "../services/api";
 import { onMount } from 'solid-js'
+import { getCountryCode, getNationalityCode } from "../constants/CodeUtils";
+
 import { Chart, Title, Tooltip, Legend, Colors } from 'chart.js'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { chartOptions,chartOptions4 } from "../constants/RacesCharts"
@@ -70,14 +72,13 @@ const Races: Component = () => {
 
 
             <div class="RaceResultsBox">
-                {/* <div class="baseTable"> */}
                 <table>
-                    <thead>
+                    {/* <thead>
                       <tr>
                         <th></th>
                         <th colspan="4" >Race Results</th>
                       </tr>
-                    </thead>
+                    </thead> */}
                     {raceResults().slice(0, 10).map((driver_result: any) => (
                       <tr>
                             <td id={`${driver_result.constructorRef}`}>{driver_result.position} </td>
@@ -88,7 +89,6 @@ const Races: Component = () => {
                       </tr>
                     ))}
                 </table>
-                {/* </div> */}
             </div>
 
 
@@ -100,12 +100,12 @@ const Races: Component = () => {
                 
                 {/* <div class="baseTable"> */}
                 <table>
-                    <thead>
+                    {/* <thead>
                       <tr>
                         <th></th>
                         <th colspan="4" > Qualy Results </th>
                       </tr>
-                    </thead>
+                    </thead> */}
                     {qualyResults().slice(0, 10).map((driver_result: any) => (
                         <tr>
                             <td id={`${driver_result.constructorRef}`}>{driver_result.position} </td>

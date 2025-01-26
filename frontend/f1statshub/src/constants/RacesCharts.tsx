@@ -36,7 +36,7 @@ export const chartOptions = {
          },
          title: {
            display: true,
-           text: 'Lap Pace of a Driver in seconds',
+           text: '  Race Lap Pace of a Driver',
            color: 'white',
            font: {
              size: 24,
@@ -333,12 +333,6 @@ export const chartOptions = {
          size: 24,
        },
        color: '#FFFFFF',
-      //  formatter: (value:any, context:any) => {
-      //    if (context.dataIndex === 0) {
-      //      return '';
-      //    }
-      //    return value;
-      //  },
      },
    },
    scales: {
@@ -357,10 +351,6 @@ export const chartOptions = {
          beginAtZero: true,
          autoSkip: false,
          color: 'white', 
-         // callback: function (value: number) {
-         //   const seconds = Math.floor(value);
-         //   return seconds.toString();
-         // },
        },
      },
      y: {
