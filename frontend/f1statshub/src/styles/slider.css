@@ -103,16 +103,12 @@
    left: -17px;
    right: auto;
  }
- /* Styling;
-  * Giving the connect element a border radius causes issues with using transform: scale
-  sa
-  s
-  */
+
  .noUi-target {
    background: #2e2c2c;
    border-radius: 4px;
-   border: 1px solid #D3D3D3;
-   box-shadow: inset 0 1px 1px #F0F0F0, 0 3px 6px -5px #BBB;
+   /* border: 1px solid #D3D3D3; */
+   /* box-shadow: inset 0 1px 1px #F0F0F0, 0 3px 6px -5px #BBB; */
  }
  .noUi-connects {
    border-radius: 3px;
@@ -131,9 +127,9 @@
  .noUi-handle {
    border: 1px solid #8b0fd7;
    border-radius: 15px;
-   background: #2eda17;
+   background: #9008ca;
    cursor: default;
-   box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #EBEBEB, 0 3px 6px -3px #BBB;
+   /* box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #EBEBEB, 0 3px 6px -3px #BBB; */
  }
  .noUi-active {
    box-shadow: inset 0 0 1px #FFF, inset 0 1px 7px #DDD, 0 3px 6px -3px #BBB;
@@ -147,7 +143,7 @@
    position: absolute;
    height: 14px;
    width: 1px;
-   background: #E8E7E6;
+   /* background: #E8E7E6; */
    left: 14px;
    top: 6px;
  }
@@ -305,3 +301,10 @@
    right: 28px;
  }
  
+ .noUi-marker {
+  display: none; 
+}
+
+.noUi-value {
+  font-size: 22px;
+}

@@ -53,7 +53,7 @@
     height: 1.5vw;
   }
   .constructorsMainBox {
-    font-size: 1.3vw;
+    font-size: 1.4vw;
     width: 90%;
     margin-left: 5%;
     height: 100%;
@@ -67,7 +67,7 @@
 
 
   .constructorsStandignsBox {
-    margin-top: 2.5%;
+    /* margin-top: 2.5%; */
     width: 30%;
     overflow-y: auto;
     border-radius: 2.5%;
